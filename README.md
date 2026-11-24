@@ -25,8 +25,9 @@ recompiler (sauf pour la page web, qui embarque les données).
 
 ## Page de combat (mode Arène)
 
-En ligne : <https://axfalt.github.io/pantheon-battler/> (GitHub Pages, publiée par
-`.github/workflows/pages.yml` à chaque push sur `main` qui touche `web/`).
+En ligne : <https://axfalt.github.io/pantheon-battler/> (GitHub Pages : à chaque push sur
+`main` qui touche `web/`, `.github/workflows/pages.yml` copie `web/` dans la branche `gh-pages`,
+que Pages sert telle quelle).
 
 `web/` est un site statique en français, sans dépendance : onglets **Combat** (rejoue un défi à
 partir des deux compositions et des six dés, donne le texte pour le forum, le bilan et les
