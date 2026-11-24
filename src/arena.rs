@@ -2,6 +2,7 @@
 //! their activity profile, shop in the Bazar (a shared forum thread whose pages are shops) and
 //! fight other online players, but only when both agree.
 
+use crate::bazar;
 use crate::bot::{self, Strategy};
 use crate::data::{Data, Keyword};
 use crate::fight::{self, Outcome};
@@ -111,7 +112,8 @@ struct Arenist {
 struct Bazar {
     shops: Vec<Vec<usize>>,
     posts: usize,
-    by_player: Vec<u32>,
+    /// Author of the last post: nobody may post twice in a row.
+    last_poster: Option<usize>,
     pages: u32,
 }
 
@@ -171,7 +173,7 @@ pub fn run(data: &Data, strats: &[Strategy], seats: &[Seat], rng: &mut GameRng) 
             idle_days: 0,
         })
         .collect();
-    let mut bazar = Bazar { shops: Vec::new(), posts: 0, by_player: vec![0; ps.len()], pages: 0 };
+    let mut bazar = Bazar { shops: Vec::new(), posts: 0, last_poster: None, pages: 0 };
     new_page(data, &mut bazar, &pool, rng);
     let mut cache: HashMap<(u64, u64), (f64, f64)> = HashMap::new();
     let mut draws = 0;
@@ -584,41 +586,19 @@ fn ascend(data: &Data, x: &mut Arenist, pool: &mut Pool) {
     x.ascensions += 1;
 }
 
-/// Draws the shops of a new Bazar page: for each slot, one d100 (the tier, read through each
-/// level's odds) and one d10 (the unit in that tier; the next one in the list if none is left).
+/// The GM posts the shops of a new Bazar page: each level's shop drawn from the common reserve
+/// (tiers by the level's odds, units in proportion to the copies left).
 fn new_page(data: &Data, bz: &mut Bazar, pool: &Pool, rng: &mut GameRng) {
-    let a = &data.rules.arena;
-    bz.shops = vec![Vec::new(); a.bazar_odds.len()];
-    for _ in 0..a.bazar_size {
-        let d100 = rng.gen_range(1..=100u32);
-        let d10 = rng.gen_range(0..10usize);
-        for (lvl, odds) in a.bazar_odds.iter().enumerate() {
-            let mut acc = 0;
-            let Some(tier) = odds.iter().position(|&o| {
-                acc += o;
-                d100 <= acc
-            }) else {
-                continue;
-            };
-            let ids = &data.by_tier[tier];
-            if ids.is_empty() {
-                continue;
-            }
-            let start = d10 * ids.len() / 10;
-            if let Some(id) = (0..ids.len()).map(|o| ids[(start + o) % ids.len()]).find(|&id| pool.left(id) > 0) {
-                bz.shops[lvl].push(id);
-            }
-        }
-    }
+    let levels = data.rules.arena.bazar_odds.len();
+    bz.shops = (1..=levels).map(|lvl| bazar::draw_shop(data, lvl, pool.counts(), rng).units).collect();
     bz.posts = 0;
-    bz.by_player.iter_mut().for_each(|c| *c = 0);
     bz.pages += 1;
 }
 
 fn post(data: &Data, bz: &mut Bazar, x: &mut Arenist, i: usize, pool: &Pool, rng: &mut GameRng) {
     x.p.favors -= data.rules.arena.post_cost;
     x.posts += 1;
-    bz.by_player[i] += 1;
+    bz.last_poster = Some(i);
     bz.posts += 1;
     if bz.posts >= data.rules.arena.page_posts {
         new_page(data, bz, pool, rng);
@@ -641,7 +621,8 @@ fn shop_visit(
     let s = &strats[x.seat.strat];
     let price = |id: usize| a.post_cost + data.cost(id) - a.post_cost;
     let mut passes = 0;
-    while bz.by_player[i] < a.posts_per_page && x.p.favors >= a.post_cost {
+    // No two posts in a row: one post per visit, unless someone else posted since.
+    while bz.last_poster != Some(i) && x.p.favors >= a.post_cost {
         let lvl = x.p.level - 1;
         let p = &x.p;
         let board_room = p.board.len() < r.board_size;

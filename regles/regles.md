@@ -73,11 +73,11 @@ affiche 10 messages par page : **chaque page est une nouvelle boutique**.
   uniquement dans la boutique de **son niveau**, qu'il partage avec les autres joueurs du même
   niveau : jamais dans celle d'un niveau inférieur ou supérieur.
 - **Chaque message posté dans le Bazar coûte 1🙏**, qu'on achète ou non.
-- **Au plus 2 messages par joueur sur une même page.**
+- **Pas deux messages d'affilée** : un autre joueur doit poster entre deux de vos messages.
 - **Un message achète au plus une unité.** Une unité achetée disparaît de la boutique de la
   page.
-- **Quand la page est pleine (10 messages), la boutique change** : la page suivante propose
-  de nouvelles unités.
+- **Quand la page est pleine (10 messages), la boutique change** : le MJ poste les boutiques
+  de la page suivante.
 - On peut poster **sans rien acheter** (`passer`) pour rapprocher le renouvellement de la
   boutique. C'est la façon de « relancer », et elle profite à tout le monde.
 - Les achats sont servis **dans l'ordre des messages** : si deux joueurs veulent la même unité,
@@ -104,32 +104,21 @@ Chaque emplacement est tiré au hasard. Le niveau du joueur change les chances d
 | 3 | 30 % | 65 % | 5 % | 2,1 de rang 1 · 4,5 de rang 2 · 0,35 de rang 3 |
 | 4 | 15 % | 75 % | 10 % | 1 de rang 1 · 5,3 de rang 2 · 0,7 de rang 3 |
 
-### Le tirage aux dés
+### Le tirage
 
-Le **premier message de chaque page** tire la nouvelle boutique avec les dés du forum :
-**un `{d100}` et un `{d10}` par emplacement**, soit 14 dés pour les 7 emplacements. Les
-mêmes dés servent aux quatre niveaux :
+Le **MJ** tire les boutiques de chaque nouvelle page avec l'onglet **Bazar (MJ)** du site, et
+poste le message obtenu en tête de la page. Pour chaque emplacement :
 
-1. Le **d100** donne le rang de l'emplacement, selon le niveau. *Exemple au niveau 3 :
-   1 à 30 → rang 1, 31 à 95 → rang 2, 96 à 100 → rang 3.*
-2. Le **d10** donne l'unité dans ce rang, avec la table ci-dessous.
-3. S'il ne reste plus d'exemplaire de cette unité dans la réserve commune, on prend la
-   suivante de la liste (après la dernière, on revient à la première).
+1. Le **rang** est tiré selon les chances du niveau (tableau ci-dessus).
+2. L'**unité** est tirée parmi celles de ce rang, **en proportion des exemplaires qui restent
+   dans la réserve commune** : une unité dont il reste 9 exemplaires sort trois fois plus
+   souvent qu'une unité dont il en reste 3, et une unité épuisée ne sort jamais.
+3. Une boutique ne montre jamais plus d'exemplaires d'une unité qu'il n'en reste. Si un rang
+   est épuisé, l'emplacement est pris dans le rang le plus proche.
 
-| d10 | Rang 1 | Rang 2 | Rang 3 |
-|---|---|---|---|
-| 1 | 🐗 Sanglier | 🌿 Druide | 🏔️ Ymir |
-| 2 | 🍄 Korrigan | 🪽 Valkyrie | 🏔️ Ymir |
-| 3 | ❄️ Géant du givre | 📜 Setné | 🔥 Bénou |
-| 4 | 🗿 Ouchebti | 🐍 Méduse | 🔥 Bénou |
-| 5 | 🪖 Hoplite | ⚱️ Pilleur de tombes | 🐂 Minotaure |
-| 6 | 🪨 Sisyphe | 🪓 Einherjar | 🐂 Minotaure |
-| 7 | 🪲 Scarabée sacré | 🏺 Embaumeur | 🐉 Vouivre |
-| 8 | 👁️ Cyclope | 🐢 Tarasque | 🐉 Vouivre |
-| 9 | 🧟 Draugr | 🐐 Heiðrún | 🦑 Cthulhu |
-| 10 | ⚰️ Ankou | 🐲 Hydre de Lerne | 🦑 Cthulhu |
-
-Si le premier message de la page oublie les dés, c'est au suivant de les tirer.
+Chaque niveau a sa propre boutique : la même unité peut apparaître dans plusieurs boutiques
+de la page. Si le dernier exemplaire est acheté dans l'une, il n'est plus disponible dans les
+autres.
 
 ### Les ordres
 
@@ -161,16 +150,21 @@ L'excédent est reporté sur le niveau suivant.
 
 ### La réserve commune
 
-Tous les joueurs piochent dans **la même réserve d'exemplaires**. Quand une unité est
-recrutée, elle quitte la réserve commune ; quand elle est vendue, transformée ou perdue,
-elle y retourne. Une unité affichée dans une boutique mais pas achetée n'est pas retirée de
-la réserve. Il y a, par joueur inscrit (arrondi, jamais moins de 3) :
+Tous les joueurs piochent dans **la même réserve d'exemplaires**, tenue par le **MJ**. Quand
+une unité est recrutée, elle quitte la réserve commune ; quand elle est vendue, transformée ou
+perdue, elle y retourne. Une unité affichée dans une boutique mais pas achetée n'est pas
+retirée de la réserve. Il y a, par joueur inscrit (arrondi, jamais moins de 3) :
 
 | Rang 1 | Rang 2 | Rang 3 |
 |---|---|---|
 | 1,5 exemplaire | 1 exemplaire | 0,75 exemplaire |
 
 Exemple pour 6 joueurs : 9 exemplaires de chaque unité de rang 1, 6 de rang 2, 5 de rang 3.
+
+**La réserve grandit avec le nombre de joueurs** : quand un joueur s'inscrit en cours de
+partie, le MJ ajoute les exemplaires correspondants (par exemple, de 6 à 8 joueurs : 12
+exemplaires de chaque unité de rang 1 au lieu de 9, 8 de rang 2 au lieu de 6, 6 de rang 3 au
+lieu de 5).
 
 ---
 

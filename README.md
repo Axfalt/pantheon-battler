@@ -18,6 +18,10 @@ cargo build --release
 ./target/release/pantheon-battler arena -n 2000       # simulation du mode Arène
 ./target/release/pantheon-battler fight --a-file A.txt --b-file B.txt --dice 12,3,77,45,9,100 --forum
                                                       # un défi de l'Arène, comme la page web
+./target/release/pantheon-battler shop --level 1 --level 2 --players 8 --page 12
+                                                      # les boutiques d'une page du Bazar
+                                                      # (--stock reserve.json : exemplaires restants,
+                                                      #  --seed N : refaire un tirage)
 ```
 
 Les réglages d'équilibrage sont dans `data/units.toml` et `data/rules.toml` : pas besoin de
@@ -31,7 +35,9 @@ que Pages sert telle quelle).
 
 `web/` est un site statique en français, sans dépendance : onglets **Combat** (rejoue un défi à
 partir des deux compositions et des six dés, donne le texte pour le forum, le bilan et les
-compositions mises à jour ; les créatures se glissent dans les 4 emplacements de chaque joueur) et **Aide**.
+compositions mises à jour ; les créatures se glissent dans les 4 emplacements de chaque joueur),
+**Bazar (MJ)** (tire les boutiques d'une nouvelle page du Bazar d'après la réserve commune que
+tient le MJ, et donne le message à poster) et **Aide**.
 Il fait tourner le vrai moteur
 Rust compilé en WebAssembly : pour les mêmes entrées, la page et `pantheon-battler fight`
 donnent exactement le même texte.
@@ -39,7 +45,9 @@ donnent exactement le même texte.
 - `src/compo.rs` : format des compositions (lecture tolérante, erreurs et avertissements).
 - `src/challenge.rs` : seed (Σ (dé − 1) × 100^(5 − i), attaquant d'abord), combat, bilan
   (🏆, ✨, séries, Rancune, Offrande, Pillage…) et texte du forum.
-- `src/api.rs` : API JSON (`info`, `parse`, `format`, `fight`) commune à la page
+- `src/bazar.rs` : tirage des boutiques du Bazar (rang selon le niveau, unité en proportion
+  des exemplaires restants) et message du forum ; le simulateur `arena` utilise le même tirage.
+- `src/api.rs` : API JSON (`info`, `parse`, `format`, `fight`, `shop`) commune à la page
   (`wasm/`, exports bruts `pb_alloc`, `pb_call`, `pb_free`) et à la commande cachée
   `pantheon-battler api` (une requête JSON par ligne).
 

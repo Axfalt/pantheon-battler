@@ -78,8 +78,7 @@ keyword = { kind = "Endure", essence = 2, floor = 1 }
 [arena]
 days = 7
 bazar_size = 7          # unités par boutique de niveau sur une page du Bazar
-page_posts = 10         # messages par page du forum : une page pleine tire une nouvelle boutique
-posts_per_page = 2      # messages d'un même joueur sur une page
+page_posts = 10         # messages par page du forum : une page pleine, et le MJ poste une nouvelle boutique
 post_cost = 1           # chaque message coûte 1🙏 ; une unité coûte son prix moins 1
 bazar_odds = [[80, 20, 0], [55, 45, 0], [30, 65, 5], [15, 75, 10]]   # % de rang 1/2/3 par niveau
 max_fights_per_day = 6

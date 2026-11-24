@@ -17,6 +17,7 @@ pub const ENGINE_VERSION: &str = env!("CARGO_PKG_VERSION");
 #[cfg(feature = "api")]
 pub mod api;
 pub mod arena;
+pub mod bazar;
 pub mod bot;
 pub mod challenge;
 pub mod compo;

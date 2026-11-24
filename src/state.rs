@@ -34,6 +34,11 @@ impl Pool {
         unreachable!()
     }
 
+    /// Copies left of every unit, by unit index.
+    pub fn counts(&self) -> &[u32] {
+        &self.counts
+    }
+
     /// Copies of a unit still in the pool.
     pub fn left(&self, id: usize) -> u32 {
         self.counts[id]

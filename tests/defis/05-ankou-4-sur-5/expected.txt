@@ -33,4 +33,4 @@ Survivants d'Ulysse : 🪽 2 = 2✨
 Morgane perd 2✨ · reste 23✨ · 🔻 2 défaites d'affilée
 [/spoiler]
 {hr}
-[i]Seed 225807764065 · dés 23 59 8 / 77 41 66 · données 5b104614 · moteur 0.1.0[/i]
+[i]Seed 225807764065 · dés 23 59 8 / 77 41 66 · données 0a39465e · moteur 0.1.0[/i]

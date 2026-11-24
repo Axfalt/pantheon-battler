@@ -41,4 +41,4 @@ Pillage : ⚱️ Pilleur de tombes (Hadès) rapportera +1🙏 au prochain tic qu
 Prime de retour : 3 défaites d'affilée pour Hadès : +5🙏
 [/spoiler]
 {hr}
-[i]Seed 20202969696 · dés 3 3 3 / 97 97 97 · données 5b104614 · moteur 0.1.0[/i]
+[i]Seed 20202969696 · dés 3 3 3 / 97 97 97 · données 0a39465e · moteur 0.1.0[/i]

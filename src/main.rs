@@ -84,6 +84,24 @@ enum Cmd {
         #[arg(long)]
         forum: bool,
     },
+    /// Tire les boutiques d'une nouvelle page du Bazar (comme l'onglet Bazar de la page web)
+    Shop {
+        /// Niveau de boutique (de 1 à 4) ; répétez l'option pour plusieurs niveaux
+        #[arg(long, required = true)]
+        level: Vec<u64>,
+        /// Joueurs inscrits : la réserve complète en dépend
+        #[arg(long)]
+        players: Option<u64>,
+        /// Réserve actuelle : fichier JSON { "id de l'unité": exemplaires restants } ; sinon la réserve complète
+        #[arg(long)]
+        stock: Option<PathBuf>,
+        /// Seed du tirage (sinon tirée au hasard)
+        #[arg(long)]
+        seed: Option<u64>,
+        /// Numéro de la page du Bazar, affiché dans le titre
+        #[arg(long)]
+        page: Option<u64>,
+    },
     /// API JSON de la page web : une requête par ligne sur l'entrée standard
     #[command(hide = true)]
     Api,
@@ -121,6 +139,34 @@ fn main() {
                     std::process::exit(1);
                 }
             }
+        }
+        Cmd::Shop { level, players, stock, seed, page } => {
+            let stock = stock.map(|path| {
+                let text = std::fs::read_to_string(&path).unwrap_or_else(|e| {
+                    eprintln!("erreur : {} : {e}", path.display());
+                    std::process::exit(1);
+                });
+                serde_json::from_str::<serde_json::Value>(&text).unwrap_or_else(|e| {
+                    eprintln!("erreur : {} : {e}", path.display());
+                    std::process::exit(1);
+                })
+            });
+            let seed = seed.unwrap_or_else(|| {
+                let t = std::time::SystemTime::now().duration_since(std::time::UNIX_EPOCH).unwrap_or_default();
+                t.as_nanos() as u64 % 10_000_000_000
+            });
+            let req = serde_json::json!({ "op": "shop", "levels": level, "players": players, "stock": stock, "seed": seed, "page": page });
+            let answer: serde_json::Value = serde_json::from_str(&api::handle(&data, &req.to_string())).expect("api");
+            if answer["ok"] != true {
+                for e in answer["errors"].as_array().into_iter().flatten() {
+                    eprintln!("erreur : {}", e.as_str().unwrap_or_default());
+                }
+                std::process::exit(1);
+            }
+            for w in answer["warnings"].as_array().into_iter().flatten() {
+                eprintln!("attention : {}", w.as_str().unwrap_or_default());
+            }
+            println!("{}", answer["forum"].as_str().unwrap_or_default());
         }
         Cmd::Api => {
             let stdin = std::io::stdin();

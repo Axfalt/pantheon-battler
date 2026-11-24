@@ -542,8 +542,6 @@ pub struct ArenaRules {
     pub bazar_size: usize,
     /// Posts per forum page: a full page draws a new shop.
     pub page_posts: usize,
-    /// Posts one player may make on one page.
-    pub posts_per_page: u32,
     /// Favors each Bazar post costs; a unit costs its tier price minus this.
     pub post_cost: i32,
     /// Chance (%) of each tier for one slot, per shop level.
@@ -576,7 +574,6 @@ impl Default for ArenaRules {
             days: 7,
             bazar_size: 7,
             page_posts: 10,
-            posts_per_page: 2,
             post_cost: 1,
             bazar_odds: vec![vec![80, 20, 0], vec![55, 45, 0], vec![30, 65, 5], vec![15, 75, 10]],
             max_fights_per_day: 6,
@@ -683,8 +680,14 @@ impl Data {
 
     /// Copies of each unit of `tier` in the shared pool, for the lobby size.
     pub fn pool_copies(&self, tier: u8) -> u32 {
+        self.pool_copies_for(tier, self.rules.players as u32)
+    }
+
+    /// Copies of each unit of `tier` in the shared pool for `players` registered players
+    /// (rounded, never fewer than a merge needs): the reserve grows as players join.
+    pub fn pool_copies_for(&self, tier: u8, players: u32) -> u32 {
         let r = &self.rules;
-        let copies = (r.pool_per_player[tier as usize - 1] * r.players as f64).round() as u32;
+        let copies = (r.pool_per_player[tier as usize - 1] * players as f64).round() as u32;
         copies.max(r.merge_copies as u32)
     }
 

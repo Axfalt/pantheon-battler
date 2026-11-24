@@ -7,11 +7,15 @@
 //! | `parse` | `text` | composition, warnings, synergies |
 //! | `format` | `compo` | text, warnings |
 //! | `fight` | `a`/`b` (`text`, `name`), `dice` | seed, outcome, forum and plain text, updated compositions |
+//! | `shop` | `levels`, `seed`, `page`?, `players`?, `stock`? | the Bazar shops, forum text, warnings |
 
+use crate::bazar;
 use crate::challenge;
 use crate::compo::{self, Composition};
 use crate::data::{Data, Keyword};
 use crate::game;
+use crate::state::GameRng;
+use rand::SeedableRng;
 use serde_json::{Value, json};
 
 /// Answers one JSON request with one JSON line.
@@ -25,6 +29,7 @@ pub fn handle(data: &Data, request: &str) -> String {
         Some("parse") => parse(data, &v),
         Some("format") => format(data, &v),
         Some("fight") => fight(data, &v),
+        Some("shop") => shop(data, &v),
         Some(op) => fail(vec![format!("Opération inconnue : {op}")]),
         None => fail(vec!["Opération manquante (op)".to_string()]),
     };
@@ -86,9 +91,124 @@ fn info(data: &Data) -> Value {
             "loss_per_tier": r.loss_per_tier,
             "merged_factor": r.merged_factor,
             "dice": challenge::DICE,
+            "bazar_size": r.arena.bazar_size,
+            "bazar_odds": r.arena.bazar_odds,
+            "post_cost": r.arena.post_cost,
+            "page_posts": r.arena.page_posts,
+            "pool_per_player": r.pool_per_player,
+            "merge_copies": r.merge_copies,
+            "players": r.players,
         },
         "roster": roster,
         "synergies": synergies,
+    })
+}
+
+/// Most registered players the Bazar reserve is computed for.
+const MAX_PLAYERS: u64 = 200;
+/// Most copies of one unit in the reserve.
+const MAX_COPIES: u64 = 999;
+/// Seeds stay below 2^53 so that the page (JavaScript numbers) keeps them exact.
+const MAX_SEED: u64 = (1 << 53) - 1;
+
+/// The shops of a new Bazar page, drawn by the GM from the common reserve.
+/// Request: `{ levels: [1..4], seed, page?, players?, stock?: { unit id: copies left } }`; units
+/// missing from `stock` have the full reserve for `players`.
+fn shop(data: &Data, v: &Value) -> Value {
+    let mut errors = Vec::new();
+    let n_levels = data.rules.arena.bazar_odds.len();
+    let mut levels: Vec<usize> = Vec::new();
+    match v["levels"].as_array() {
+        Some(list) => {
+            for l in list {
+                match l.as_u64() {
+                    Some(l) if (1..=n_levels as u64).contains(&l) => levels.push(l as usize),
+                    _ => errors.push(format!("Niveau de boutique invalide : {l} (de 1 à {n_levels})")),
+                }
+            }
+        }
+        None => errors.push("Niveaux manquants (levels)".to_string()),
+    }
+    levels.sort_unstable();
+    levels.dedup();
+    if levels.is_empty() && errors.is_empty() {
+        errors.push("Choisissez au moins un niveau de boutique".to_string());
+    }
+    let players = match &v["players"] {
+        Value::Null => data.rules.players as u64,
+        p => match p.as_u64() {
+            Some(p) if (1..=MAX_PLAYERS).contains(&p) => p,
+            _ => {
+                errors.push(format!("Nombre de joueurs invalide : {p} (de 1 à {MAX_PLAYERS})"));
+                1
+            }
+        },
+    };
+    let mut stock = bazar::full_stock(data, players as u32);
+    match &v["stock"] {
+        Value::Null => {}
+        Value::Object(map) => {
+            for (id, n) in map {
+                match (data.unit_index(id), n.as_u64()) {
+                    (None, _) => errors.push(format!("Unité inconnue dans la réserve : {id}")),
+                    (Some(i), Some(n)) if n <= MAX_COPIES => stock[i] = n as u32,
+                    (Some(i), _) => errors.push(format!(
+                        "Réserve de {} : {n} n'est pas un nombre d'exemplaires (de 0 à {MAX_COPIES})",
+                        data.units[i].name
+                    )),
+                }
+            }
+        }
+        s => errors.push(format!("Réserve illisible : {s}")),
+    }
+    let seed = match v["seed"].as_u64() {
+        Some(s) if s <= MAX_SEED => s,
+        _ => {
+            errors.push(format!("Seed invalide : {} (un entier de 0 à {MAX_SEED})", v["seed"]));
+            0
+        }
+    };
+    let page = match &v["page"] {
+        Value::Null => None,
+        p => match p.as_u64() {
+            Some(p) if p <= 1_000_000 => Some(p as u32),
+            _ => {
+                errors.push(format!("Numéro de page invalide : {p}"));
+                None
+            }
+        },
+    };
+    if !errors.is_empty() {
+        return fail(errors);
+    }
+    let mut rng = GameRng::seed_from_u64(seed);
+    let shops: Vec<bazar::Shop> = levels.iter().map(|&l| bazar::draw_shop(data, l, &stock, &mut rng)).collect();
+    let out: Vec<Value> = shops
+        .iter()
+        .map(|s| {
+            let units: Vec<Value> = s
+                .units
+                .iter()
+                .map(|&i| {
+                    let u = &data.units[i];
+                    let (price, post_price) = bazar::prices(data, i);
+                    json!({
+                        "id": u.id, "emoji": u.emoji, "name": u.name, "tier": u.tier,
+                        "price": price, "post_price": post_price, "atk": u.atk, "hp": u.hp, "def": u.def,
+                    })
+                })
+                .collect();
+            json!({ "level": s.level, "units": units })
+        })
+        .collect();
+    json!({
+        "ok": true,
+        "errors": [],
+        "warnings": bazar::warnings(data, &shops),
+        "seed": seed,
+        "players": players,
+        "shops": out,
+        "forum": bazar::forum_post(data, page, &shops, seed),
     })
 }
 

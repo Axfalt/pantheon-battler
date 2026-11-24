@@ -149,6 +149,21 @@ for (let k = 0; k < N; k++) {
 // A few parse and format requests too.
 for (let k = 0; k < 50; k++) requests.push(JSON.stringify({ op: "parse", text: randomCompo() }));
 requests.push(JSON.stringify({ op: "info" }));
+// Bazar shops: random levels, players, reserve and seed (sometimes invalid).
+const unitIds = info.roster.map((u) => u.id);
+for (let k = 0; k < 200; k++) {
+  const levels = [1, 2, 3, 4].filter(() => rand() < 0.5);
+  if (rand() < 0.05) levels.push(int(0, 6));
+  const req = { op: "shop", levels, seed: int(0, 2 ** 31) * (rand() < 0.5 ? 1 : 4096) + int(0, 4095) };
+  if (rand() < 0.5) req.players = rand() < 0.03 ? 0 : int(1, 30);
+  if (rand() < 0.6) {
+    req.stock = {};
+    for (const id of unitIds) if (rand() < 0.7) req.stock[id] = rand() < 0.3 ? 0 : int(0, 12);
+    if (rand() < 0.03) req.stock.licorne = 2;
+  }
+  if (rand() < 0.5) req.page = int(1, 300);
+  requests.push(JSON.stringify(req));
+}
 
 const native = spawnSync(exe, ["api"], { input: requests.join("\n") + "\n", encoding: "utf8", maxBuffer: 1 << 30 });
 if (native.status !== 0) {
