@@ -33,7 +33,7 @@ On gagne des 🏆 en remportant des combats. Mais attention : un joueur qui tomb
 | ⭐ **Unité fusionnée** | Trois exemplaires identiques réunis en une unité plus forte. |
 | **Terrain** | Les 4 emplacements des unités qui combattent. |
 | **Réserve** | 4 emplacements pour garder des unités qui ne combattent pas. |
-| **Tic quotidien** | Le moment fixe de chaque journée où l'on reçoit son revenu et où certains pouvoirs agissent. |
+| **Chaque jour** | Le moment fixe de la journée où l'on reçoit son revenu et où certains pouvoirs agissent. |
 
 ---
 
@@ -42,13 +42,13 @@ On gagne des 🏆 en remportant des combats. Mais attention : un joueur qui tomb
 Il n'y a pas de manches : le jeu tourne **en continu** pendant toute la période. On peut
 recruter et combattre quand on veut, dans les limites suivantes.
 
-### Le tic quotidien
+### Chaque jour
 
 Une fois par jour, à heure fixe, dans cet ordre :
 
 1. **Revenu** : chaque joueur reçoit **+5🙏**. Au-delà de **10🙏**, le surplus est perdu
    (sauf avec ⚱️ Magot).
-2. **Pouvoirs du tic** : ⚱️ Pillage, ⚱️ Magot (intérêts).
+2. **Pouvoirs « chaque jour »** : ⚱️ Pillage, ⚱️ Magot (intérêts).
 3. **Changelins**, puis **Vigueur** et **Bénédiction** (voir les unités).
 4. Les compteurs du jour (combats, défaites, Senet…) sont remis à zéro.
 
@@ -248,7 +248,7 @@ Un match nul ne change aucun des deux compteurs. Les séries continuent d'un jou
 
 ### Journée sans combat
 
-Un joueur qui **n'a livré aucun combat dans la journée** perd **1🏆** au tic quotidien (jamais
+Chaque jour, un joueur qui **n'a livré aucun combat dans la journée** perd **1🏆** (jamais
 en dessous de 0).
 
 ### Tomber à 0✨
@@ -350,7 +350,7 @@ Choix faits pour la page :
 - Les 🏆, ✨ et séries comptés sont ceux écrits dans chaque composition ; s'ils manquent, ils
   comptent pour 0 (la page le signale). L'arbitre tranche en cas de litige.
 - L'Offrande ne fait jamais dépasser 25✨.
-- Pillage : +1🙏 par défaite au prochain tic quotidien (+2🙏 avec un Pilleur ⭐). La prime de
+- Pillage : +1🙏 par défaite, versé chaque jour (+2🙏 avec un Pilleur ⭐). La prime de
   retour et la limite quotidienne du Senet sont rappelées dans le bilan, à vérifier par
   l'arbitre.
 - Un match nul coûte 1✨ à chacun, sans réduction par l'Endurance.

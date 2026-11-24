@@ -295,7 +295,7 @@ pub fn settle(data: &Data, names: &[String; 2], compos: &[Composition; 2], board
                     .max_by_key(|u| u.mult());
                 if let Some(u) = plunder {
                     lines.push(format!(
-                        "Pillage : {} ({}) rapportera +{}🙏 au prochain tic quotidien pour cette défaite",
+                        "Pillage : {} ({}) rapportera +{}🙏 pour cette défaite (versé chaque jour)",
                         unit_name(data, u),
                         names[l],
                         a.plunder_per_loss * u.mult()

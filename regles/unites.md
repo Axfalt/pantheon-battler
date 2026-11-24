@@ -10,7 +10,7 @@ Les 25 créatures du jeu, rang par rang. Les règles générales sont dans [regl
   doublés**.
 - « **Permanent** » : le bonus reste sur l'unité. « **Pour ce combat** » : il disparaît à la
   fin du combat.
-- Les pouvoirs du **tic quotidien** agissent une fois par jour, à heure fixe.
+- Les pouvoirs « **chaque jour** » agissent une fois par jour, à heure fixe.
 
 ---
 
@@ -61,7 +61,7 @@ Les 25 créatures du jeu, rang par rang. Les règles générales sont dans [regl
 ### 🐗 Sanglier
 *Gaulois · 🌱 Croissance · 1⚔ / 4❤ / 0🛡*
 
-- **Vigueur +1❤** · au tic quotidien, gagne +1❤ en bonus permanent. ⭐ : +2❤.
+- **Vigueur +1❤** · chaque jour, gagne +1❤ en bonus permanent. ⭐ : +2❤.
 - **Provocation** · tant qu'il est vivant, les ennemis doivent l'attaquer, lui ou une autre
   unité avec Provocation. Les pouvoirs (Chaos, Gel…) l'ignorent.
 
@@ -75,7 +75,7 @@ placées à côté de lui.
 
 - **Chaos 1** · après chaque attaque, inflige 1 dégât qui **ignore la DÉF** à une unité
   vivante au hasard, **alliés compris** (jamais lui-même). ⭐ : 2 dégâts.
-- **Changelin** · au tic quotidien, pile ou face. **Pile** : il devient une copie de l'allié
+- **Changelin** · chaque jour, pile ou face. **Pile** : il devient une copie de l'allié
   placé à sa gauche, s'il en reste un exemplaire dans la réserve commune ; la copie peut
   compléter une fusion. **Face** : rien ne se passe. Il ne copie jamais un autre Changelin.
 
@@ -138,7 +138,7 @@ Revanche.
 ### 🪲 Scarabée sacré
 *Égyptien · 🌱 Croissance · 1⚔ / 2❤ / 0🛡*
 
-- **Vigueur +1⚔** · au tic quotidien, gagne +1⚔ en bonus permanent. ⭐ : +2⚔.
+- **Vigueur +1⚔** · chaque jour, gagne +1⚔ en bonus permanent. ⭐ : +2⚔.
 
 > Khépri, le scarabée qui pousse le soleil au-dessus de l'horizon chaque matin.
 
@@ -187,7 +187,7 @@ sur quatre.
 ### 🌿 Druide
 *Gaulois · 🌱 Croissance · 2⚔ / 4❤ / 0🛡*
 
-- **Bénédiction +1⚔** · au tic quotidien, l'allié placé **à sa gauche** gagne +1⚔ pour de
+- **Bénédiction +1⚔** · chaque jour, l'allié placé **à sa gauche** gagne +1⚔ pour de
   bon. ⭐ : +2⚔.
 
 > Prêtres et sages des Gaulois, cueilleurs du gui sacré.
@@ -230,7 +230,7 @@ achats.
 ### ⚱️ Pilleur de tombes
 *Égyptien · 🐺 Revanche · 3⚔ / 3❤ / 0🛡*
 
-- **Pillage** · au tic quotidien, s'il est sur le terrain, rapporte des faveurs **pour chaque
+- **Pillage** · chaque jour, s'il est sur le terrain, rapporte des faveurs **pour chaque
   défaite subie dans la journée** : **+1🙏 par défaite**. ⭐ : +2🙏 par défaite.
 - **Magot** · plus de plafond de faveurs (10🙏 sinon). À chaque revenu, +1🙏 pour 4🙏
   gardées. ⭐ : +2🙏 pour 4🙏 gardées.
@@ -243,7 +243,7 @@ un gros achat.
 ### 🪓 Einherjar
 *Scandinave · 🌱 Croissance / ♻️ Cycle · 2⚔ / 2❤ / 0🛡*
 
-- **Vigueur +1⚔** · au tic quotidien, gagne +1⚔ en bonus permanent. ⭐ : +2⚔.
+- **Vigueur +1⚔** · chaque jour, gagne +1⚔ en bonus permanent. ⭐ : +2⚔.
 - **Renaissance** · la première fois qu'il meurt dans un combat, il revient avec 1❤. Une
   seule fois par combat, même ⭐.
 
@@ -293,7 +293,7 @@ synergies.
 *Gréco-Romain · 🐺 Revanche / 🌱 Croissance · 2⚔ / 3❤ / 0🛡*
 
 - **Rancune +1⚔ +1❤** · après chaque défaite, gagne +1⚔ et +1❤ en bonus permanent. ⭐ : +2⚔ +2❤.
-- **Vigueur +1❤** · au tic quotidien, gagne +1❤ en bonus permanent. ⭐ : +2❤.
+- **Vigueur +1❤** · chaque jour, gagne +1❤ en bonus permanent. ⭐ : +2❤.
 
 > Le serpent aux têtes multiples : pour chaque tête coupée, deux repoussent.
 
@@ -306,7 +306,7 @@ synergies.
 ### 🏔️ Ymir
 *Scandinave · 🌱 Croissance · 7⚔ / 11❤ / 1🛡*
 
-- **Vigueur collective +1❤** · au tic quotidien, **tous les alliés du terrain**, Ymir
+- **Vigueur collective +1❤** · chaque jour, **tous les alliés du terrain**, Ymir
   compris, gagnent +1❤ en bonus permanent. ⭐ : +2❤.
 
 > Le géant primordial dont le corps forma le monde : sa chair la terre, son sang la mer, ses

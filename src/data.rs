@@ -249,7 +249,7 @@ impl Keyword {
                 }
                 Keyword::Plunder { .. } => {
                     text = format!(
-                        "S'il est sur le terrain au tic quotidien, rapporte +{}🙏 par défaite subie dans la journée.",
+                        "Chaque jour, s'il est sur le terrain, rapporte +{}🙏 par défaite subie dans la journée.",
                         rules.arena.plunder_per_loss * m
                     )
                 }
@@ -271,15 +271,15 @@ impl Keyword {
         match *self {
             Keyword::Grow { atk, hp, def } => (
                 "Chaque jour",
-                format!("Au tic quotidien, gagne {} en bonus permanent : il grandit tant qu'il reste sur le terrain.", bonus(atk, hp, def)),
+                format!("Chaque jour, gagne {} en bonus permanent : il grandit tant qu'il reste sur le terrain.", bonus(atk, hp, def)),
             ),
             Keyword::Bless { atk, hp, all: true } => (
                 "Chaque jour",
-                format!("Au tic quotidien, tous les alliés du terrain, lui compris, gagnent {} en bonus permanent.", bonus(atk, hp, 0)),
+                format!("Chaque jour, tous les alliés du terrain, lui compris, gagnent {} en bonus permanent.", bonus(atk, hp, 0)),
             ),
             Keyword::Bless { atk, hp, all: false } => (
                 "Chaque jour",
-                format!("Au tic quotidien, l'allié placé juste à sa gauche gagne {} en bonus permanent : placez à sa gauche l'unité à faire grandir.", bonus(atk, hp, 0)),
+                format!("Chaque jour, l'allié placé juste à sa gauche gagne {} en bonus permanent : placez à sa gauche l'unité à faire grandir.", bonus(atk, hp, 0)),
             ),
             Keyword::Legacy => (
                 "À sa mort",
@@ -340,13 +340,13 @@ impl Keyword {
             Keyword::Plunder { .. } => (
                 "Chaque jour",
                 format!(
-                    "S'il est sur le terrain au tic quotidien, rapporte +{}🙏 par défaite subie dans la journée.",
+                    "Chaque jour, s'il est sur le terrain, rapporte +{}🙏 par défaite subie dans la journée.",
                     rules.arena.plunder_per_loss
                 ),
             ),
             Keyword::Changeling => (
                 "Chaque jour",
-                "Au tic quotidien, pile ou face. Pile : il devient une copie de l'allié placé à sa gauche, s'il en reste un exemplaire dans la réserve commune (la copie peut compléter une fusion). Face : rien.".to_string(),
+                "Chaque jour, pile ou face. Pile : il devient une copie de l'allié placé à sa gauche, s'il en reste un exemplaire dans la réserve commune (la copie peut compléter une fusion). Face : rien.".to_string(),
             ),
             Keyword::Toil { favors } => (
                 "Après une défaite",

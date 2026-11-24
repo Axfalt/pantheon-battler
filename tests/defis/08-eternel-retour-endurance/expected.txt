@@ -37,8 +37,8 @@ Survivants d'Osiris : 🗿 1 + 🪽 2 = 3✨
 Hadès perd 1✨ (3 − 2 Endurance) · reste 11✨ · 🔻 3 défaites d'affilée
 Rancune : 🪨 Sisyphe (Hadès) +1⚔ +1❤ en bonus permanent : 1/4/0
 Rancune : 🐲 Hydre de Lerne (Hadès) +1⚔ +1❤ en bonus permanent : 3/4/0
-Pillage : ⚱️ Pilleur de tombes (Hadès) rapportera +1🙏 au prochain tic quotidien pour cette défaite
+Pillage : ⚱️ Pilleur de tombes (Hadès) rapportera +1🙏 pour cette défaite (versé chaque jour)
 Prime de retour : 3 défaites d'affilée pour Hadès : +5🙏
 [/spoiler]
 {hr}
-[i]Seed 20202969696 · dés 3 3 3 / 97 97 97 · données 0a39465e · moteur 0.1.0[/i]
+[i]Seed 20202969696 · dés 3 3 3 / 97 97 97 · données ed27cf26 · moteur 0.1.0[/i]
