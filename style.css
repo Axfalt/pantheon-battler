@@ -1,0 +1,763 @@
+/* Pixel-art look taken from the pantheon avatar frames: the brown and gold knotted frame, cream
+   parchment, and the four pantheon banners (img/). Pixel images are scaled by whole steps. */
+
+:root {
+  /* Frame palette (img/frame.png). */
+  --ink: #2b0d16;
+  --brown: #6d473d;
+  --tan: #8c6242;
+  --copper: #b96c33;
+  --bronze: #c48437;
+  --gold: #de9d3d;
+  --gold-light: #f3d867;
+  --cream: #fdffe6;
+  /* Banners. */
+  --papyrus: #f1e3b8;
+  --papyrus-dark: #d0b27a;
+  --turquoise: #62d4ea;
+  --wine: #8a1a2a;
+  --red: #b02e36;
+  --sky: #90c4ec;
+  --sky-dark: #70a8dc;
+  --stone: #a99a7c;
+
+  --bg: #3b2620;
+  --bg-dot: #452d26;
+  --paper: var(--cream);
+  --paper-2: var(--papyrus);
+  --text: var(--ink);
+  --muted: #7a5a48;
+  --line: var(--papyrus-dark);
+  --error: #a8392a;
+  --error-soft: #f6d6c8;
+  --warn: #8a4a12;
+  --warn-soft: #fbe7b0;
+  --ok: #2f5f2a;
+  --ok-soft: #dcefc8;
+  --field: #fffbea;
+  --stripe: #f8f0d2;
+  --hover: #f8ebc4;
+  --accent-hover: #e8ad4e;
+  --sky-deep: #3f6f9e;
+
+  --frame-img: url("img/frame.png");
+  --slice: 12;            /* frame.png is cut 12 px from each side… */
+  --scale: 2;             /* …and drawn ×2 (×1 on phones) */
+  --frame: calc(var(--slice) * var(--scale) * 1px);
+  --page: radial-gradient(var(--bg-dot) 1.5px, transparent 1.6px) 0 0 / 8px 8px, var(--bg);
+  --foot-text: var(--papyrus-dark);
+  --px: 3px;              /* thickness of the pixel bevels */
+  --pixel: "Jersey 15", "Trebuchet MS", system-ui, sans-serif;   /* clear digits: 5 is not S */
+  --title: "Press Start 2P", "Courier New", monospace;   /* 8-bit console capitals: wide, so set small */
+  --mono: ui-monospace, "Cascadia Mono", Consolas, "Liberation Mono", monospace;
+  color-scheme: light;
+}
+
+/* ---------- Pantheon themes: a click on a footer plate (theme.js) ----------
+   The tokens keep their roles: --cream is the panel, --papyrus the second surface, --brown the
+   outlines and headings, --gold the main accent, --wine the big titles, --bg the page. */
+
+:root[data-theme="egypte"] {
+  --frame-img: url("img/frame-egypte.png"); --slice: 15;
+  --page: url("img/tex-egypte.png") 0 0 / calc(64px * var(--scale)) repeat, var(--bg);
+  --foot-text: #fbf1d0;   /* papyrus, sandstone, turquoise and red ink */
+  --bg: #4a3424; --bg-dot: #57402c;
+  --cream: #f6ebc8; --papyrus: #e6d29f; --papyrus-dark: #c29868;
+  --brown: #6d453a; --tan: #966a42; --ink: #2e1a12; --muted: #8a6a4a;
+  --gold: #62d5eb; --gold-light: #bdf0f9; --copper: #2f9fb8; --accent-hover: #84e0f1;
+  --wine: #b23428; --turquoise: #b23428;
+  --field: #fbf3d6; --stripe: #efe0b4; --hover: #f0e2b6;
+}
+:root[data-theme="rome"] {
+  --frame-img: url("img/frame-rome.png"); --slice: 15;
+  --page: url("img/tex-rome.png") 0 0 / calc(64px * var(--scale)) repeat, var(--bg);
+  --foot-text: #5c1020;     /* white marble, wine and gilding */
+  --bg: #2e0e14; --bg-dot: #3c141c;
+  --cream: #f6f5f0; --papyrus: #eeece6; --papyrus-dark: #ccc9c8;
+  --brown: #8a1a2a; --tan: #968c84; --ink: #2b0d16; --muted: #7a6f6a;
+  --gold: #de9d3d; --gold-light: #f3d867; --copper: #b96c33; --accent-hover: #e8ad4e;
+  --wine: #8a1a2a; --turquoise: #de9d3d;
+  --field: #ffffff; --stripe: #f0eee9; --hover: #e6e3dc;
+}
+:root[data-theme="gaule"] {
+  --frame-img: url("img/frame-gaule.png"); --slice: 15;
+  --page: url("img/tex-gaule.png") 0 0 / calc(64px * var(--scale)) repeat, var(--bg);
+  --foot-text: #f3e6c4;    /* tooled leather on grass, bronze */
+  --bg: #1e2816; --bg-dot: #2a3a1c;
+  --cream: #f3e6c4; --papyrus: #e8d6aa; --papyrus-dark: #b68050;
+  --brown: #683c20; --tan: #965e36; --ink: #2c160c; --muted: #7e5a3a;
+  --gold: #76c323; --gold-light: #c8ef6a; --copper: #4a8a14; --accent-hover: #8ad436;
+  --wine: #7e4c2a; --turquoise: #90c4ec;
+  --field: #fbf2d8; --stripe: #ecdcb4; --hover: #efe0b8;
+}
+:root[data-theme="nord"] {
+  --frame-img: url("img/frame-nord.png"); --slice: 15;
+  --page: url("img/tex-nord.png") 0 0 / calc(64px * var(--scale)) repeat, var(--bg);
+  --foot-text: #d6f6ff;     /* grey rock and frost runes */
+  --bg: #2c2b30; --bg-dot: #3e3d42;
+  --cream: #eef3f5; --papyrus: #d6dfe4; --papyrus-dark: #8a98a2;
+  --brown: #504f53; --tan: #757372; --ink: #1f2024; --muted: #667580;
+  --gold: #a0ceea; --gold-light: #d6f6ff; --copper: #6a879b; --accent-hover: #b8dcf0;
+  --wine: #3470ba; --turquoise: #3470ba;
+  --field: #f7fbfc; --stripe: #e3eaee; --hover: #dfe7eb;
+}
+
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+img, .card { image-rendering: pixelated; }
+
+body {
+  margin: 0;
+  color: var(--text);
+  font: 20px/1.4 var(--pixel);
+  /* Dark wood with a pixel dot every 8 px, or the theme's pixel texture. */
+  background: var(--page);
+  image-rendering: pixelated;
+}
+
+.wrap { max-width: 1100px; margin: 0 auto; padding: 0 16px; }
+
+/* ---------- Framed panels ---------- */
+
+.card {
+  position: relative;
+  background: var(--paper);
+  border: var(--frame) solid transparent;
+  border-image: var(--frame-img) var(--slice) / var(--frame) / 0 repeat;
+  padding: 6px 10px 10px;
+  margin-bottom: 18px;
+}
+.card-head { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 10px; }
+.card-head h3, .card-head h4 { margin: 0; }
+
+h1, h2, h3, h4 { font-family: var(--title); font-weight: 400; color: var(--brown); line-height: 1.45; }
+h2 { font-size: 0.95rem; margin: 0 0 12px; }
+h3 { font-size: 0.82rem; margin: 0 0 10px; }
+h4 { font-size: 0.78rem; margin: 0; }
+h2::after, h3::after {
+  /* A little gold rule under titles, in hard pixels. */
+  content: "";
+  display: block;
+  width: 48px;
+  height: var(--px);
+  margin-top: 4px;
+  background: linear-gradient(90deg, var(--gold) 0 33%, var(--gold-light) 33% 66%, var(--gold) 66%);
+}
+.card-head h3::after, .card-head h4::after { display: none; }
+
+/* ---------- Header: the four banners hang from the frame ---------- */
+
+.top { padding-top: 16px; }
+.top .card { margin-bottom: 0; padding: 0 12px 4px 172px; min-height: 120px; }
+.banners {
+  position: absolute;
+  top: calc(3px * var(--scale) - var(--frame));    /* just under the frame's top ring, */
+  left: calc(12px * var(--scale) - var(--frame));  /* where the avatars hang theirs */
+  display: flex;
+  gap: 8px;
+}
+.banners img { width: 30px; height: 72px; display: block; transform-origin: top center; animation: sway 4s ease-in-out infinite; }
+.banners img:nth-child(2) { animation-delay: -1s; }
+.banners img:nth-child(3) { animation-delay: -2s; }
+.banners img:nth-child(4) { animation-delay: -3s; }
+@keyframes sway { 0%, 100% { transform: rotate(-2deg); } 50% { transform: rotate(2deg); } }
+@media (prefers-reduced-motion: reduce) { .banners img { animation: none; } }
+.banners img { transition: opacity 0.3s, filter 0.3s; }
+:root[data-theme] .banners img { opacity: 0.35; filter: grayscale(0.7); }
+:root[data-theme="egypte"] .banners img[data-theme="egypte"],
+:root[data-theme="rome"] .banners img[data-theme="rome"],
+:root[data-theme="gaule"] .banners img[data-theme="gaule"],
+:root[data-theme="nord"] .banners img[data-theme="nord"] { opacity: 1; filter: none; }
+
+.top h1 { margin: 8px 0 4px; font-size: 1.35rem; color: var(--wine); text-shadow: 2px 2px 0 var(--gold-light); }
+.top .sub { margin: 2px 0 10px; color: var(--muted); }
+
+.tabs { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 4px; }
+.tabs button {
+  font-weight: 600;
+  background: var(--papyrus);
+  color: var(--brown);
+}
+.tabs button[aria-selected="true"] {
+  background: var(--gold-light);
+  color: var(--ink);
+  box-shadow:
+    inset calc(var(--px) * -1) calc(var(--px) * -1) 0 var(--gold),
+    inset var(--px) var(--px) 0 var(--cream),
+    0 0 0 var(--px) var(--brown);
+}
+
+main.wrap { padding-top: 18px; padding-bottom: 24px; }
+
+/* ---------- Buttons and fields: hard edges, bevelled like the frame ---------- */
+
+input, textarea, select, button { font: inherit; color: inherit; }
+
+button {
+  cursor: pointer;
+  border: 0;
+  border-radius: 0;
+  padding: 7px 14px;
+  margin: var(--px);
+  background: var(--paper-2);
+  color: var(--ink);
+  box-shadow:
+    inset calc(var(--px) * -1) calc(var(--px) * -1) 0 var(--papyrus-dark),
+    inset var(--px) var(--px) 0 var(--cream),
+    0 0 0 var(--px) var(--brown);
+}
+button:hover { background: var(--hover); }
+button:active:not(:disabled) {
+  transform: translateY(2px);
+  box-shadow:
+    inset var(--px) var(--px) 0 var(--papyrus-dark),
+    0 0 0 var(--px) var(--brown);
+}
+button:disabled { opacity: 0.55; cursor: not-allowed; }
+button.primary {
+  font-weight: 700;
+  background: var(--gold);
+  color: var(--ink);
+  box-shadow:
+    inset calc(var(--px) * -1) calc(var(--px) * -1) 0 var(--copper),
+    inset var(--px) var(--px) 0 var(--gold-light),
+    0 0 0 var(--px) var(--brown);
+}
+button.primary:hover { background: var(--accent-hover); }
+button.ghost {
+  background: transparent;
+  box-shadow: 0 0 0 var(--px) var(--tan);
+  color: var(--brown);
+}
+button.icon { padding: 2px 8px; min-width: 2.2em; }
+/* A solid button with a red label: it must read clearly on every page texture. */
+button.danger {
+  font-weight: 700;
+  background: var(--paper-2);
+  color: var(--red);
+  box-shadow:
+    inset calc(var(--px) * -1) calc(var(--px) * -1) 0 var(--papyrus-dark),
+    inset var(--px) var(--px) 0 var(--cream),
+    0 0 0 var(--px) var(--red),
+    var(--px) var(--px) 0 var(--px) var(--ink);
+}
+button.danger:hover { background: var(--red); color: var(--cream); }
+
+input[type="text"], input[type="number"], textarea, select {
+  background: var(--field);
+  border: var(--px) solid var(--brown);
+  border-radius: 0;
+  padding: 6px 9px;
+  min-width: 0;
+  box-shadow: inset var(--px) var(--px) 0 var(--papyrus);
+}
+textarea { resize: vertical; width: 100%; }
+input:focus-visible, textarea:focus-visible, select:focus-visible, button:focus-visible {
+  outline: var(--px) solid var(--turquoise);
+  outline-offset: 2px;
+}
+input[type="checkbox"] { accent-color: var(--gold); }
+
+.mono { font-family: var(--mono); font-size: 0.86rem; line-height: 1.45; }
+
+.field { display: block; margin-bottom: 12px; font-weight: 600; color: var(--brown); }
+.field > input, .field > textarea, .field > select { display: block; width: 100%; margin-top: 4px; font-weight: 400; color: var(--ink); }
+.hint { color: var(--muted); font-weight: 400; font-size: 0.92rem; }
+p.hint { margin: 4px 0 10px; }
+
+/* ---------- Combat ---------- */
+
+.sides { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+.sides > .card { margin-bottom: 0; }
+@media (max-width: 760px) { .sides { grid-template-columns: 1fr; } }
+
+/* The two players face each other around a fighting-game VS (img/vs.png, drawn ×2 by app.js). */
+.arena-sides { grid-template-columns: 1fr auto 1fr; gap: 10px; }
+.versus { align-self: start; margin-top: 150px; display: grid; place-items: center; }
+.versus img { display: block; image-rendering: pixelated; filter: drop-shadow(0 4px 0 rgba(0, 0, 0, 0.35)); animation: vs-pulse 1.6s ease-in-out infinite; }
+@keyframes vs-pulse { 0%, 100% { transform: scale(1) rotate(-3deg); } 50% { transform: scale(1.08) rotate(-3deg); } }
+@media (prefers-reduced-motion: reduce) { .versus img { animation: none; transform: rotate(-3deg); } }
+@media (max-width: 760px) {
+  .arena-sides { grid-template-columns: 1fr; gap: 0; }
+  .versus { margin: -14px 0; position: relative; z-index: 2; }
+}
+
+.badge {
+  display: inline-grid;
+  place-items: center;
+  width: 1.6em;
+  height: 1.6em;
+  margin-right: 6px;
+  font-size: 0.85em;
+  color: var(--cream);
+  background: var(--wine);
+  box-shadow: inset -2px -2px 0 var(--ink), inset 2px 2px 0 var(--red);
+  vertical-align: 1px;
+}
+.side[data-side="b"] .badge { background: var(--sky-dark); box-shadow: inset -2px -2px 0 var(--sky-deep), inset 2px 2px 0 var(--sky); }
+
+.dice { display: flex; gap: 10px; margin-top: 6px; }
+.dice input {
+  width: 4.6em;
+  text-align: center;
+  font-weight: 700;
+  font-size: 1.1rem;
+  background: var(--cream);
+  /* A die: thick frame, gold pips in the corners. */
+  border-width: var(--px);
+  box-shadow: inset 0 0 0 var(--px) var(--papyrus), inset -6px -6px 0 -3px var(--gold-light);
+}
+input.bad { border-color: var(--error); background: var(--error-soft); }
+
+.actions { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; margin: 18px 0; }
+.actions.left { justify-content: flex-start; margin: 12px 0 0; }
+.actions #run { font-size: 1.2rem; padding: 10px 26px; }
+.buttons { display: flex; flex-wrap: wrap; gap: 8px; }
+.inline { display: flex; gap: 8px; align-items: center; }
+.inline input { flex: 1; }
+
+.status { font-size: 0.95rem; min-height: 1.5em; }
+.status .summary { color: var(--muted); margin: 2px 0; }
+
+.messages:empty { display: none; }
+.messages { margin-bottom: 12px; }
+.msg {
+  padding: 6px 10px;
+  margin: 8px 0 0;
+  font-size: 0.95rem;
+  border-left: calc(var(--px) * 2) solid currentColor;
+}
+.msg.error { background: var(--error-soft); color: var(--error); }
+.msg.warn { background: var(--warn-soft); color: var(--warn); }
+.msg.ok { background: var(--ok-soft); color: var(--ok); }
+
+.notice {
+  background: var(--papyrus);
+  color: var(--brown);
+  padding: 10px 14px;
+  margin-bottom: 18px;
+  box-shadow: 0 0 0 var(--px) var(--brown), inset 0 calc(var(--px) * -1) 0 var(--papyrus-dark);
+}
+.notice.error { background: var(--error-soft); color: var(--error); }
+
+/* The victory box: gold rays behind the winner, trophies, a 3D pixel title that pops in. */
+.verdict-card {
+  text-align: center;
+  padding: 18px 12px 14px;
+  overflow: hidden;
+  /* A warm glow behind the winner, over gold with a scatter of pixel sparkles. */
+  background:
+    radial-gradient(ellipse 55% 85% at 50% 50%, var(--cream) 0 30%, transparent 75%),
+    radial-gradient(var(--cream) 1.5px, transparent 1.6px) 0 0 / 16px 16px,
+    radial-gradient(var(--gold) 1.5px, transparent 1.6px) 8px 8px / 16px 16px,
+    var(--gold-light);
+}
+.verdict-kicker {
+  margin: 0 0 6px;
+  font-family: var(--title);
+  font-size: 0.68rem;
+  letter-spacing: 0.12em;
+  color: var(--brown);
+}
+.verdict-line { display: flex; align-items: center; justify-content: center; gap: 14px; margin: 6px 0 10px; }
+.trophy { font-size: 2.1rem; line-height: 1; filter: drop-shadow(2px 2px 0 var(--brown)); }
+.verdict {
+  font-family: var(--title);
+  font-size: 1.75rem;
+  font-weight: 400;
+  line-height: 1.35;
+  color: var(--wine);
+  text-shadow: 2px 2px 0 var(--gold-light), 4px 4px 0 var(--gold), 6px 6px 0 var(--brown);
+}
+.verdict-card.pop .verdict, .verdict-card.pop .trophy { animation: verdict-pop 0.55s steps(6, end) both; }
+.verdict-card.pop .trophy { animation-delay: 0.15s; }
+@keyframes verdict-pop {
+  0% { transform: scale(0.4); opacity: 0; }
+  60% { transform: scale(1.12); opacity: 1; }
+  100% { transform: scale(1); opacity: 1; }
+}
+@media (prefers-reduced-motion: reduce) { .verdict-card.pop .verdict, .verdict-card.pop .trophy { animation: none; } }
+/* Pixel confetti raining over the screen after a win (app.js). */
+.confetti-rain { position: fixed; inset: 0; z-index: 60; pointer-events: none; overflow: hidden; }
+.confetti { position: absolute; top: -20px; display: block; box-shadow: inset -2px -2px 0 rgba(0, 0, 0, 0.18); }
+/* A draw: no glow, no trophies. */
+.verdict-card.draw { background: var(--paper); }
+.verdict-card.draw .trophy { display: none; }
+.verdict-card.draw .verdict { color: var(--brown); text-shadow: 2px 2px 0 var(--papyrus-dark); }
+@media (max-width: 600px) {
+  .verdict { font-size: 1.05rem; }
+  .trophy { font-size: 1.4rem; }
+  .verdict-line { gap: 8px; }
+}
+.seed-line { margin: 0; }
+.seed-line strong {
+  font-family: var(--mono);
+  font-size: 1.1rem;
+  letter-spacing: 0.06em;
+  background: var(--ink);
+  color: var(--gold-light);
+  padding: 2px 8px;
+}
+
+.preview {
+  background: var(--field);
+  box-shadow: 0 0 0 var(--px) var(--papyrus-dark);
+  padding: 12px 14px;
+  overflow-wrap: anywhere;
+}
+.preview details {
+  background: var(--papyrus);
+  border-left: calc(var(--px) * 2) solid var(--gold);
+  margin: 6px 0;
+  padding: 4px 10px;
+}
+.preview summary { cursor: pointer; color: var(--brown); font-weight: 600; }
+.preview hr { border: 0; height: var(--px); background: repeating-linear-gradient(90deg, var(--gold) 0 6px, var(--gold-light) 6px 12px); margin: 12px 0; }
+.preview .big { font-size: 1.3em; color: var(--wine); }
+
+.bilan { margin: 0; padding-left: 0; list-style: none; }
+.bilan li { margin: 4px 0; padding-left: 18px; position: relative; }
+.bilan li::before {
+  content: "";
+  position: absolute;
+  left: 2px;
+  top: 0.55em;
+  width: 6px;
+  height: 6px;
+  background: var(--gold);
+  box-shadow: 0 0 0 2px var(--brown);
+}
+
+pre {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  background: var(--field);
+  box-shadow: 0 0 0 var(--px) var(--papyrus-dark);
+  padding: 10px 12px;
+  margin: 0;
+}
+.after textarea { margin-top: 0; }
+
+/* ---------- Composer and tables ---------- */
+
+
+.table-scroll { overflow-x: auto; position: relative; }   /* keeps .sr labels inside the scroll box */
+table { border-collapse: collapse; width: 100%; }
+th, td { text-align: left; padding: 6px 8px; vertical-align: middle; }
+thead th {
+  background: var(--brown);
+  color: var(--gold-light);
+  font-weight: 600;
+  white-space: nowrap;
+  border-bottom: var(--px) solid var(--gold);
+}
+tbody tr:nth-child(even) td { background: var(--stripe); }
+tbody td { border-bottom: 1px solid var(--papyrus); }
+
+
+
+.plain-list { margin: 0; padding-left: 1.2em; }
+
+.prose p, .prose li { max-width: 72ch; }
+.prose ol, .prose ul { padding-left: 1.3em; }
+.prose li { margin: 4px 0; }
+.formula { font-family: var(--mono); font-size: 1.05rem; background: var(--ink); color: var(--gold-light); display: inline-block; padding: 6px 12px; }
+code { font-family: var(--mono); font-size: 0.88em; background: var(--papyrus); padding: 1px 5px; }
+
+.foot { color: var(--foot-text); font-size: 0.92rem; padding-top: 4px; padding-bottom: 24px; text-align: center; }
+.foot p { margin: 10px 0 0; }
+/* The four pantheon name plates (180×60, drawn at ×1; two per row on phones). */
+.plaques { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
+.plaques button {
+  padding: 0;
+  margin: 0;
+  background: none;
+  box-shadow: none;
+  max-width: calc(50% - 5px);
+  transition: transform 0.15s;
+}
+.plaques button:hover { background: none; transform: translateY(-3px); }
+.plaques button:active:not(:disabled) { box-shadow: none; transform: translateY(0); }
+.plaques button[aria-pressed="true"] { transform: translateY(-4px); box-shadow: 0 0 0 var(--px) var(--gold-light), 0 6px 0 0 var(--gold); }
+.plaques img { display: block; width: 180px; max-width: 100%; height: auto; }
+.plaques-hint { margin: 6px 0 0; font-size: 0.85rem; }
+
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+/* ---------- Combat: creature palette, slots, drag and drop ---------- */
+
+.palette { display: grid; grid-template-columns: 10fr 10fr 5fr; gap: 12px; }
+@media (max-width: 900px) { .palette { grid-template-columns: 1fr; } }
+.tier-box {
+  background: var(--paper-2);
+  box-shadow: inset 0 0 0 var(--px) var(--papyrus-dark), 0 0 0 var(--px) var(--brown);
+  margin: var(--px);
+  padding: 6px 8px 8px;
+}
+h3.tier-title { font-size: 0.68rem; margin: 2px 0 8px; }
+h3.tier-title::after { display: none; }
+.tiles { display: flex; flex-wrap: wrap; gap: 6px; }
+.tile {
+  width: 46px;
+  height: 46px;
+  padding: 0;
+  margin: 2px;
+  font-size: 26px;
+  line-height: 1;
+  font-family: "Segoe UI Emoji", "Apple Color Emoji", "Noto Color Emoji", sans-serif;
+  touch-action: none;       /* the finger drags the unit instead of scrolling */
+  user-select: none;
+  -webkit-user-select: none;
+  cursor: grab;
+}
+.palette-head { margin-bottom: 4px; }
+/* The merged switch: a wooden lever (img/lever-*.png, drawn ×2), left = normal, right = merged. */
+.lever-switch {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+  padding: 2px 6px;
+  background: none;
+  box-shadow: none;
+  font-family: var(--title);
+  font-size: 0.62rem;
+}
+.lever-switch:hover { background: none; }
+.lever-switch:active:not(:disabled) { transform: none; box-shadow: none; }
+.lever-img {
+  width: 46px;
+  height: 38px;
+  background: url("img/lever-off.png") 0 0 / 100% 100% no-repeat;
+  image-rendering: pixelated;
+  transition: transform 0.12s;
+}
+.lever-switch[aria-pressed="true"] .lever-img { background-image: url("img/lever-on.png"); }
+.lever-switch:hover .lever-img { transform: translateY(-2px); }
+.lever-side { color: var(--muted); opacity: 0.6; transition: color 0.15s, opacity 0.15s; }
+.lever-switch[aria-pressed="false"] .lever-left,
+.lever-switch[aria-pressed="true"] .lever-right { color: var(--wine); opacity: 1; text-shadow: 1px 1px 0 var(--gold-light); }
+@media (max-width: 460px) { .lever-switch { font-size: 0.55rem; gap: 4px; } }
+.tile { position: relative; }
+.palette.merged .tile:not(.off)::after {
+  content: "⭐";
+  position: absolute;
+  top: -7px;
+  right: -7px;
+  font-size: 15px;
+  line-height: 1;
+  pointer-events: none;
+}
+.palette.merged .tier-box { background: #f8e7a8; }
+.tile.off { opacity: 0.35; filter: grayscale(1); cursor: not-allowed; }
+.tile[aria-pressed="true"] {
+  background: var(--gold-light);
+  box-shadow:
+    inset calc(var(--px) * -1) calc(var(--px) * -1) 0 var(--gold),
+    inset var(--px) var(--px) 0 var(--cream),
+    0 0 0 var(--px) var(--brown),
+    0 0 0 calc(var(--px) * 2) var(--gold);
+}
+h3.synergy-title { margin: 14px 0 8px; }
+h3.synergy-title .hint { font-family: var(--pixel); font-size: 0.95rem; }
+.synergy-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 8px 14px;
+}
+.synergy-list li {
+  padding: 5px 10px 6px 12px;
+  background: var(--paper-2);
+  box-shadow: inset calc(var(--px) * 2) 0 0 var(--gold);
+  line-height: 1.25;
+}
+.synergy-list li { cursor: pointer; }
+.synergy-list li:hover { background: var(--hover); }
+.synergy-list li:focus-visible { outline: var(--px) solid var(--turquoise); outline-offset: 2px; }
+.synergy-list li[aria-pressed="true"] {
+  background: var(--gold-light);
+  box-shadow: inset calc(var(--px) * 2) 0 0 var(--wine), 0 0 0 var(--px) var(--brown);
+}
+/* Creatures outside the picked synergy: greyed, still usable. */
+.tile.dim { opacity: 0.3; filter: grayscale(1); }
+.tile.dim:hover, .tile.dim:focus-visible { opacity: 0.6; }
+.syn-arch { color: var(--brown); font-weight: 600; }
+.syn-name { color: var(--wine); }
+.syn-name::before { content: "→ "; color: var(--muted); font-weight: 400; }
+.syn-effect { display: block; color: var(--muted); font-size: 0.92rem; }
+
+.player { display: grid; grid-template-columns: 2fr repeat(4, 1fr); gap: 8px; }
+@media (max-width: 460px) { .player { grid-template-columns: repeat(4, 1fr); } .player .p-name-field { grid-column: 1 / -1; } }
+.streak-hint { margin: -2px 0 8px; font-size: 0.88rem; }
+.player .field { margin-bottom: 8px; }
+.player input { text-align: left; }
+.player input[type="number"] { text-align: center; }
+
+.slots { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin: 4px 0 8px; }
+@media (max-width: 1000px) and (min-width: 761px), (max-width: 460px) { .slots { grid-template-columns: 1fr 1fr; } }
+.slot {
+  position: relative;
+  min-height: 92px;
+  padding: 18px 6px 6px;
+  background: var(--field);
+  outline: none;
+  /* Dashed pixel edge while empty. */
+  background-image:
+    repeating-linear-gradient(90deg, var(--papyrus-dark) 0 6px, transparent 6px 10px),
+    repeating-linear-gradient(90deg, var(--papyrus-dark) 0 6px, transparent 6px 10px),
+    repeating-linear-gradient(0deg, var(--papyrus-dark) 0 6px, transparent 6px 10px),
+    repeating-linear-gradient(0deg, var(--papyrus-dark) 0 6px, transparent 6px 10px);
+  background-size: 100% var(--px), 100% var(--px), var(--px) 100%, var(--px) 100%;
+  background-position: 0 0, 0 100%, 0 0, 100% 0;
+  background-repeat: no-repeat;
+}
+.slot.full {
+  background-image: none;
+  background-color: var(--cream);
+  box-shadow: 0 0 0 var(--px) var(--brown), inset 0 0 0 var(--px) var(--papyrus);
+}
+.slot:focus-visible { box-shadow: 0 0 0 var(--px) var(--turquoise); }
+.slot.over { background-color: var(--gold-light); box-shadow: 0 0 0 var(--px) var(--gold), 0 0 12px var(--gold); }
+body.placing .slot { cursor: copy; }
+body.placing .slot:not(.full) { background-color: #fff6cf; }
+.slot-num {
+  position: absolute;
+  top: 2px;
+  left: 6px;
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+.slot-empty { display: grid; place-items: center; min-height: 60px; color: var(--muted); font-size: 0.9rem; text-align: center; }
+.slot-del { position: absolute; top: 0; right: 0; padding: 0 6px; font-size: 0.8rem; margin: 2px; }
+.slot-unit {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+  cursor: grab;
+}
+.slot-emoji { font-size: 30px; line-height: 1.1; font-family: "Segoe UI Emoji", "Apple Color Emoji", "Noto Color Emoji", sans-serif; }
+.slot-name { font-size: 0.9rem; color: var(--brown); text-align: center; line-height: 1.1; }
+.slot-editor { display: grid; gap: 3px; margin-top: 6px; font-size: 0.9rem; }
+.slot-editor .star { display: flex; align-items: center; gap: 2px; color: var(--brown); }
+.slot-editor .stat { display: grid; grid-template-columns: 1.4em 1fr; align-items: center; gap: 4px; }
+.slot-editor .stat input { width: 100%; padding: 1px 4px; text-align: center; }
+.slot-editor .offering { grid-template-columns: 1fr auto; }
+.slot-editor .offering > span:first-child { grid-column: 1 / -1; color: var(--brown); }
+.slot-editor .star { white-space: nowrap; }
+
+.side-buttons { margin: 4px 0 10px; }
+.import { margin-bottom: 10px; }
+.import .buttons { margin-top: 6px; }
+
+body.dragging, body.dragging * { cursor: grabbing !important; }
+.drag-ghost {
+  position: fixed;
+  z-index: 50;
+  pointer-events: none;
+  transform: translate(-50%, -60%) scale(1.15);
+  font-size: 34px;
+  font-family: "Segoe UI Emoji", "Apple Color Emoji", "Noto Color Emoji", sans-serif;
+  padding: 4px 8px;
+  background: var(--gold-light);
+  box-shadow: 0 0 0 var(--px) var(--brown), 4px 6px 0 rgba(0, 0, 0, 0.25);
+}
+
+.tip {
+  position: absolute;
+  z-index: 40;
+  max-width: 340px;
+  padding: 8px 12px;
+  background: var(--cream);
+  color: var(--ink);
+  box-shadow: 0 0 0 var(--px) var(--brown), 0 0 0 calc(var(--px) * 2) var(--gold), 5px 7px 0 calc(var(--px) * 2) rgba(0, 0, 0, 0.3);
+  pointer-events: none;
+  font-size: 0.95rem;
+  line-height: 1.25;
+}
+.tip p { margin: 0 0 4px; }
+.tip-title { font-family: var(--title); font-weight: 400; color: var(--wine); font-size: 0.75rem; line-height: 1.6; }
+.tip-emoji { font-family: "Segoe UI Emoji", "Apple Color Emoji", "Noto Color Emoji", sans-serif; }
+.tip-meta { color: var(--muted); }
+.tip-stats { font-weight: 700; letter-spacing: 0.04em; }
+.tip .tip-here { font-weight: 700; color: var(--wine); }
+.tile.pinned, .slot-unit.pinned { outline: var(--px) dashed var(--gold); outline-offset: 2px; }
+.tip-power { margin: 6px 0; padding: 4px 8px; background: var(--paper-2); box-shadow: inset calc(var(--px) * 2) 0 0 var(--gold); }
+.tip-power-head { display: flex; justify-content: space-between; gap: 8px; margin: 0 0 2px; }
+.tip-power-head strong { color: var(--wine); }
+.tip-when { color: var(--muted); font-size: 0.82rem; white-space: nowrap; }
+.tip .tip-text { margin: 0; font-size: 0.9rem; line-height: 1.25; }
+.tip .tip-star { margin-top: 6px; font-size: 0.85rem; color: var(--muted); }
+
+/* ---------- What makes each theme its own ---------- */
+
+/* The pantheon's name plate in the header, on wide screens. */
+.header-plate { display: none; }
+@media (min-width: 900px) {
+  :root[data-theme] .top .card { padding-right: 384px; }
+  :root[data-theme="egypte"] .header-plate[data-theme="egypte"],
+  :root[data-theme="rome"] .header-plate[data-theme="rome"],
+  :root[data-theme="gaule"] .header-plate[data-theme="gaule"],
+  :root[data-theme="nord"] .header-plate[data-theme="nord"] {
+    display: block;
+    position: absolute;
+    right: 0;
+    top: 50%;
+    width: 360px;
+    height: 120px;
+    transform: translateY(-50%);
+  }
+}
+.foot { text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.45); }
+:root[data-theme="rome"] .foot { text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.6); }
+
+/* Egypt: papyrus fibres in the panels, red-ink titles over a turquoise line. */
+:root[data-theme="egypte"] .card {
+  background:
+    repeating-linear-gradient(0deg, transparent 0 5px, rgba(194, 152, 104, 0.16) 5px 6px),
+    repeating-linear-gradient(90deg, transparent 0 11px, rgba(194, 152, 104, 0.1) 11px 12px),
+    var(--paper);
+}
+:root[data-theme="egypte"] .top h1 { text-shadow: 2px 2px 0 var(--gold); }
+
+/* Rome: titles cut in capitals like an inscription, gilded. */
+:root[data-theme="rome"] h1, :root[data-theme="rome"] h2, :root[data-theme="rome"] .verdict {
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+:root[data-theme="rome"] .top h1 { color: var(--gold); text-shadow: 2px 2px 0 var(--wine); }
+
+/* Gaul: tooled leather titles with a stitched line, green like the grass. */
+:root[data-theme="gaule"] .top h1 { color: var(--brown); text-shadow: 2px 2px 0 var(--gold-light); }
+:root[data-theme="gaule"] h2::after, :root[data-theme="gaule"] h3::after {
+  background: repeating-linear-gradient(90deg, var(--tan) 0 4px, transparent 4px 7px);
+}
+
+/* North: frost-blue runes that glow. */
+:root[data-theme="nord"] .top h1, :root[data-theme="nord"] .verdict {
+  color: #3470ba;
+  text-shadow: 0 0 6px #a0ceea, 2px 2px 0 #d6f6ff;
+}
+:root[data-theme="nord"] h2::after, :root[data-theme="nord"] h3::after {
+  background: linear-gradient(90deg, #3470ba, #a0ceea, #3470ba);
+  box-shadow: 0 0 4px #a0ceea;
+}
+
+/* ---------- Phones: thinner frames (×1), banners above the title ---------- */
+
+@media (max-width: 600px) {
+  :root { --scale: 1; --px: 2px; }
+  body { font-size: 19px; }
+  .card { padding: 6px 8px 8px; }
+  .top .card { padding: 82px 8px 4px; min-height: 0; }
+  .banners { left: calc(24px - var(--frame)); top: calc(6px - var(--frame)); }
+  .banners img { width: 30px; height: 72px; }
+  .top h1 { font-size: 0.95rem; }
+  h2 { font-size: 0.82rem; }
+  .verdict { font-size: 0.9rem; }
+}
