@@ -25,7 +25,7 @@ recompiler (sauf pour la page web, qui embarque les données).
 
 ## Page de combat (mode Arène)
 
-En ligne : <https://axfalt.github.io/pantheon-battler/> (GitHub Pages : à chaque push sur
+En ligne : <https://pantheon-battler.chaton.ninja/> (GitHub Pages : à chaque push sur
 `main` qui touche `web/`, `.github/workflows/pages.yml` copie `web/` dans la branche `gh-pages`,
 que Pages sert telle quelle).
 
