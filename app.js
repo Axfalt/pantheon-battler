@@ -795,8 +795,8 @@
     const rules = info.rules;
     for (const p of $$(".streak-hint")) {
       p.textContent =
-        `🔻 toutes les ${rules.comeback_losses} défaites d'affilée : prime de retour +${rules.comeback_favors}🙏 · ` +
-        `🔺 dès la ${rules.win_streak_from}e victoire d'affilée : +${rules.win_streak_favors}🙏 par victoire`;
+        `💔 toutes les ${rules.comeback_losses} défaites d'affilée : prime de retour +${rules.comeback_favors}🙏 · ` +
+        `🔥 dès la ${rules.win_streak_from}e victoire d'affilée : +${rules.win_streak_favors}🙏 par victoire`;
     }
     // The VS is pixel art: drawn at a whole scale of its real size.
     const vs = $("#vs-img");
