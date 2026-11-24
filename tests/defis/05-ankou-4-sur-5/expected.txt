@@ -1,0 +1,36 @@
+[b]⚔ Défi : Morgane contre Ulysse[/b]
+Morgane : ⚰️1/3 🪖1/2🛡2
+Ulysse : 👁️3/2 🪽3/3🛡1
+
+[b]Déroulé du combat[/b]
+[spoiler]
+Phalange : 🪖 Hoplite (Morgane) gagne +1⚔ (1× même ⚔)
+Morgane attaque en premier (tirage au sort)
+⚰️ Ankou (Morgane) attaque 🪽 Valkyrie (Ulysse) : 1⚔ − 1🛡 → 1 dégât (minimum), reste 2❤
+🪽 Valkyrie (Ulysse) riposte : 3⚔ → 3 dégâts, mort
+Offrande : ⚰️ Ankou (Morgane) accomplit sa quête (5/5 morts) et soigne 8✨ à Morgane
+Phalange : 🪖 Hoplite (Morgane) perd son bonus
+Démesure : 👁️ Cyclope (Ulysse) : face
+👁️ Cyclope (Ulysse) attaque 🪖 Hoplite (Morgane) : 3⚔ − 2🛡 → 1 dégât, reste 1❤
+🪖 Hoplite (Morgane) riposte : 1⚔ → 1 dégât, reste 1❤
+🪖 Hoplite (Morgane) attaque 👁️ Cyclope (Ulysse) : 1⚔ → 1 dégât, mort
+👁️ Cyclope (Ulysse) riposte : 3⚔ − 2🛡 → 1 dégât, mort
+[/spoiler]
+
+[b]Résultat[/b]
+[spoiler]
+Victoire d'Ulysse
+Morgane : —
+Ulysse : 🪽3/2🛡1
+[/spoiler]
+
+[b]Bilan[/b]
+[spoiler]
+Offrande : ⚰️ Ankou (Morgane) en est à 5/5 morts : quête accomplie
+Morgane récupère 8✨ grâce à l'Offrande : 25✨
+Ulysse : +1🏆 (1 → 2🏆) · +1🙏 · 🔺 1 victoire d'affilée
+Survivants d'Ulysse : 🪽 2 = 2✨
+Morgane perd 2✨ · reste 23✨ · 🔻 2 défaites d'affilée
+[/spoiler]
+{hr}
+[i]Seed 225807764065 · dés 23 59 8 / 77 41 66 · données 5b104614 · moteur 0.1.0[/i]

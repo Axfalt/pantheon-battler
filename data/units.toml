@@ -1,0 +1,316 @@
+# Unités. Stats : atk = ⚔ ATQ, hp = ❤ PV, def = 🛡 DÉF.
+# Les mots-clés sont paramétrés ; la liste est dans src/data.rs (enum Keyword).
+
+# ---- Rang 1 ----
+
+[[unit]]
+id = "boar"
+name = "Sanglier"
+emoji = "🐗"
+pantheon = "Gaulish"
+archetype = "Growth"
+tier = 1
+atk = 1
+hp = 4
+def = 0
+keywords = [{ kind = "Grow", hp = 1 }, { kind = "Taunt" }]
+
+[[unit]]
+id = "korrigan"
+name = "Korrigan"
+emoji = "🍄"
+pantheon = "Gaulish"
+archetype = "Gamble"
+tier = 1
+atk = 2
+hp = 3
+def = 0
+keywords = [{ kind = "Chaos", dmg = 1 }, { kind = "Changeling" }]
+
+[[unit]]
+id = "frost_giant"
+name = "Géant du givre"
+emoji = "❄️"
+pantheon = "Norse"
+archetype = "Control"
+tier = 1
+atk = 2
+hp = 3
+def = 0
+keywords = [{ kind = "Chill", amount = 1 }]
+
+[[unit]]
+id = "ushabti"
+name = "Ouchebti"
+emoji = "🗿"
+pantheon = "Egyptian"
+archetype = "Cycle"
+tier = 1
+atk = 2
+hp = 2
+def = 1
+keywords = [{ kind = "Legacy" }]
+
+[[unit]]
+id = "hoplite"
+name = "Hoplite"
+emoji = "🪖"
+pantheon = "GrecoRoman"
+archetype = "Cycle"
+tier = 1
+atk = 1
+hp = 2
+def = 2
+keywords = [{ kind = "Phalanx", atk = 1 }]
+
+[[unit]]
+id = "sisyphus"
+name = "Sisyphe"
+emoji = "🪨"
+pantheon = "GrecoRoman"
+archetype = "Underdog"
+tier = 1
+atk = 0
+hp = 3
+def = 0
+keywords = [{ kind = "Taunt" }, { kind = "Grudge", atk = 1, hp = 1 }]
+
+[[unit]]
+id = "scarab"
+name = "Scarabée sacré"
+emoji = "🪲"
+pantheon = "Egyptian"
+archetype = "Growth"
+tier = 1
+atk = 1
+hp = 2
+def = 0
+keywords = [{ kind = "Grow", atk = 1 }]
+
+[[unit]]
+id = "cyclops"
+name = "Cyclope"
+emoji = "👁️"
+pantheon = "GrecoRoman"
+archetype = "Gamble"
+tier = 1
+atk = 3
+hp = 2
+def = 0
+keywords = [{ kind = "Hubris" }]
+
+[[unit]]
+id = "draugr"
+name = "Draugr"
+emoji = "🧟"
+pantheon = "Norse"
+archetype = "Control"
+tier = 1
+atk = 0
+hp = 4
+def = 0
+keywords = [{ kind = "Taunt" }, { kind = "Thorns", dmg = 1 }]
+
+[[unit]]
+id = "ankou"
+name = "Ankou"
+emoji = "⚰️"
+pantheon = "Gaulish"
+archetype = "Cycle"
+archetype2 = "Underdog"
+tier = 1
+atk = 1
+hp = 3
+def = 0
+keywords = [{ kind = "Offering", deaths = 5, essence = 8 }]
+
+# ---- Rang 2 ----
+
+[[unit]]
+id = "druid"
+name = "Druide"
+emoji = "🌿"
+pantheon = "Gaulish"
+archetype = "Growth"
+tier = 2
+atk = 2
+hp = 4
+def = 0
+keywords = [{ kind = "Bless", atk = 1 }]
+
+[[unit]]
+id = "valkyrie"
+name = "Valkyrie"
+emoji = "🪽"
+pantheon = "Norse"
+archetype = "Cycle"
+tier = 2
+atk = 3
+hp = 3
+def = 1
+keywords = [{ kind = "Escort", atk = 2, hp = 2 }]
+
+[[unit]]
+id = "setne"
+name = "Setné"
+emoji = "📜"
+pantheon = "Egyptian"
+archetype = "Gamble"
+tier = 2
+atk = 2
+hp = 3
+def = 1
+keywords = [{ kind = "Senet", max = 3 }]
+
+[[unit]]
+id = "medusa"
+name = "Méduse"
+emoji = "🐍"
+pantheon = "GrecoRoman"
+archetype = "Control"
+tier = 2
+atk = 2
+hp = 4
+def = 0
+keywords = [{ kind = "Petrify" }]
+
+[[unit]]
+id = "tomb_robber"
+name = "Pilleur de tombes"
+emoji = "⚱️"
+pantheon = "Egyptian"
+archetype = "Underdog"
+tier = 2
+atk = 3
+hp = 3
+def = 0
+keywords = [{ kind = "Plunder", favors = 3 }, { kind = "Hoard", per = 4 }]
+
+# Unités doubles : un mot-clé de chacun de leurs deux archétypes.
+
+[[unit]]
+id = "einherjar"
+name = "Einherjar"
+emoji = "🪓"
+pantheon = "Norse"
+archetype = "Growth"
+archetype2 = "Cycle"
+tier = 2
+atk = 2
+hp = 2
+def = 0
+keywords = [{ kind = "Grow", atk = 1 }, { kind = "Rebirth" }]
+
+[[unit]]
+id = "embalmer"
+name = "Embaumeur"
+emoji = "🏺"
+pantheon = "Egyptian"
+archetype = "Cycle"
+archetype2 = "Gamble"
+tier = 2
+atk = 2
+hp = 4
+def = 1
+keywords = [{ kind = "Raise" }]
+
+[[unit]]
+id = "tarasque"
+name = "Tarasque"
+emoji = "🐢"
+pantheon = "Gaulish"
+archetype = "Gamble"
+archetype2 = "Control"
+tier = 2
+atk = 2
+hp = 3
+def = 0
+keywords = [{ kind = "Chaos", dmg = 1 }, { kind = "Chill", amount = 1 }]
+
+[[unit]]
+id = "heidrun"
+name = "Heiðrún"
+emoji = "🐐"
+pantheon = "Norse"
+archetype = "Control"
+archetype2 = "Underdog"
+tier = 2
+atk = 3
+hp = 4
+def = 0
+keywords = [{ kind = "Lifelink" }]
+
+[[unit]]
+id = "hydra"
+name = "Hydre de Lerne"
+emoji = "🐲"
+pantheon = "GrecoRoman"
+archetype = "Underdog"
+archetype2 = "Growth"
+tier = 2
+atk = 2
+hp = 3
+def = 0
+keywords = [{ kind = "Grudge", atk = 1, hp = 1 }, { kind = "Grow", hp = 1 }]
+
+# ---- Rang 3 ----
+
+[[unit]]
+id = "ymir"
+name = "Ymir"
+emoji = "🏔️"
+pantheon = "Norse"
+archetype = "Growth"
+tier = 3
+atk = 7
+hp = 11
+def = 1
+keywords = [{ kind = "Bless", hp = 1, all = true }]
+
+[[unit]]
+id = "bennu"
+name = "Bénou"
+emoji = "🔥"
+pantheon = "Egyptian"
+archetype = "Cycle"
+tier = 3
+atk = 6
+hp = 6
+def = 0
+keywords = [{ kind = "Resurrect" }, { kind = "Salvage", max = 3 }]
+
+[[unit]]
+id = "minotaur"
+name = "Minotaure"
+emoji = "🐂"
+pantheon = "GrecoRoman"
+archetype = "Gamble"
+tier = 3
+atk = 1
+hp = 1
+def = 1
+keywords = [{ kind = "Devour" }]
+
+[[unit]]
+id = "vouivre"
+name = "Vouivre"
+emoji = "🐉"
+pantheon = "Gaulish"
+archetype = "Control"
+tier = 3
+atk = 6
+hp = 7
+def = 2
+keywords = [{ kind = "Steal", amount = 2 }]
+
+[[unit]]
+id = "cthulhu"
+name = "Cthulhu"
+emoji = "🦑"
+pantheon = "Elder"
+archetype = "Underdog"
+tier = 3
+atk = 4
+hp = 6
+def = 1
+keywords = [{ kind = "Unleash", atk = 1, hp = 1 }]

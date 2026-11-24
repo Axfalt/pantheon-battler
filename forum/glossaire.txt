@@ -1,0 +1,62 @@
+[big][b]📖 Glossaire des mots-clés[/b][/big]
+
+Chaque unité a une [b]ATQ[/b] ⚔, des [b]PV[/b] ❤ et une [b]DÉF[/b] 🛡, plus un ou plusieurs mots-clés qui lui donnent un comportement.
+
+[aparte]Seules les unités [b]sur le terrain[/b] activent leurs mots-clés : celles en réserve dorment, sauf pour les effets à la vente.
+[b]Unités ⭐[/b] (fusionnées) : tous les nombres de leurs mots-clés sont [b]doublés[/b].[/aparte]
+
+[collapse=Déroulé d'un combat]
+[*] Les unités sont alignées [b]de gauche à droite[/b] : la position compte.
+[*] Les camps attaquent [b]à tour de rôle[/b]. Celui qui a le plus d'unités commence ; en cas d'égalité, tirage au sort.
+[*] À son tour, un camp attaque avec son unité [b]la plus à gauche[/b] qui n'a pas encore attaqué. Quand toutes ont attaqué, on recommence par la gauche.
+[*] L'attaquant frappe [b]un ennemi au hasard[/b], qui riposte en même temps.
+[*] Dégâts = ATQ − DÉF, avec un minimum de 1.
+[/collapse]
+
+{hr}
+[big][b]⚔ Début de combat[/b][/big]
+[i]Dans cet ordre : Dévoration, Phalange, puis Pétrification.[/i]
+
+[*] [b]Phalange[/b] · 🪖 Hoplite (+1⚔) : gagne ce bonus pour ce combat, une fois [b]par allié du terrain qui a la même ATQ[/b] que lui, une fois par allié qui a les mêmes PV et une fois par allié qui a la même DÉF. Un allié qui partage deux caractéristiques compte deux fois. Le bonus est [b]recalculé pendant le combat[/b] : il baisse quand un allié meurt ou quand une caractéristique change (Gel, Fascination, Héritage…). Les PV comparés sont ceux d'avant les dégâts. [i]Exemple : avec deux autres unités à 1⚔, l'Hoplite gagne +2⚔.[/i]
+[*] [b]Dévoration[/b] · 🐂 Minotaure : avale l'allié placé juste à sa droite et ajoute son ATQ, ses PV et sa DÉF aux siens pour ce combat. L'allié dévoré revient après le combat, sans déclencher ses effets de mort.
+[*] [b]Pétrification[/b] · 🐍 Méduse : la prochaine attaque du camp adverse est annulée. ⭐ : les deux prochaines.
+
+[big][b]🗡 À chaque attaque de l'unité[/b][/big]
+
+[*] [b]Gel N[/b] · ❄️ Géant du givre (Gel 1) : avant de frapper, l'ennemi placé [b]à la même position[/b] que le Géant perd N⚔ pour ce combat. S'il n'y a personne à cette position, c'est le dernier ennemi de la ligne.
+[*] [b]Chaos N[/b] · 🍄 Korrigan (Chaos 2) : après avoir frappé, inflige N dégâts [b]qui ignorent la DÉF[/b] à une unité vivante au hasard, [b]alliés compris[/b] (jamais à lui-même).
+[*] [b]Fascination N[/b] · 🐉 Vouivre (Fascination 2) : l'éclat de son escarboucle envoûte sa cible. Après avoir frappé, elle lui prend N⚔ pour le reste du combat.
+
+[big][b]💀 À la mort[/b][/big]
+
+[*] [b]Héritage[/b] · 🗿 Ouchebti : donne son ATQ à l'allié placé à sa droite, pour ce combat. ⭐ : le double de son ATQ.
+[*] [b]Renaissance[/b] · 🪓 Einherjar : revient avec 1❤, une fois par combat, même ⭐.
+
+[big][b]💔 Après une défaite[/b][/big]
+
+[*] [b]Rancune[/b] · 🪨 Sisyphe (+1⚔ +1🛡) : gagne ces bonus permanents.
+[*] [b]Pillage N[/b] · ⚱️ Pilleur de tombes (Pillage 2) : +N🙏 à la manche suivante.
+[*] [b]Endurance[/b] · synergie, avec 3 unités 🐺 Revanche sur le terrain : une défaite ou un match nul coûte 2✨ de moins, avec un minimum de 1✨.
+
+[big][b]🛒 Fin de boutique[/b][/big]
+[i]Les Changelins d'abord, puis Vigueur et Bénédiction.[/i]
+
+[*] [b]Changelin[/b] · 🍄 Korrigan : pile ou face. [b]Pile[/b] : devient une copie de l'allié placé à sa gauche, s'il en reste un exemplaire dans la réserve commune ; la copie peut compléter une fusion. [b]Face[/b] : disparaît. ⭐ : ne disparaît jamais. Ne copie pas un autre Changelin.
+[*] [b]Vigueur[/b] · 🐗 Sanglier (+1❤) : gagne ces bonus permanents.
+[*] [b]Vigueur collective[/b] · 🏔️ Ymir (+1❤) : tous les alliés du terrain, Ymir compris, gagnent ces bonus permanents.
+[*] [b]Bénédiction[/b] · 🌿 Druide (+1⚔) : l'allié placé à sa gauche gagne ces bonus permanents.
+
+[big][b]💰 À la vente[/b][/big]
+[i]Fonctionne aussi depuis la réserve.[/i]
+
+[*] [b]Escorte[/b] · 🪽 Valkyrie (+2⚔ +2❤) : un allié du terrain au hasard gagne ces bonus permanents.
+[*] [b]Récupération (max N)[/b] · 🔥 Bénou (max 3) : +1🙏 par Renaissance déclenchée pendant la partie, jusqu'à N.
+
+[big][b]📜 Ordres[/b][/big]
+
+[*] [b]Senet[/b] · 📜 Setné : à chaque attaque, pile ou face. [b]Pile[/b] : les dégâts du coup ne blessent pas la cible, ils deviennent des faveurs pour la manche suivante (3🙏 au plus par combat, le reste blesse normalement). [b]Face[/b] : coup normal.
+[*] [b]Déchaînement[/b] · 🦑 Cthulhu (+1⚔ +1❤) : au début de chaque combat, chaque allié gagne ces bonus multipliés par le nombre de défaites déjà subies, pour ce combat seulement. Le plus fort s'applique, ils ne se cumulent pas.
+
+[big][b]🏦 En permanence[/b][/big]
+
+[*] [b]Magot[/b] · ⚱️ Pilleur de tombes (par 4) : plus de plafond de faveurs (10🙏 sinon), et chaque revenu rapporte +1🙏 pour 4🙏 gardées.

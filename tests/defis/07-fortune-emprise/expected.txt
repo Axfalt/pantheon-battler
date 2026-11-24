@@ -1,0 +1,44 @@
+[b]⚔ Défi : Tyché contre Skadi[/b]
+Tyché : 👁️3/2 🍄2/3 🐢2/3 🐂1/1🛡1
+Skadi : ❄️2/3 🧟0/4 🐍2/4
+Synergies de Tyché : 🎲 Fortune
+Synergies de Skadi : 🔒 Emprise
+
+[b]Déroulé du combat[/b]
+[spoiler]
+Dévoration : 🐂 Minotaure (Tyché) dévore 🧟 Draugr (Skadi) : +4❤
+Pétrification : 🐍 Méduse (Skadi) → Tyché : sa prochaine attaque annulée
+Emprise : chaque unité de Tyché perd 1⚔
+Tyché attaque en premier (plus d'unités)
+👁️ Cyclope (Tyché) est pétrifié : attaque annulée
+Gel : ❄️ Géant du givre (Skadi) → 👁️ Cyclope (Tyché) perd 1⚔
+❄️ Géant du givre (Skadi) attaque 🍄 Korrigan (Tyché) : 2⚔ → 2 dégâts, reste 1❤
+🍄 Korrigan (Tyché) riposte : 1⚔ → 1 dégât, reste 2❤
+🍄 Korrigan (Tyché) attaque ❄️ Géant du givre (Skadi) : 1⚔ → 1 dégât, reste 1❤
+❄️ Géant du givre (Skadi) riposte : 2⚔ → 2 dégâts, mort
+Chaos : 🍄 Korrigan (Tyché) → ❄️ Géant du givre (Skadi) : 1 dégât (ignore la DÉF), mort
+🐍 Méduse (Skadi) attaque 👁️ Cyclope (Tyché) : 2⚔ → 2 dégâts, mort
+👁️ Cyclope (Tyché) riposte : 1⚔ → 1 dégât, reste 3❤
+Gel : 🐢 Tarasque (Tyché) → 🐍 Méduse (Skadi) perd 1⚔
+🐢 Tarasque (Tyché) attaque 🐍 Méduse (Skadi) : 1⚔ → 1 dégât, reste 2❤
+🐍 Méduse (Skadi) riposte : 1⚔ → 1 dégât, reste 2❤
+Chaos : 🐢 Tarasque (Tyché) → tombe sur 🐂 Minotaure (Tyché), retente (Fortune) → 🐍 Méduse (Skadi) : 1 dégât (ignore la DÉF), reste 1❤
+🐍 Méduse (Skadi) attaque 🐢 Tarasque (Tyché) : 1⚔ → 1 dégât, reste 1❤
+🐢 Tarasque (Tyché) riposte : 1⚔ → 1 dégât, mort
+[/spoiler]
+
+[b]Résultat[/b]
+[spoiler]
+Victoire de Tyché
+Tyché : 🐢1/1 🐂0/5🛡1
+Skadi : —
+[/spoiler]
+
+[b]Bilan[/b]
+[spoiler]
+Tyché : +1🏆 (1 → 2🏆) · +1🙏 · 🔺 1 victoire d'affilée
+Survivants de Tyché : 🐢 2 + 🐂 3 = 5✨
+Skadi perd 5✨ · reste 15✨ · 🔻 1 défaite d'affilée
+[/spoiler]
+{hr}
+[i]Seed 981351356920 · dés 99 14 52 / 36 70 21 · données 5b104614 · moteur 0.1.0[/i]

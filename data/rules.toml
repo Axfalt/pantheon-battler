@@ -1,0 +1,96 @@
+# Règles du jeu. Une partie = une semaine de forum.
+
+players = 6
+rounds = 7
+board_size = 4
+reserve_size = 4       # unités gardées qui ne combattent ni n'agissent ; réorganiser est gratuit en phase de boutique
+
+# Économie
+base_income = 5        # faveurs reçues au début de chaque phase de boutique
+favor_cap = 10         # les faveurs au-delà sont perdues à l'arrivée du revenu
+sell_value = 1
+reroll_cost = 1        # ordre `relancer` : remet les offres dans la réserve commune et en tire de nouvelles
+tier_cost = [2, 3, 5]  # prix d'une unité de rang 1, 2, 3
+
+# Réserve commune : exemplaires de chaque unité par joueur de la partie, par rang (arrondi, et
+# jamais moins que merge_copies). Les unités achetées quittent la réserve commune ; les unités
+# vendues, disparues ou éliminées y retournent.
+pool_per_player = [1.5, 1.0, 0.75]
+
+# Fusion : ce nombre d'unités identiques fusionnent en une unité ⭐ dont les stats de base et
+# les effets des mots-clés sont multipliés par merge_power (par rang) ; avec merge_reward, le
+# joueur reçoit aussi une unité aléatoire du rang suivant. Avec top_merge_wins, fusionner des
+# unités du rang le plus haut fait gagner la partie sur-le-champ.
+merge_copies = 3
+merge_power = [2, 2, 4]
+merge_reward = true
+top_merge_wins = true
+
+# Boutique : chaque niveau donne le rang de chaque emplacement d'offre (fenêtre glissante).
+# Les joueurs investissent leurs faveurs peu à peu (ordre `investir N`). Quand les faveurs
+# investies atteignent upgrade_threshold[N-1], la boutique passe du niveau N à N+1 (nouvelles
+# offres dès la manche suivante) et l'excédent est reporté sur le niveau suivant.
+shop_levels = [[1, 1, 1], [1, 2, 2], [2, 2, 3], [3, 3, 3]]
+upgrade_threshold = [4, 8, 8]
+
+# Essence divine (les vies des joueurs)
+starting_essence = 25
+# Défaite : le perdant perd loss_per_tier✨ par rang de chaque unité adverse encore debout à la fin
+# du combat (une unité ⭐ compte merged_factor fois). Match nul : chaque joueur perd
+# draw_loss_per_round✨ par numéro de manche (manche 3 : 3✨).
+loss_per_tier = 1
+merged_factor = 2
+draw_loss_per_round = 1
+
+# Combats
+min_damage = 1          # dégâts = max(ATQ - DÉF, min_damage)
+max_fight_steps = 100   # un combat encore en cours après autant d'échanges est un match nul
+
+# Synergies : aligner au moins `count` unités d'un archétype (une unité ⭐ compte pour une)
+# donne le mot-clé au joueur.
+[[synergy]]
+archetype = "Growth"
+count = 3
+keyword = { kind = "Sap" }
+
+[[synergy]]
+archetype = "Cycle"
+count = 3
+keyword = { kind = "Recurrence" }
+
+[[synergy]]
+archetype = "Gamble"
+count = 3
+keyword = { kind = "Fortune" }
+
+[[synergy]]
+archetype = "Control"
+count = 3
+keyword = { kind = "Grip", atk = 1 }
+
+[[synergy]]
+archetype = "Underdog"
+count = 3
+keyword = { kind = "Endure", essence = 2, floor = 1 }
+
+# Mode Arène : jeu continu sur plusieurs jours, boutique partagée (le Bazar), combats acceptés
+# par les deux joueurs.
+[arena]
+days = 7
+bazar_size = 7          # unités par boutique de niveau sur une page du Bazar
+page_posts = 10         # messages par page du forum : une page pleine tire une nouvelle boutique
+posts_per_page = 2      # messages d'un même joueur sur une page
+post_cost = 1           # chaque message coûte 1🙏 ; une unité coûte son prix moins 1
+bazar_odds = [[80, 20, 0], [55, 45, 0], [30, 65, 5], [15, 75, 10]]   # % de rang 1/2/3 par niveau
+max_fights_per_day = 6
+win_favors = 1
+draw_loss = 1
+comeback_losses = 3     # prime de retour : toutes les 3 défaites d'affilée…
+comeback_favors = 5     # …+5🙏
+win_streak_from = 3     # bonus de série : à partir de la 3e victoire d'affilée…
+win_streak_favors = 1   # …+1🙏 par victoire
+ascension_vp = 5
+plunder_per_loss = 1    # Pillage : faveurs par défaite du jour, versées au tic quotidien
+unleash_max = 5         # Déchaînement : série de défaites comptée au plus
+idle_vp_loss = 1        # 🏆 perdus par un joueur qui n'a pas combattu de la journée
+counter_pick = true     # le défié présente sa composition après avoir vu celle du challenger

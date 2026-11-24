@@ -1,0 +1,41 @@
+[package]
+name = "pantheon-battler"
+version = "0.1.0"
+edition = "2024"
+
+[lib]
+name = "pantheon"
+path = "src/lib.rs"
+
+[[bin]]
+name = "pantheon-battler"
+path = "src/main.rs"
+required-features = ["cli"]
+
+[features]
+default = ["cli"]
+# The command-line simulator.
+cli = ["dep:clap", "dep:rayon", "api"]
+# The JSON API shared by the web page (WebAssembly) and the hidden `api` command.
+api = ["dep:serde_json"]
+
+[dependencies]
+clap = { version = "4.6.9", features = ["derive"], optional = true }
+rand = { version = "0.8", default-features = false, features = ["alloc"] }
+rand_chacha = "0.3"
+rayon = { version = "1.12.0", optional = true }
+serde = { version = "1.0.229", features = ["derive"] }
+serde_json = { version = "1", optional = true }
+toml = "1.2.1"
+
+[workspace]
+members = [".", "wasm"]
+
+# The WebAssembly engine of the web page: small rather than fast.
+[profile.wasm]
+inherits = "release"
+opt-level = "z"
+lto = true
+codegen-units = 1
+panic = "abort"
+strip = true

@@ -1,0 +1,4 @@
+/target
+
+# Server details for scripts/deploy-web.sh (see deploy.env.example)
+deploy.env

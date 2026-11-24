@@ -1,0 +1,34 @@
+[b]⚔ Défi : Morgane contre Thor[/b]
+Morgane : ⭐⚰️2/6 🐗1/4
+Thor : 🪓3/2 🐂1/1🛡1
+
+[b]Déroulé du combat[/b]
+[spoiler]
+Dévoration : 🐂 Minotaure (Thor) dévore 🐗 Sanglier (Morgane) : +1⚔ +4❤
+Thor attaque en premier (plus d'unités)
+🪓 Einherjar (Thor) attaque ⭐⚰️ Ankou (Morgane) : 3⚔ → 3 dégâts, reste 3❤
+⭐⚰️ Ankou (Morgane) riposte : 2⚔ → 2 dégâts, mort
+🪓 Einherjar (Thor) renaît
+⭐⚰️ Ankou (Morgane) attaque 🪓 Einherjar (Thor) : 2⚔ → 2 dégâts, mort
+🪓 Einherjar (Thor) riposte : 3⚔ → 3 dégâts, mort
+Offrande : ⭐⚰️ Ankou (Morgane) accomplit sa quête (5/5 morts) et soigne 8✨ à Morgane
+[/spoiler]
+
+[b]Résultat[/b]
+[spoiler]
+Victoire de Thor
+Morgane : —
+Thor : 🐂2/5🛡1
+[/spoiler]
+
+[b]Bilan[/b]
+[spoiler]
+Offrande : ⭐⚰️ Ankou (Morgane) en est à 5/5 morts : quête accomplie
+Morgane récupère 8✨ grâce à l'Offrande, plafonné à 25✨ : 25✨
+Thor : +1🏆 (2 → 3🏆) · +1🙏 · 🔺 1 victoire d'affilée
+Survivants de Thor : 🐂 3 = 3✨
+Morgane perd 3✨ · reste 22✨ · 🔻 3 défaites d'affilée
+Prime de retour : 3 défaites d'affilée pour Morgane : +5🙏
+[/spoiler]
+{hr}
+[i]Seed 464611028769 · dés 47 47 12 / 3 88 70 · données 5b104614 · moteur 0.1.0[/i]

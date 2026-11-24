@@ -1,0 +1,34 @@
+[b]⚔ Défi : Lovecraft contre Mélusine[/b]
+Lovecraft : 🦑7/9🛡1 🪨4/7
+Mélusine : 🐉6/7🛡2 🐗1/4
+Déchaînement : 🦑 Cthulhu (Lovecraft) : toute l'armée +3⚔ +3❤ pour ce combat (3 défaites d'affilée)
+
+[b]Déroulé du combat[/b]
+[spoiler]
+Mélusine attaque en premier (tirage au sort)
+🐉 Vouivre (Mélusine) attaque 🪨 Sisyphe (Lovecraft) (provocation) : 6⚔ → 6 dégâts, reste 1❤
+🪨 Sisyphe (Lovecraft) riposte : 4⚔ − 2🛡 → 2 dégâts, reste 5❤
+Fascination : 🐉 Vouivre (Mélusine) prend 2⚔ à 🪨 Sisyphe (Lovecraft)
+🦑 Cthulhu (Lovecraft) attaque 🐗 Sanglier (Mélusine) (provocation) : 7⚔ → 7 dégâts, mort
+🐗 Sanglier (Mélusine) riposte : 1⚔ − 1🛡 → 1 dégât (minimum), reste 8❤
+🐉 Vouivre (Mélusine) attaque 🪨 Sisyphe (Lovecraft) (provocation) : 8⚔ → 8 dégâts, mort
+🪨 Sisyphe (Lovecraft) riposte : 2⚔ − 2🛡 → 1 dégât (minimum), reste 4❤
+Fascination : 🐉 Vouivre (Mélusine) prend 2⚔ à 🪨 Sisyphe (Lovecraft)
+🦑 Cthulhu (Lovecraft) attaque 🐉 Vouivre (Mélusine) : 7⚔ − 2🛡 → 5 dégâts, mort
+🐉 Vouivre (Mélusine) riposte : 10⚔ − 1🛡 → 9 dégâts, mort
+[/spoiler]
+
+[b]Résultat[/b]
+[spoiler]
+Match nul
+Lovecraft : —
+Mélusine : —
+[/spoiler]
+
+[b]Bilan[/b]
+[spoiler]
+Match nul : Lovecraft perd 1✨ · reste 13✨
+Match nul : Mélusine perd 1✨ · reste 20✨
+[/spoiler]
+{hr}
+[i]Seed 47037912513 · dés 5 71 38 / 92 26 14 · données 5b104614 · moteur 0.1.0[/i]

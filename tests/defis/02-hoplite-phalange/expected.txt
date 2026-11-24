@@ -1,0 +1,45 @@
+[b]⚔ Défi : Léonidas contre Gorgô[/b]
+Léonidas : ⭐🪖2/4🛡4 ⭐🪲2/4 🗿2/2🛡1
+Gorgô : 🐍2/4 ❄️2/3 🐗1/5
+
+[b]Déroulé du combat[/b]
+[spoiler]
+Phalange : ⭐🪖 Hoplite (Léonidas) gagne +6⚔ (2× même ⚔, 1× même ❤)
+Pétrification : 🐍 Méduse (Gorgô) → Léonidas : sa prochaine attaque annulée
+Gorgô attaque en premier (tirage au sort)
+🐍 Méduse (Gorgô) attaque 🗿 Ouchebti (Léonidas) : 2⚔ − 1🛡 → 1 dégât, reste 1❤
+🗿 Ouchebti (Léonidas) riposte : 2⚔ → 2 dégâts, reste 2❤
+⭐🪖 Hoplite (Léonidas) est pétrifié : attaque annulée
+Gel : ❄️ Géant du givre (Gorgô) → ⭐🪲 Scarabée sacré (Léonidas) perd 1⚔
+Phalange : le bonus de ⭐🪖 Hoplite (Léonidas) passe à +4⚔ (1× même ⚔, 1× même ❤)
+❄️ Géant du givre (Gorgô) attaque 🗿 Ouchebti (Léonidas) : 2⚔ − 1🛡 → 1 dégât, mort
+🗿 Ouchebti (Léonidas) riposte : 2⚔ → 2 dégâts, reste 1❤
+Phalange : le bonus de ⭐🪖 Hoplite (Léonidas) passe à +2⚔ (1× même ❤)
+⭐🪲 Scarabée sacré (Léonidas) attaque 🐗 Sanglier (Gorgô) (provocation) : 1⚔ → 1 dégât, reste 4❤
+🐗 Sanglier (Gorgô) riposte : 1⚔ → 1 dégât, reste 3❤
+🐗 Sanglier (Gorgô) attaque ⭐🪖 Hoplite (Léonidas) : 1⚔ − 4🛡 → 1 dégât (minimum), reste 3❤
+⭐🪖 Hoplite (Léonidas) riposte : 4⚔ → 4 dégâts, mort
+⭐🪖 Hoplite (Léonidas) attaque ❄️ Géant du givre (Gorgô) : 4⚔ → 4 dégâts, mort
+❄️ Géant du givre (Gorgô) riposte : 2⚔ − 4🛡 → 1 dégât (minimum), reste 2❤
+🐍 Méduse (Gorgô) attaque ⭐🪲 Scarabée sacré (Léonidas) : 2⚔ → 2 dégâts, reste 1❤
+⭐🪲 Scarabée sacré (Léonidas) riposte : 1⚔ → 1 dégât, reste 1❤
+⭐🪲 Scarabée sacré (Léonidas) attaque 🐍 Méduse (Gorgô) : 1⚔ → 1 dégât, mort
+🐍 Méduse (Gorgô) riposte : 2⚔ → 2 dégâts, mort
+Phalange : ⭐🪖 Hoplite (Léonidas) perd son bonus
+[/spoiler]
+
+[b]Résultat[/b]
+[spoiler]
+Victoire de Léonidas
+Léonidas : ⭐🪖2/2🛡4
+Gorgô : —
+[/spoiler]
+
+[b]Bilan[/b]
+[spoiler]
+Léonidas : +1🏆 (2 → 3🏆) · +1🙏 · 🔺 1 victoire d'affilée
+Survivants de Léonidas : ⭐🪖 2 = 2✨
+Gorgô perd 2✨ · reste 17✨ · 🔻 2 défaites d'affilée
+[/spoiler]
+{hr}
+[i]Seed 631789063250 · dés 64 18 90 / 7 33 51 · données 5b104614 · moteur 0.1.0[/i]
