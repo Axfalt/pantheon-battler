@@ -694,6 +694,34 @@ body.dragging, body.dragging * { cursor: grabbing !important; }
 .tip .tip-text { margin: 0; font-size: 0.9rem; line-height: 1.25; }
 .tip .tip-star { margin-top: 6px; font-size: 0.85rem; color: var(--muted); }
 
+/* ---------- Bazar (GM) ---------- */
+
+.bz-form { display: flex; flex-wrap: wrap; align-items: flex-end; gap: 16px; }
+.bz-page-field { margin: 0; }
+.bz-page-field input { width: 8em; }
+.bz-levels { border: 0; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 6px 14px; align-items: center; }
+.bz-levels legend { font-weight: 600; color: var(--brown); padding: 0; margin-bottom: 4px; float: left; width: 100%; }
+.bz-levels label { display: inline-flex; align-items: center; gap: 4px; cursor: pointer; }
+.bz-fill { display: flex; flex-wrap: wrap; align-items: flex-end; gap: 8px; }
+.bz-fill .field { margin: 0; }
+.bz-fill input { width: 6em; }
+.bz-shops { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 12px; }
+.bz-list { list-style: none; margin: 0; padding: 0; }
+.bz-list li { display: flex; align-items: center; gap: 8px; padding: 3px 0; border-bottom: 1px dashed var(--papyrus-dark); }
+.bz-list li:last-child { border-bottom: 0; }
+.bz-unit { font-size: 1.5rem; line-height: 1; cursor: help; font-family: "Segoe UI Emoji", "Apple Color Emoji", "Noto Color Emoji", sans-serif; }
+.bz-unit:focus-visible { outline: var(--px) solid var(--turquoise); outline-offset: 2px; }
+.bz-name { flex: 1; }
+.bz-price { font-weight: 700; color: var(--wine); }
+.bz-stock { grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+.stock-list { display: grid; gap: 4px; }
+.stock-row { display: flex; align-items: center; gap: 8px; }
+.stock-row .stock-name { flex: 1; }
+.stock-row input { width: 4.5em; text-align: center; padding: 3px 6px; }
+.stock-row.zero .bz-unit, .stock-row.zero .stock-name { opacity: 0.4; }
+.stock-row.zero .bz-unit { filter: grayscale(1); }
+.stock-row.zero input { color: var(--wine); font-weight: 700; }
+
 /* ---------- What makes each theme its own ---------- */
 
 /* The pantheon's name plate in the header, on wide screens. */

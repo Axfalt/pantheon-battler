@@ -378,7 +378,7 @@
   }
 
   function tipFor(target) {
-    const t = target.closest(".tile, .slot-unit");
+    const t = target.closest(".tile, .slot-unit, .bz-unit");
     return t ? [t, t.dataset.id, t.classList.contains("slot-unit") ? slotEntry(t) : null] : null;
   }
 
@@ -816,6 +816,173 @@
     $("#result").scrollIntoView({ behavior: "smooth", block: "start" });
   }
 
+  // ---------------------------------------------------------------- Bazar (GM)
+  // The reserve the GM keeps: copies left per unit id, remembered in this browser.
+  let bzStock = {};
+
+  const poolCopies = (tier, players) => {
+    const r = Engine.info.rules;
+    return Math.max(r.merge_copies, Math.round(r.pool_per_player[tier - 1] * players));
+  };
+
+  function bzPlayers() {
+    const n = Math.floor(Number($("#bz-players").value) || 0);
+    return Math.max(1, Math.min(200, n));
+  }
+
+  function fullStock(players) {
+    return Object.fromEntries(Engine.info.roster.map((u) => [u.id, poolCopies(u.tier, players)]));
+  }
+
+  function saveStock() {
+    store.set("pantheon.bazar.stock", bzStock);
+    const tiers = {};
+    let total = 0;
+    for (const u of Engine.info.roster) {
+      tiers[u.tier] = (tiers[u.tier] || 0) + bzStock[u.id];
+      total += bzStock[u.id];
+    }
+    $("#bz-total").textContent =
+      `Réserve : ${total} exemplaires · ` + Object.entries(tiers).map(([t, n]) => `rang ${t} : ${n}`).join(" · ");
+  }
+
+  function renderStock() {
+    const roster = Engine.info.roster;
+    const tiers = [...new Set(roster.map((u) => u.tier))];
+    $("#bz-stock").replaceChildren(
+      ...tiers.map((t) =>
+        el(
+          "div",
+          { className: "tier-box" },
+          el("h3", { className: "tier-title", textContent: `Rang ${t}` }),
+          el(
+            "div",
+            { className: "stock-list" },
+            ...roster
+              .filter((u) => u.tier === t)
+              .map((u) => {
+                const input = el("input", { type: "number", min: "0", max: "999", value: String(bzStock[u.id]) });
+                input.setAttribute("aria-label", `Exemplaires restants : ${u.name}`);
+                const row = el(
+                  "div",
+                  { className: "stock-row" + (bzStock[u.id] === 0 ? " zero" : "") },
+                  el("span", { className: "bz-unit", textContent: u.emoji, tabIndex: 0 }),
+                  el("span", { className: "stock-name", textContent: u.name }),
+                  input,
+                );
+                row.firstChild.dataset.id = u.id;
+                input.addEventListener("input", () => {
+                  const v = Math.max(0, Math.min(999, Math.floor(Number(input.value) || 0)));
+                  bzStock[u.id] = v;
+                  row.classList.toggle("zero", v === 0);
+                  saveStock();
+                });
+                input.addEventListener("change", () => (input.value = String(bzStock[u.id])));
+                return row;
+              }),
+          ),
+        ),
+      ),
+    );
+    saveStock();
+  }
+
+  function drawShops() {
+    const levels = $$(".bz-levels input:checked").map((c) => Number(c.value));
+    const page = Math.floor(Number($("#bz-page").value) || 0);
+    const [a, b] = crypto.getRandomValues(new Uint32Array(2));
+    const seed = (a % 100000) * 100000 + (b % 100000);
+    let r;
+    try {
+      r = Engine.call({ op: "shop", levels, page: page > 0 ? page : null, players: bzPlayers(), stock: bzStock, seed });
+    } catch (e) {
+      messages($("#bz-messages"), [e.message]);
+      return;
+    }
+    if (!r.ok) {
+      messages($("#bz-messages"), r.errors);
+      $("#bz-result").hidden = true;
+      return;
+    }
+    messages($("#bz-messages"), [], r.warnings);
+    $("#bz-result-page").textContent = page > 0 ? String(page) : "";
+    $("#bz-shops").replaceChildren(
+      ...r.shops.map((s) =>
+        el(
+          "div",
+          { className: "tier-box" },
+          el("h3", { className: "tier-title", textContent: `Niveau ${s.level}` }),
+          s.units.length
+            ? el(
+                "ul",
+                { className: "bz-list" },
+                ...s.units.map((u) => {
+                  const li = el(
+                    "li",
+                    {},
+                    el("span", { className: "bz-unit", textContent: u.emoji, tabIndex: 0 }),
+                    el("span", { className: "bz-name", textContent: u.name }),
+                    el("span", { className: "bz-price", textContent: `${u.price}🙏` }),
+                  );
+                  li.firstChild.dataset.id = u.id;
+                  return li;
+                }),
+              )
+            : el("p", { className: "hint", textContent: "Réserve vide : rien à vendre." }),
+        ),
+      ),
+    );
+    $("#bz-forum").value = r.forum;
+    $("#bz-preview").innerHTML = renderTwino(r.forum);
+    $("#bz-result").hidden = false;
+    $("#bz-result").scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+
+  function startBazar() {
+    const rules = Engine.info.rules;
+    const players = store.get("pantheon.bazar.players", rules.players);
+    $("#bz-players").value = String(players);
+    $("#bz-rates").textContent =
+      rules.pool_per_player.map((r, k) => `rang ${k + 1} : ${String(r).replace(".", ",")} par joueur`).join(" · ") +
+      `, arrondi, jamais moins de ${rules.merge_copies}`;
+    $("#bz-page").value = String(store.get("pantheon.bazar.page", 1));
+    const saved = store.get("pantheon.bazar.stock", null);
+    bzStock = fullStock(players);
+    if (saved && typeof saved === "object") {
+      for (const id of Object.keys(bzStock)) {
+        const v = Number(saved[id]);
+        if (Number.isInteger(v) && v >= 0 && v <= 999) bzStock[id] = v;
+      }
+    }
+    renderStock();
+    $("#bz-players").addEventListener("input", () => store.set("pantheon.bazar.players", bzPlayers()));
+    $("#bz-page").addEventListener("input", () => store.set("pantheon.bazar.page", Math.floor(Number($("#bz-page").value) || 1)));
+    $("#bz-fill").addEventListener("click", () => {
+      const players = bzPlayers();
+      const full = fullStock(players);
+      const changed = Object.keys(full).some((id) => full[id] !== bzStock[id]);
+      if (changed && !window.confirm(`Remplacer la réserve actuelle par la réserve complète pour ${players} joueurs ?`)) return;
+      bzStock = full;
+      renderStock();
+    });
+    $("#bz-draw").addEventListener("click", drawShops);
+    $("#bz-draw").disabled = false;
+    $("#bz-copy").addEventListener("click", async (ev) => {
+      const ok = await copyText($("#bz-forum").value, ev.currentTarget);
+      if (ok) {
+        const next = Math.floor(Number($("#bz-page").value) || 0) + 1;
+        $("#bz-page").value = String(next);
+        store.set("pantheon.bazar.page", next);
+      }
+    });
+    const tab = $("#tab-bazar");
+    tab.addEventListener("focusin", (ev) => {
+      const t = ev.target.closest(".bz-unit");
+      if (t && !pinned) showTip(t.dataset.id, t);
+    });
+    tab.addEventListener("focusout", hideTip);
+  }
+
   // ---------------------------------------------------------------- Start
   function wire() {
     for (const b of $$(".tabs button")) b.addEventListener("click", () => showTab(b.dataset.tab));
@@ -981,6 +1148,7 @@
     $("#footer").textContent = `Moteur ${info.version} · données ${info.data_hash} · commit ${window.PANTHEON_GIT || "inconnu"}`;
     $("#run").disabled = false;
     renderPalette();
+    startBazar();
     $("#synergy-list").addEventListener("click", (ev) => {
       const li = ev.target.closest("li[data-archetype]");
       if (li) filterSynergy(li.dataset.archetype);
