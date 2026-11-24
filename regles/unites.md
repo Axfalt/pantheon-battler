@@ -1,6 +1,6 @@
 # 📖 Les créatures de Pantheon Battler
 
-Les 31 créatures du jeu, rang par rang. Les règles générales sont dans [regles.md](regles.md).
+Les 32 créatures du jeu, rang par rang. Les règles générales sont dans [regles.md](regles.md).
 
 **Rappels**
 
@@ -26,12 +26,13 @@ Les 31 créatures du jeu, rang par rang. Les règles générales sont dans [regl
 | 🪨 | Sisyphe | Gréco-Romain | 🐺 Revanche | 1 | 2🙏 | 0 | 3 | 0 | Provocation · Rancune +1⚔ +1❤ |
 | 🙌 | Ka | Égyptien | 🌱 Croissance | 1 | 2🙏 | 1 | 2 | 0 | Bénédiction +1❤ |
 | 👁️ | Cyclope | Gréco-Romain | 🎲 Chance | 1 | 2🙏 | 3 | 2 | 0 | Démesure |
-| 🧟 | Draugr | Scandinave | 🔒 Contrôle | 1 | 2🙏 | 0 | 3 | 0 | Provocation · Représailles 1 · Renaissance |
+| 🧟 | Draugr | Scandinave | ♻️ Cycle | 1 | 2🙏 | 0 | 3 | 0 | Provocation · Représailles 1 · Renaissance |
 | ⚰️ | Ankou | Gaulois | ♻️ Cycle / 🐺 Revanche | 1 | 2🙏 | 1 | 3 | 0 | Offrande (5 morts → +8✨) |
 | 🐖 | Sæhrímnir | Scandinave | ♻️ Cycle | 1 | 2🙏 | 2 | 1 | 0 | Renaissance · Héritage |
 | 🌲 | Bugul-noz | Gaulois | 🔒 Contrôle | 1 | 2🙏 | 1 | 4 | 0 | Provocation · Effroi −1⚔ |
 | 🍀 | Leprechaun | Gaulois | 🎲 Chance | 1 | 2🙏 | 2 | 2 | 0 | Pot d'or +1🙏/⭐ |
 | 🦇 | Érinye | Gréco-Romain | 🐺 Revanche | 1 | 2🙏 | 3 | 3 | 1 | Châtiment |
+| 🐺 | Louve capitoline | Gréco-Romain | 🌱 Croissance | 1 | 2🙏 | 1 | 3 | 0 | Nourricière +1⚔ |
 | 🌿 | Druide | Gaulois | 🌱 Croissance | 2 | 3🙏 | 2 | 4 | 0 | Bénédiction +1⚔ +1❤ |
 | 🪽 | Valkyrie | Scandinave | ♻️ Cycle | 2 | 3🙏 | 3 | 3 | 1 | Escorte +2⚔ +2❤ |
 | 📜 | Setné | Égyptien | 🎲 Chance | 2 | 3🙏 | 2 | 3 | 1 | Senet |
@@ -54,10 +55,10 @@ Les 31 créatures du jeu, rang par rang. Les règles générales sont dans [regl
 
 | Archétype | Style de jeu | Unités |
 |---|---|---|
-| 🌱 Croissance | Des unités qui grandissent chaque jour. | Sanglier, Ka, Druide, Einherjar, Hydre de Lerne, Ymir |
-| ♻️ Cycle | La mort n'est qu'un passage : retours, héritages, quêtes. | Ouchebti, Ankou, Sæhrímnir, Valkyrie, Einherjar, Embaumeur, Bénou |
+| 🌱 Croissance | Des unités qui grandissent chaque jour. | Sanglier, Ka, Louve capitoline, Druide, Einherjar, Hydre de Lerne, Ymir |
+| ♻️ Cycle | La mort n'est qu'un passage : retours, héritages, quêtes. | Ouchebti, Draugr, Ankou, Sæhrímnir, Valkyrie, Einherjar, Embaumeur, Bénou |
 | 🎲 Chance | Pile ou face, coups au hasard, gros paris. | Korrigan, Cyclope, Leprechaun, Setné, Oudjat, Embaumeur, Tarasque, Minotaure |
-| 🔒 Contrôle | Affaiblir, bloquer et user l'adversaire. | Géant du givre, Hoplite, Draugr, Bugul-noz, Méduse, Tarasque, Heiðrún, Vouivre, Nyarlathotep |
+| 🔒 Contrôle | Affaiblir, bloquer et user l'adversaire. | Géant du givre, Hoplite, Bugul-noz, Méduse, Tarasque, Heiðrún, Vouivre, Nyarlathotep |
 | 🐺 Revanche | Chaque défaite rend plus fort. | Sisyphe, Ankou, Érinye, Pilleur de tombes, Heiðrún, Hydre de Lerne, Cthulhu |
 
 ---
@@ -166,7 +167,7 @@ Draugr par exemple.
 sur quatre.
 
 ### 🧟 Draugr
-*Scandinave · 🔒 Contrôle · 0⚔ / 3❤ / 0🛡*
+*Scandinave · ♻️ Cycle · 0⚔ / 3❤ / 0🛡*
 
 - **Provocation** · les ennemis doivent l'attaquer en priorité.
 - **Représailles 1** · chaque fois qu'un ennemi l'attaque, cet ennemi subit 1 dégât qui
@@ -242,6 +243,18 @@ le Draugr.
 
 **En pratique** : de grosses stats pour un rang 1, mais elle s'échange contre sa première
 victime. Idéale contre une unité qui compte beaucoup pour l'adversaire.
+
+### 🐺 Louve capitoline
+*Gréco-Romain · 🌱 Croissance · 1⚔ / 3❤ / 0🛡*
+
+- **Nourricière +1⚔** · chaque jour, la Louve **et** l'allié placé **juste à sa droite**
+  gagnent +1⚔ en bonus permanent. ⭐ : +2⚔ chacun.
+
+> La louve du Capitole qui recueillit et allaita Romulus et Remus, les jumeaux fondateurs de
+> Rome.
+
+**En pratique** : elle grandit avec son protégé. Placez à sa droite l'unité à faire grandir ;
+avec la synergie Sève, chacun gagne +2⚔ par jour.
 
 ---
 

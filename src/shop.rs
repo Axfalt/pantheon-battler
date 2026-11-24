@@ -271,6 +271,12 @@ pub fn end_of_shop(
                 Keyword::Bless { atk, hp, all: false } if i > 0 => {
                     add(&mut deltas[i - 1], up(atk, m), up(hp, m), 0)
                 }
+                Keyword::Nurture { atk, hp } => {
+                    add(&mut deltas[i], up(atk, m), up(hp, m), 0);
+                    if i + 1 < n {
+                        add(&mut deltas[i + 1], up(atk, m), up(hp, m), 0);
+                    }
+                }
                 _ => {}
             }
         }

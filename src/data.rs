@@ -163,7 +163,8 @@ pub enum Keyword {
     /// On attack: heals the most wounded living ally (lowest PV, itself included) by the
     /// damage it dealt, up to its max PV.
     Lifelink,
-    /// Synergy: every end-of-shop growth effect (Grow, Bless) gives +1 more in each stat it raises.
+    /// Synergy: every end-of-shop growth effect (Grow, Bless, Nurture) gives +1 more in each stat it
+    /// raises.
     Sap,
     /// Synergy: once per fight, the first ally that dies for good comes back with 1 PV.
     Recurrence,
@@ -205,6 +206,13 @@ pub enum Keyword {
     },
     /// Each day: `favors` per ⭐ unit on its board, with the income ("Pot d'or").
     PotOfGold { favors: i32 },
+    /// Each day: itself and the ally on its right gain the stats permanently ("Nourricière").
+    Nurture {
+        #[serde(default)]
+        atk: i32,
+        #[serde(default)]
+        hp: i32,
+    },
 }
 
 pub fn bonus(atk: i32, hp: i32, def: i32) -> String {
@@ -243,6 +251,7 @@ impl Keyword {
             Keyword::Dread { atk } => Keyword::Dread { atk: atk * m },
             Keyword::LuckyStar { atk, hp } => Keyword::LuckyStar { atk: atk * m, hp: hp * m },
             Keyword::PotOfGold { favors } => Keyword::PotOfGold { favors: favors * m },
+            Keyword::Nurture { atk, hp } => Keyword::Nurture { atk: atk * m, hp: hp * m },
             k => k,
         }
     }
@@ -404,7 +413,7 @@ impl Keyword {
             ),
             Keyword::Sap => (
                 "Synergie",
-                "Chaque Vigueur et Bénédiction donne +1 de plus dans chaque caractéristique qu'elle augmente.".to_string(),
+                "Chaque Vigueur, Bénédiction et Nourricière donne +1 de plus dans chaque caractéristique qu'elle augmente.".to_string(),
             ),
             Keyword::Recurrence => (
                 "En combat",
@@ -455,6 +464,10 @@ impl Keyword {
                     "Chaque jour, rapporte +{favors}🙏 par unité ⭐ sur le terrain de son joueur, avec le revenu (plafond de {}🙏).",
                     rules.favor_cap
                 ),
+            ),
+            Keyword::Nurture { atk, hp } => (
+                "Chaque jour",
+                format!("Chaque jour, elle et l'allié placé juste à sa droite gagnent {} en bonus permanent : placez à sa droite l'unité à faire grandir.", bonus(atk, hp, 0)),
             ),
             Keyword::Unleash { atk, hp } => (
                 "Début de combat",
@@ -513,6 +526,7 @@ impl fmt::Display for Keyword {
             Keyword::Vengeance => write!(f, "Châtiment"),
             Keyword::LuckyStar { atk, hp } => write!(f, "Bonne étoile {}/⭐", bonus(atk, hp, 0)),
             Keyword::PotOfGold { favors } => write!(f, "Pot d'or +{favors}🙏/⭐"),
+            Keyword::Nurture { atk, hp } => write!(f, "Nourricière {}", bonus(atk, hp, 0)),
         }
     }
 }

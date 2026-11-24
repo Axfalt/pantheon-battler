@@ -657,4 +657,17 @@ mod tests {
         crate::shop::income(&data, &mut p);
         assert_eq!(p.favors, data.rules.base_income + 2);
     }
+
+    #[test]
+    fn nurture_feeds_itself_and_its_right() {
+        let data = data();
+        let mut p = crate::state::Player::new("A".into(), 0, 25);
+        let unit = |id: &str| Unit::new(&data, data.unit_index(id).unwrap());
+        p.board = vec![unit("cyclops"), unit("she_wolf"), unit("boar")];
+        let mut pool = crate::state::Pool::new(&data);
+        crate::shop::end_of_shop(&data, &mut p, &mut pool, &mut GameRng::seed_from_u64(1), None);
+        let stats: Vec<(i32, i32)> = p.board.iter().map(|u| (u.atk, u.hp)).collect();
+        // Cyclope untouched, Louve +1⚔, Sanglier +1⚔ (and its own Vigueur +1❤).
+        assert_eq!(stats, [(3, 2), (2, 3), (2, 5)]);
+    }
 }

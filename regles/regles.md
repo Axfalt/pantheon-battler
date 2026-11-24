@@ -192,7 +192,7 @@ Une unité à double archétype compte pour les deux.
 
 | Archétype | Synergie | Effet |
 |---|---|---|
-| 🌱 Croissance | **Sève** | Chaque Vigueur et Bénédiction donne +1 de plus dans chaque caractéristique qu'elle augmente. |
+| 🌱 Croissance | **Sève** | Chaque Vigueur, Bénédiction et Nourricière donne +1 de plus dans chaque caractéristique qu'elle augmente. |
 | ♻️ Cycle | **Éternel retour** | Une fois par combat, le premier allié qui meurt définitivement revient avec 1❤. |
 | 🎲 Chance | **Fortune** | Chaque tirage raté (pile ou face, Momification…) est retenté une fois ; un Chaos ou une Dévoration qui tombe sur un allié est retiré une fois. |
 | 🔒 Contrôle | **Emprise** | Au début du combat, chaque ennemi perd 1⚔. |

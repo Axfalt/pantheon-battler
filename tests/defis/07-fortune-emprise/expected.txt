@@ -1,12 +1,12 @@
 [b]⚔ Défi : Tyché contre Skadi[/b]
 Tyché : 👁️3/2 🍄2/3 🐢2/3 🐂1/1🛡1
-Skadi : ❄️2/3 🧟0/4 🐍2/4
+Skadi : ❄️2/3 🌲1/4 🐍2/4
 Synergies de Tyché : 🎲 Fortune
 Synergies de Skadi : 🔒 Emprise
 
 [b]Déroulé du combat[/b]
 [spoiler]
-Dévoration : 🐂 Minotaure (Tyché) dévore 🧟 Draugr (Skadi) : +4❤
+Dévoration : 🐂 Minotaure (Tyché) dévore 🌲 Bugul-noz (Skadi) : +1⚔ +4❤
 Pétrification : 🐍 Méduse (Skadi) → Tyché : sa prochaine attaque annulée
 Emprise : chaque unité de Tyché perd 1⚔
 Tyché attaque en premier (plus d'unités)
@@ -32,7 +32,7 @@ Regard de pierre : 🐍 Méduse (Skadi) → 🐢 Tarasque (Tyché) perd tous ses
 [b]Résultat[/b]
 [spoiler]
 Victoire de Tyché
-Tyché : 🐢1/1 🐂0/5🛡1
+Tyché : 🐢1/1 🐂1/5🛡1
 Skadi : —
 [/spoiler]
 
@@ -43,4 +43,4 @@ Survivants de Tyché : 🐢 2 + 🐂 3 = 5✨
 Skadi perd 5✨ · reste 15✨ · 🔻 1 défaite d'affilée
 [/spoiler]
 {hr}
-[i]Seed 981351356920 · dés 99 14 52 / 36 70 21 · données 39d977a2 · moteur 0.1.0[/i]
+[i]Seed 981351356920 · dés 99 14 52 / 36 70 21 · données 8c3c18e8 · moteur 0.1.0[/i]
