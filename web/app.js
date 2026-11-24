@@ -1,173 +1,9 @@
-// Pantheon Battler: the challenge page. Runs the Rust engine (WebAssembly, embedded in
-// engine-wasm.js) through its JSON API; this script only handles the page.
+// Pantheon Battler: the challenge page. The engine and the shared helpers come from core.js
+// (window.PB); this script only handles the page.
 "use strict";
 
 (function () {
-  const $ = (sel, root = document) => root.querySelector(sel);
-  const $$ = (sel, root = document) => Array.from(root.querySelectorAll(sel));
-  const el = (tag, props = {}, ...children) => {
-    const node = document.createElement(tag);
-    Object.assign(node, props);
-    for (const c of children) node.append(c);
-    return node;
-  };
-
-  // ---------------------------------------------------------------- Engine
-  const Engine = {
-    module: null,
-    exports: null,
-    panic: null,
-    info: null,
-
-    async load() {
-      if (!window.PANTHEON_WASM) throw new Error("engine-wasm.js est absent ou vide.");
-      const bin = Uint8Array.from(atob(window.PANTHEON_WASM), (c) => c.charCodeAt(0));
-      this.module = await WebAssembly.compile(bin);
-      await this.instantiate();
-      this.info = this.call({ op: "info" });
-    },
-
-    async instantiate() {
-      const self = this;
-      const instance = await WebAssembly.instantiate(this.module, {
-        env: {
-          host_error(ptr, len) {
-            self.panic = new TextDecoder().decode(new Uint8Array(self.exports.memory.buffer, ptr, len));
-          },
-        },
-      });
-      this.exports = instance.exports;
-    },
-
-    // Synchronous call; after a crash the instance is rebuilt in the background.
-    call(request) {
-      const ex = this.exports;
-      if (!ex) throw new Error("Le moteur redémarre, réessayez dans un instant.");
-      const input = new TextEncoder().encode(JSON.stringify(request));
-      const p = ex.pb_alloc(input.length);
-      new Uint8Array(ex.memory.buffer, p, input.length).set(input);
-      let r;
-      try {
-        r = ex.pb_call(p, input.length);
-      } catch (e) {
-        const why = this.panic || e.message;
-        this.panic = null;
-        this.exports = null;
-        this.instantiate();
-        throw new Error("Le moteur a rencontré une erreur interne : " + why);
-      }
-      ex.pb_free(p, input.length);
-      const len = new DataView(ex.memory.buffer).getUint32(r, true);
-      const out = new TextDecoder().decode(new Uint8Array(ex.memory.buffer, r + 4, len));
-      ex.pb_free(r, len + 4);
-      return JSON.parse(out);
-    },
-  };
-
-  // ---------------------------------------------------------------- Small helpers
-  const store = {
-    get(key, fallback) {
-      try {
-        const v = localStorage.getItem(key);
-        return v ? JSON.parse(v) : fallback;
-      } catch (e) {
-        return fallback;
-      }
-    },
-    set(key, value) {
-      try {
-        localStorage.setItem(key, JSON.stringify(value));
-      } catch (e) {
-        /* private mode, quota: the page works without it */
-      }
-    },
-  };
-
-  function debounce(fn, ms) {
-    let t = null;
-    return (...args) => {
-      clearTimeout(t);
-      t = setTimeout(() => fn(...args), ms);
-    };
-  }
-
-  async function copyText(text, button) {
-    let ok = false;
-    try {
-      if (navigator.clipboard && window.isSecureContext) {
-        await navigator.clipboard.writeText(text);
-        ok = true;
-      }
-    } catch (e) {
-      ok = false;
-    }
-    if (!ok) {
-      const area = el("textarea", { value: text });
-      area.setAttribute("readonly", "");
-      area.style.position = "fixed";
-      area.style.opacity = "0";
-      document.body.append(area);
-      area.select();
-      try {
-        ok = document.execCommand("copy");
-      } catch (e) {
-        ok = false;
-      }
-      area.remove();
-    }
-    if (button) {
-      const label = button.dataset.label || button.textContent;
-      button.dataset.label = label;
-      button.textContent = ok ? "Copié ✓" : "Copie impossible : sélectionnez le texte";
-      setTimeout(() => (button.textContent = label), 1600);
-    }
-    return ok;
-  }
-
-  function messages(box, errors = [], warnings = [], oks = []) {
-    box.replaceChildren(
-      ...errors.map((m) => el("p", { className: "msg error", textContent: m })),
-      ...warnings.map((m) => el("p", { className: "msg warn", textContent: m })),
-      ...oks.map((m) => el("p", { className: "msg ok", textContent: m })),
-    );
-  }
-
-  // Twino (BBCode) preview: [b] [i] [big] [*] {hr} and [spoiler] blocks, everything else escaped.
-  function escapeHtml(s) {
-    return s.replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]);
-  }
-  function renderTwino(text) {
-    const inline = (line) =>
-      escapeHtml(line)
-        .replace(/\[b\]/g, "<strong>")
-        .replace(/\[\/b\]/g, "</strong>")
-        .replace(/\[i\]/g, "<em>")
-        .replace(/\[\/i\]/g, "</em>")
-        .replace(/\[big\]/g, '<span class="big">')
-        .replace(/\[\/big\]/g, "</span>")
-        .replace(/\[\*\]/g, "• ");
-    let html = "";
-    let depth = 0;
-    for (const line of text.split("\n")) {
-      const t = line.trim();
-      if (t === "[spoiler]") {
-        html += "<details><summary>Spoiler</summary>";
-        depth++;
-      } else if (t === "[/spoiler]") {
-        if (depth > 0) {
-          html += "</details>";
-          depth--;
-        }
-      } else if (t === "{hr}") {
-        html += "<hr>";
-      } else {
-        html += inline(line) + "<br>";
-      }
-    }
-    while (depth-- > 0) html += "</details>";
-    // Unbalanced tags in user text can't leak: the browser closes them inside the preview box.
-    return html;
-  }
+  const { $, $$, el, Engine, store, debounce, copyText, messages, renderTwino, unitById, baseStats, tipBody, placeTip } = window.PB;
 
   // Share links: the inputs, as base64url JSON in the URL hash.
   function encodeShare(obj) {
@@ -193,13 +29,6 @@
   }
 
   // ---------------------------------------------------------------- Units
-  const unitById = (id) => Engine.info.roster.find((u) => u.id === id);
-
-  function baseStats(u, star) {
-    const p = star ? u.star_power : 1;
-    return { atk: u.atk * p, hp: u.hp * p, def: u.def * p };
-  }
-
   const newEntry = (u, star = false) => ({ id: u.id, star, deaths: 0, ...baseStats(u, star) });
 
   // Merged mode of the palette: the tiles show, and place, the ⭐ version of each creature.
@@ -313,46 +142,12 @@
     const u = unitById(id);
     if (!u || dragging) return;
     const box = tip();
-    const synergy = (a) => {
-      const s = Engine.info.synergies.find((x) => x.archetype === a);
-      return s ? `${a} (×${s.count} : ${s.keyword.split(" (")[0]})` : a;
-    };
     const star = entry ? !!entry.star : anchor.classList.contains("tile") && mergedOk(u);
-    const base = baseStats(u, star);
-    const off = anchor.classList.contains("off");
     box.replaceChildren(
-      el("p", { className: "tip-title" }, el("span", { className: "tip-emoji", textContent: (star ? "⭐" : "") + u.emoji }), ` ${u.name}`),
-      el("p", { className: "tip-meta", textContent: `Rang ${u.tier} · ${u.cost}🙏 · ${u.pantheon}` + (star ? " · version fusionnée" : "") }),
-      el("p", { className: "tip-stats", textContent: `${star ? "Base ⭐" : "Base"} : ⚔ ${base.atk}   ❤ ${base.hp}   🛡 ${base.def}` }),
-      entry
-        ? el("p", { className: "tip-here", textContent: `Sur ce terrain : ${entry.star ? "⭐ " : ""}⚔ ${entry.atk}   ❤ ${entry.hp}   🛡 ${entry.def}` + (u.offering ? ` · Offrande ${entry.deaths || 0}/${u.offering}` : "") })
-        : "",
-      ...((star ? u.details_star : u.details) || []).map((d) =>
-        el(
-          "div",
-          { className: "tip-power" },
-          el("p", { className: "tip-power-head" }, el("strong", { textContent: d.name }), el("span", { className: "tip-when", textContent: d.when })),
-          el("p", { className: "tip-text", textContent: d.text }),
-        ),
-      ),
-      !u.star_allowed
-        ? el("p", { className: "tip-star", textContent: `Rang 3 : fusionner trois exemplaires est une Ascension (+5🏆)${off ? ", il n'a donc pas de version ⭐" : ""}.` })
-        : star
-          ? el("p", { className: "tip-star", textContent: `⭐ Fusionnée : trois exemplaires réunis, stats de base ×${u.star_power} et nombres de ses pouvoirs doublés.` })
-          : el("p", { className: "tip-star", textContent: `Version ⭐ (3 exemplaires) : stats de base ×${u.star_power} et nombres de ses pouvoirs doublés. Bouton « ⭐ Fusionnées » pour la voir.` }),
-      el("p", { className: "tip-meta", textContent: u.archetypes.map(synergy).join(" · ") }),
+      ...tipBody(u, { star, entry, off: anchor.classList.contains("off"), starHint: " Bouton « ⭐ Fusionnées » pour la voir." }),
     );
     box.hidden = false;
-    // Next to the tile, kept inside the window.
-    const r = anchor.getBoundingClientRect();
-    const w = box.offsetWidth;
-    const h = box.offsetHeight;
-    let x = r.left + r.width / 2 - w / 2;
-    x = Math.max(8, Math.min(window.innerWidth - w - 8, x));
-    let y = r.bottom + 8;
-    if (y + h > window.innerHeight - 8) y = Math.max(8, r.top - h - 8);
-    box.style.left = `${x + window.scrollX}px`;
-    box.style.top = `${y + window.scrollY}px`;
+    placeTip(box, anchor);
   }
 
   // Hover tooltips go away by themselves; a pinned one waits for a click elsewhere or Échap.
@@ -378,7 +173,7 @@
   }
 
   function tipFor(target) {
-    const t = target.closest(".tile, .slot-unit, .bz-unit");
+    const t = target.closest(".tile, .slot-unit");
     return t ? [t, t.dataset.id, t.classList.contains("slot-unit") ? slotEntry(t) : null] : null;
   }
 
@@ -816,173 +611,6 @@
     $("#result").scrollIntoView({ behavior: "smooth", block: "start" });
   }
 
-  // ---------------------------------------------------------------- Bazar (GM)
-  // The reserve the GM keeps: copies left per unit id, remembered in this browser.
-  let bzStock = {};
-
-  const poolCopies = (tier, players) => {
-    const r = Engine.info.rules;
-    return Math.max(r.merge_copies, Math.round(r.pool_per_player[tier - 1] * players));
-  };
-
-  function bzPlayers() {
-    const n = Math.floor(Number($("#bz-players").value) || 0);
-    return Math.max(1, Math.min(200, n));
-  }
-
-  function fullStock(players) {
-    return Object.fromEntries(Engine.info.roster.map((u) => [u.id, poolCopies(u.tier, players)]));
-  }
-
-  function saveStock() {
-    store.set("pantheon.bazar.stock", bzStock);
-    const tiers = {};
-    let total = 0;
-    for (const u of Engine.info.roster) {
-      tiers[u.tier] = (tiers[u.tier] || 0) + bzStock[u.id];
-      total += bzStock[u.id];
-    }
-    $("#bz-total").textContent =
-      `Réserve : ${total} exemplaires · ` + Object.entries(tiers).map(([t, n]) => `rang ${t} : ${n}`).join(" · ");
-  }
-
-  function renderStock() {
-    const roster = Engine.info.roster;
-    const tiers = [...new Set(roster.map((u) => u.tier))];
-    $("#bz-stock").replaceChildren(
-      ...tiers.map((t) =>
-        el(
-          "div",
-          { className: "tier-box" },
-          el("h3", { className: "tier-title", textContent: `Rang ${t}` }),
-          el(
-            "div",
-            { className: "stock-list" },
-            ...roster
-              .filter((u) => u.tier === t)
-              .map((u) => {
-                const input = el("input", { type: "number", min: "0", max: "999", value: String(bzStock[u.id]) });
-                input.setAttribute("aria-label", `Exemplaires restants : ${u.name}`);
-                const row = el(
-                  "div",
-                  { className: "stock-row" + (bzStock[u.id] === 0 ? " zero" : "") },
-                  el("span", { className: "bz-unit", textContent: u.emoji, tabIndex: 0 }),
-                  el("span", { className: "stock-name", textContent: u.name }),
-                  input,
-                );
-                row.firstChild.dataset.id = u.id;
-                input.addEventListener("input", () => {
-                  const v = Math.max(0, Math.min(999, Math.floor(Number(input.value) || 0)));
-                  bzStock[u.id] = v;
-                  row.classList.toggle("zero", v === 0);
-                  saveStock();
-                });
-                input.addEventListener("change", () => (input.value = String(bzStock[u.id])));
-                return row;
-              }),
-          ),
-        ),
-      ),
-    );
-    saveStock();
-  }
-
-  function drawShops() {
-    const levels = $$(".bz-levels input:checked").map((c) => Number(c.value));
-    const page = Math.floor(Number($("#bz-page").value) || 0);
-    const [a, b] = crypto.getRandomValues(new Uint32Array(2));
-    const seed = (a % 100000) * 100000 + (b % 100000);
-    let r;
-    try {
-      r = Engine.call({ op: "shop", levels, page: page > 0 ? page : null, players: bzPlayers(), stock: bzStock, seed });
-    } catch (e) {
-      messages($("#bz-messages"), [e.message]);
-      return;
-    }
-    if (!r.ok) {
-      messages($("#bz-messages"), r.errors);
-      $("#bz-result").hidden = true;
-      return;
-    }
-    messages($("#bz-messages"), [], r.warnings);
-    $("#bz-result-page").textContent = page > 0 ? String(page) : "";
-    $("#bz-shops").replaceChildren(
-      ...r.shops.map((s) =>
-        el(
-          "div",
-          { className: "tier-box" },
-          el("h3", { className: "tier-title", textContent: `Niveau ${s.level}` }),
-          s.units.length
-            ? el(
-                "ul",
-                { className: "bz-list" },
-                ...s.units.map((u) => {
-                  const li = el(
-                    "li",
-                    {},
-                    el("span", { className: "bz-unit", textContent: u.emoji, tabIndex: 0 }),
-                    el("span", { className: "bz-name", textContent: u.name }),
-                    el("span", { className: "bz-price", textContent: `${u.price}🙏` }),
-                  );
-                  li.firstChild.dataset.id = u.id;
-                  return li;
-                }),
-              )
-            : el("p", { className: "hint", textContent: "Réserve vide : rien à vendre." }),
-        ),
-      ),
-    );
-    $("#bz-forum").value = r.forum;
-    $("#bz-preview").innerHTML = renderTwino(r.forum);
-    $("#bz-result").hidden = false;
-    $("#bz-result").scrollIntoView({ behavior: "smooth", block: "start" });
-  }
-
-  function startBazar() {
-    const rules = Engine.info.rules;
-    const players = store.get("pantheon.bazar.players", rules.players);
-    $("#bz-players").value = String(players);
-    $("#bz-rates").textContent =
-      rules.pool_per_player.map((r, k) => `rang ${k + 1} : ${String(r).replace(".", ",")} par joueur`).join(" · ") +
-      `, arrondi, jamais moins de ${rules.merge_copies}`;
-    $("#bz-page").value = String(store.get("pantheon.bazar.page", 1));
-    const saved = store.get("pantheon.bazar.stock", null);
-    bzStock = fullStock(players);
-    if (saved && typeof saved === "object") {
-      for (const id of Object.keys(bzStock)) {
-        const v = Number(saved[id]);
-        if (Number.isInteger(v) && v >= 0 && v <= 999) bzStock[id] = v;
-      }
-    }
-    renderStock();
-    $("#bz-players").addEventListener("input", () => store.set("pantheon.bazar.players", bzPlayers()));
-    $("#bz-page").addEventListener("input", () => store.set("pantheon.bazar.page", Math.floor(Number($("#bz-page").value) || 1)));
-    $("#bz-fill").addEventListener("click", () => {
-      const players = bzPlayers();
-      const full = fullStock(players);
-      const changed = Object.keys(full).some((id) => full[id] !== bzStock[id]);
-      if (changed && !window.confirm(`Remplacer la réserve actuelle par la réserve complète pour ${players} joueurs ?`)) return;
-      bzStock = full;
-      renderStock();
-    });
-    $("#bz-draw").addEventListener("click", drawShops);
-    $("#bz-draw").disabled = false;
-    $("#bz-copy").addEventListener("click", async (ev) => {
-      const ok = await copyText($("#bz-forum").value, ev.currentTarget);
-      if (ok) {
-        const next = Math.floor(Number($("#bz-page").value) || 0) + 1;
-        $("#bz-page").value = String(next);
-        store.set("pantheon.bazar.page", next);
-      }
-    });
-    const tab = $("#tab-bazar");
-    tab.addEventListener("focusin", (ev) => {
-      const t = ev.target.closest(".bz-unit");
-      if (t && !pinned) showTip(t.dataset.id, t);
-    });
-    tab.addEventListener("focusout", hideTip);
-  }
-
   // ---------------------------------------------------------------- Start
   function wire() {
     for (const b of $$(".tabs button")) b.addEventListener("click", () => showTab(b.dataset.tab));
@@ -1148,7 +776,6 @@
     $("#footer").textContent = `Moteur ${info.version} · données ${info.data_hash} · commit ${window.PANTHEON_GIT || "inconnu"}`;
     $("#run").disabled = false;
     renderPalette();
-    startBazar();
     $("#synergy-list").addEventListener("click", (ev) => {
       const li = ev.target.closest("li[data-archetype]");
       if (li) filterSynergy(li.dataset.archetype);

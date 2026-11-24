@@ -106,7 +106,7 @@ Chaque emplacement est tiré au hasard. Le niveau du joueur change les chances d
 
 ### Le tirage
 
-Le **MJ** tire les boutiques de chaque nouvelle page avec l'onglet **Bazar (MJ)** du site, et
+Le **MJ** tire les boutiques de chaque nouvelle page avec son outil, et
 poste le message obtenu en tête de la page. Pour chaque emplacement :
 
 1. Le **rang** est tiré selon les chances du niveau (tableau ci-dessus).

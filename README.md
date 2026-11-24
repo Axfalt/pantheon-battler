@@ -35,10 +35,15 @@ que Pages sert telle quelle).
 
 `web/` est un site statique en français, sans dépendance : onglets **Combat** (rejoue un défi à
 partir des deux compositions et des six dés, donne le texte pour le forum, le bilan et les
-compositions mises à jour ; les créatures se glissent dans les 4 emplacements de chaque joueur),
-**Bazar (MJ)** (tire les boutiques d'une nouvelle page du Bazar d'après la réserve commune que
-tient le MJ, et donne le message à poster) et **Aide**.
-Il fait tourner le vrai moteur
+compositions mises à jour ; les créatures se glissent dans les 4 emplacements de chaque joueur)
+et **Aide**. Le code commun (moteur, aperçu du forum, infobulles) est dans `web/core.js`.
+
+`web/gm_tool/` contient les outils des MJ, sans lien depuis la page des joueurs : tirage des
+boutiques du Bazar, réserve commune et journal des actions. La réserve est partagée entre MJ par
+un Gist secret de GitHub : chaque navigateur écrit son propre fichier `journal-<appareil>.json`
+(rien ne s'écrase), et la réserve est recalculée en rejouant les journaux de tous les MJ.
+
+La page fait tourner le vrai moteur
 Rust compilé en WebAssembly : pour les mêmes entrées, la page et `pantheon-battler fight`
 donnent exactement le même texte.
 
