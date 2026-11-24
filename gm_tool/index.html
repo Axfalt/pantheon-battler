@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<meta name="referrer" content="no-referrer">
+<title>Pantheon Battler · MJ</title>
+<link rel="icon" type="image/png" sizes="32x32" href="../img/favicon.png">
+<link rel="apple-touch-icon" href="../img/icon-192.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jersey+15&family=Press+Start+2P&display=swap">
+<link rel="stylesheet" href="../style.css">
+<script>try { var t = localStorage.getItem("arene-theme"); if (t) document.documentElement.dataset.theme = t; } catch (e) {}</script>
+</head>
+<body class="gm">
+<header class="top">
+  <div class="wrap">
+   <div class="card">
+    <div class="banners" aria-hidden="true">
+      <img src="../img/egypte.png" alt="" data-theme="egypte">
+      <img src="../img/rome.png" alt="" data-theme="rome">
+      <img src="../img/gaule.png" alt="" data-theme="gaule">
+      <img src="../img/nord.png" alt="" data-theme="nord">
+    </div>
+    <h1>Pantheon Battler</h1>
+    <p class="sub">Outils du MJ · <a href="../">page des joueurs</a></p>
+    <p id="sync-badge" class="sync-badge" data-state="local" role="status">Ce navigateur seulement</p>
+    <nav class="tabs" role="tablist">
+      <button type="button" role="tab" id="tabbtn-bazar" data-tab="bazar" aria-selected="true">Bazar</button>
+      <button type="button" role="tab" id="tabbtn-reserve" data-tab="reserve" aria-selected="false">Réserve</button>
+      <button type="button" role="tab" id="tabbtn-journal" data-tab="journal" aria-selected="false">Journal</button>
+      <button type="button" role="tab" id="tabbtn-partage" data-tab="partage" aria-selected="false">Partage</button>
+    </nav>
+   </div>
+  </div>
+</header>
+
+<main class="wrap">
+  <div id="engine-status" class="notice">Chargement du moteur…</div>
+
+  <!-- ===== Bazar ===== -->
+  <section id="tab-bazar" class="tab" role="tabpanel" aria-labelledby="tabbtn-bazar">
+    <div class="card">
+      <h2>Boutique en cours</h2>
+      <p id="bz-current-meta" class="hint"></p>
+      <div id="bz-current" class="bz-shops"></div>
+      <div class="actions left" id="bz-current-actions" hidden>
+        <button type="button" id="bz-current-copy">Recopier le message</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Nouvelle boutique</h2>
+      <p class="hint">Quand une page du Bazar est pleine, tirez les boutiques de la page suivante. Le rang de chaque
+        emplacement suit les chances du niveau ; l'unité est tirée d'après la réserve commune : plus il en reste
+        d'exemplaires, plus elle a de chances de sortir, jamais à 0.</p>
+      <div class="bz-form">
+        <label class="field bz-page-field">Page du Bazar
+          <input type="number" id="bz-page" min="1" max="1000000" value="1">
+        </label>
+        <fieldset class="bz-levels">
+          <legend>Niveaux</legend>
+          <label><input type="checkbox" value="1" checked> 1</label>
+          <label><input type="checkbox" value="2" checked> 2</label>
+          <label><input type="checkbox" value="3" checked> 3</label>
+          <label><input type="checkbox" value="4" checked> 4</label>
+        </fieldset>
+      </div>
+      <div class="actions left">
+        <button type="button" class="primary" id="bz-draw" disabled>🎲 Générer la boutique</button>
+      </div>
+      <div id="bz-messages" class="messages" aria-live="polite"></div>
+    </div>
+
+    <div id="bz-result" hidden>
+      <div class="card">
+        <h3>Tirage de la page <span id="bz-result-page"></span></h3>
+        <div id="bz-shops" class="bz-shops"></div>
+      </div>
+      <div class="card">
+        <div class="card-head">
+          <h3>Texte pour le forum</h3>
+          <div class="buttons">
+            <button type="button" id="bz-redraw">Relancer</button>
+            <button type="button" class="primary" id="bz-copy">Copier et enregistrer</button>
+          </div>
+        </div>
+        <p class="hint">« Copier et enregistrer » copie le message et en fait la boutique en cours pour tous les MJ ; la page
+          suivante est proposée au prochain tirage.</p>
+        <textarea id="bz-forum" class="mono" rows="12" readonly spellcheck="false"></textarea>
+      </div>
+      <div class="card">
+        <h3>Aperçu</h3>
+        <div id="bz-preview" class="preview"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Réserve ===== -->
+  <section id="tab-reserve" class="tab" role="tabpanel" aria-labelledby="tabbtn-reserve" hidden>
+    <div class="card">
+      <h2>La partie</h2>
+      <p id="rs-state" class="hint"></p>
+      <div class="bz-fill">
+        <label class="field">Joueurs inscrits <input type="number" id="rs-players" min="1" max="200" value="6"></label>
+        <button type="button" id="rs-apply-players">Changer le nombre de joueurs</button>
+        <button type="button" class="danger" id="rs-reset">Nouvelle partie</button>
+      </div>
+      <p class="hint">Par joueur inscrit : <span id="rs-rates"></span>. Changer le nombre de joueurs ajoute (ou retire) la
+        différence à chaque unité ; « Nouvelle partie » remet la réserve complète.</p>
+      <div id="rs-messages" class="messages" aria-live="polite"></div>
+    </div>
+
+    <div class="card">
+      <div class="card-head">
+        <h2>Réserve commune</h2>
+      </div>
+      <p class="hint"><strong>−</strong> : une unité achetée quitte la réserve · <strong>+</strong> : une unité vendue,
+        transformée ou perdue y revient · modifier le nombre : correction. Tout est noté dans le journal.</p>
+      <div id="rs-stock" class="palette bz-stock"></div>
+      <p id="rs-total" class="hint"></p>
+    </div>
+  </section>
+
+  <!-- ===== Journal ===== -->
+  <section id="tab-journal" class="tab" role="tabpanel" aria-labelledby="tabbtn-journal" hidden>
+    <div class="card">
+      <h2>Journal</h2>
+      <p class="hint">Toutes les actions des MJ, de la plus récente à la plus ancienne. « Annuler » retire une action de la
+        réserve sans l'effacer du journal ; une annulation peut elle-même être annulée.</p>
+      <ol id="journal" class="journal"></ol>
+      <div class="actions left"><button type="button" id="journal-more" hidden>Voir plus</button></div>
+    </div>
+  </section>
+
+  <!-- ===== Partage ===== -->
+  <section id="tab-partage" class="tab prose" role="tabpanel" aria-labelledby="tabbtn-partage" hidden>
+    <div class="card">
+      <h2>Votre nom de MJ</h2>
+      <label class="field">Nom affiché dans le journal <input type="text" id="sh-name" maxlength="40" autocomplete="nickname"></label>
+    </div>
+
+    <div class="card" id="sh-connected" hidden>
+      <h2>Réserve partagée</h2>
+      <p>Connecté au Gist <a id="sh-gist-link" target="_blank" rel="noopener noreferrer"></a>. <span id="sh-sync"></span></p>
+      <p id="sh-gms"></p>
+      <h3>Inviter un MJ</h3>
+      <p>Envoyez ce lien <strong>en message privé</strong> : il contient le jeton qui permet de modifier la réserve.
+        Ne le postez jamais sur le forum.</p>
+      <div class="invite">
+        <input type="text" id="sh-invite" readonly spellcheck="false">
+        <button type="button" id="sh-invite-copy">Copier le lien</button>
+      </div>
+      <div class="actions left">
+        <button type="button" id="sh-sync-now">Synchroniser maintenant</button>
+        <button type="button" class="danger" id="sh-logout">Déconnecter ce navigateur</button>
+      </div>
+      <div id="sh-messages" class="messages" aria-live="polite"></div>
+    </div>
+
+    <div id="sh-setup">
+      <div class="card" id="sh-join-card">
+        <h2>Rejoindre la réserve partagée</h2>
+        <p>Ouvrez le lien d'invitation reçu d'un autre MJ, ou collez-le ici.</p>
+        <label class="field">Lien d'invitation <input type="text" id="sh-join-link" spellcheck="false" autocomplete="off"></label>
+        <div class="actions left"><button type="button" class="primary" id="sh-join">Rejoindre</button></div>
+        <div id="sh-join-messages" class="messages" aria-live="polite"></div>
+      </div>
+
+      <div class="card">
+        <h2>Créer la réserve partagée</h2>
+        <p>Une seule fois, par un seul MJ. La réserve est un <strong>Gist secret</strong> sur GitHub : chaque MJ y écrit son
+          propre journal, rien ne s'écrase.</p>
+        <ol>
+          <li>Connectez-vous au compte GitHub qui gardera la réserve. Un compte réservé aux MJ est plus sûr : le jeton peut
+            modifier <em>tous</em> les Gists de ce compte.</li>
+          <li><a href="https://github.com/settings/tokens/new?scopes=gist&amp;description=Pantheon%20Battler%20MJ" target="_blank"
+              rel="noopener noreferrer">Créez un jeton</a> (« classic ») avec <strong>seulement</strong> la case
+            <code>gist</code> cochée, et une expiration après la fin de l'événement.</li>
+          <li>Collez-le ci-dessous. La réserve déjà tenue dans ce navigateur devient la réserve partagée.</li>
+        </ol>
+        <label class="field">Jeton GitHub <input type="password" id="sh-token" spellcheck="false" autocomplete="off"></label>
+        <div class="actions left"><button type="button" class="primary" id="sh-create">Créer la réserve partagée</button></div>
+        <div id="sh-create-messages" class="messages" aria-live="polite"></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>Comment ça marche</h2>
+      <ul>
+        <li>Chaque navigateur écrit ses actions dans son propre fichier du Gist ; la réserve est recalculée à partir des
+          journaux de tous les MJ. Deux MJ peuvent travailler en même temps.</li>
+        <li>La page se synchronise toutes les 20 secondes et à chaque action. Hors ligne, les actions attendent et partent
+          dès que la connexion revient.</li>
+        <li>Le jeton reste dans ce navigateur et n'est envoyé qu'à GitHub. L'historique complet reste visible dans les
+          révisions du Gist.</li>
+      </ul>
+    </div>
+  </section>
+  <div id="tip" class="tip" role="tooltip" hidden></div>
+</main>
+
+<footer class="wrap foot">
+  <div class="plaques" role="group" aria-label="Thème du panthéon">
+    <button type="button" data-theme="egypte" aria-pressed="false" title="Thème égyptien"><img src="../img/plaque-egypte.png" alt="Égypte" width="180" height="60"></button>
+    <button type="button" data-theme="rome" aria-pressed="false" title="Thème romain"><img src="../img/plaque-rome.png" alt="Rome" width="180" height="60"></button>
+    <button type="button" data-theme="gaule" aria-pressed="false" title="Thème gaulois"><img src="../img/plaque-gaule.png" alt="Gaule" width="180" height="60"></button>
+    <button type="button" data-theme="nord" aria-pressed="false" title="Thème nordique"><img src="../img/plaque-nord.png" alt="Scandinavie" width="180" height="60"></button>
+  </div>
+  <p id="footer">Moteur en cours de chargement…</p>
+</footer>
+
+<script src="../engine-wasm.js"></script>
+<script src="../core.js"></script>
+<script src="gm.js"></script>
+<script src="../theme.js"></script>
+</body>
+</html>

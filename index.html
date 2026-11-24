@@ -31,7 +31,6 @@
     <p class="sub">4 factions assoiffées de pouvoir, 38 dieux haineux, 1 seul vainqueur.<br>Serez-vous le dieu pour les gouverner tous&nbsp;?</p>
     <nav class="tabs" role="tablist">
       <button type="button" role="tab" id="tabbtn-combat" data-tab="combat" aria-selected="true">Combat</button>
-      <button type="button" role="tab" id="tabbtn-bazar" data-tab="bazar" aria-selected="false">Bazar (MJ)</button>
       <button type="button" role="tab" id="tabbtn-aide" data-tab="aide" aria-selected="false">Aide</button>
     </nav>
    </div>
@@ -192,68 +191,6 @@
     </div>
   </section>
 
-  <!-- ===== Bazar (MJ) ===== -->
-  <section id="tab-bazar" class="tab" role="tabpanel" aria-labelledby="tabbtn-bazar" hidden>
-    <div class="card">
-      <h2>Nouvelle boutique</h2>
-      <p class="hint">Outil du MJ : quand une page du Bazar est pleine, tirez les boutiques de la page suivante et postez le
-        texte obtenu. Le rang de chaque emplacement suit les chances du niveau ; l'unité est tirée d'après la réserve
-        commune ci-dessous : plus il en reste d'exemplaires, plus elle a de chances de sortir, jamais à 0.</p>
-      <div class="bz-form">
-        <label class="field bz-page-field">Page du Bazar
-          <input type="number" id="bz-page" min="1" max="1000000" value="1">
-        </label>
-        <fieldset class="bz-levels">
-          <legend>Niveaux</legend>
-          <label><input type="checkbox" value="1" checked> 1</label>
-          <label><input type="checkbox" value="2" checked> 2</label>
-          <label><input type="checkbox" value="3" checked> 3</label>
-          <label><input type="checkbox" value="4" checked> 4</label>
-        </fieldset>
-      </div>
-      <div class="actions left">
-        <button type="button" class="primary" id="bz-draw" disabled>🎲 Générer la boutique</button>
-      </div>
-      <div id="bz-messages" class="messages" aria-live="polite"></div>
-    </div>
-
-    <div id="bz-result" hidden>
-      <div class="card">
-        <h3>Boutiques de la page <span id="bz-result-page"></span></h3>
-        <div id="bz-shops" class="bz-shops"></div>
-      </div>
-      <div class="card">
-        <div class="card-head">
-          <h3>Texte pour le forum</h3>
-          <div class="buttons">
-            <button type="button" class="primary" id="bz-copy">Copier pour le forum</button>
-          </div>
-        </div>
-        <p class="hint">Copier le texte fait passer le numéro de page à la page suivante.</p>
-        <textarea id="bz-forum" class="mono" rows="12" readonly spellcheck="false"></textarea>
-      </div>
-      <div class="card">
-        <h3>Aperçu</h3>
-        <div id="bz-preview" class="preview"></div>
-      </div>
-    </div>
-
-    <div class="card">
-      <div class="card-head">
-        <h2>Réserve commune</h2>
-        <div class="bz-fill">
-          <label class="field">Joueurs inscrits <input type="number" id="bz-players" min="1" max="200" value="6"></label>
-          <button type="button" id="bz-fill">Réserve complète</button>
-        </div>
-      </div>
-      <p class="hint">Exemplaires restants de chaque unité, d'après vos comptes : retirez les unités achetées, rendez celles
-        qui sont vendues, transformées ou perdues. Quand des joueurs s'inscrivent, augmentez le nombre de joueurs et ajoutez
-        les exemplaires (<span id="bz-rates"></span>). Ces chiffres restent enregistrés dans ce navigateur.</p>
-      <div id="bz-stock" class="palette bz-stock"></div>
-      <p id="bz-total" class="hint"></p>
-    </div>
-  </section>
-
   <!-- ===== Aide ===== -->
   <section id="tab-aide" class="tab prose" role="tabpanel" aria-labelledby="tabbtn-aide" hidden>
     <div class="card">
@@ -271,13 +208,6 @@
       </ol>
       <p>Sur MyHordes, un message qui contient des dés ne peut être ni modifié ni supprimé : les dés tirés sont définitifs, et
         une acceptation postée ne peut pas être retirée.</p>
-    </div>
-
-    <div class="card">
-      <h2>Le Bazar (MJ)</h2>
-      <p>L'onglet <em>Bazar (MJ)</em> sert au MJ : à chaque nouvelle page du Bazar, il tire la boutique de chaque niveau et
-        donne le message à poster. Le MJ tient la réserve commune à jour (achats, ventes, éliminations) et la recopie dans
-        l'onglet ; les unités sans exemplaire ne sortent plus.</p>
     </div>
 
     <div class="card">
@@ -344,6 +274,7 @@
 </footer>
 
 <script src="engine-wasm.js"></script>
+<script src="core.js"></script>
 <script src="app.js"></script>
 <script src="theme.js"></script>
 </body>
