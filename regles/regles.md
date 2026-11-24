@@ -193,7 +193,7 @@ Une unité à double archétype compte pour les deux.
 | Archétype | Synergie | Effet |
 |---|---|---|
 | 🌱 Croissance | **Sève** | Chaque Vigueur et Bénédiction donne +1 de plus dans chaque caractéristique qu'elle augmente. |
-| ♻️ Cycle | **Éternel retour** | Une fois par combat, le premier allié qui meurt définitivement revient avec 1❤. Le 🧟 Draugr en donne un de plus. |
+| ♻️ Cycle | **Éternel retour** | Une fois par combat, le premier allié qui meurt définitivement revient avec 1❤. |
 | 🎲 Chance | **Fortune** | Chaque tirage raté (pile ou face, Momification…) est retenté une fois ; un Chaos ou une Dévoration qui tombe sur un allié est retiré une fois. |
 | 🔒 Contrôle | **Emprise** | Au début du combat, chaque ennemi perd 1⚔. |
 | 🐺 Revanche | **Endurance** | Une défaite coûte 2✨ de moins, avec un minimum de 1✨. |
@@ -302,7 +302,7 @@ Dans cet ordre :
 7. Effets d'attaque : **Fascination**, **Chaos**, **Hydromel**.
 8. **Momification**.
 9. Les morts : une unité anéantie disparaît sans rien déclencher ; sinon **Résurrection**,
-   **Renaissance** ou **Éternel retour** (synergie Cycle et 🧟 Draugr), et **Héritage** à
+   **Renaissance** ou **Éternel retour** (synergie Cycle), et **Héritage** à
    chaque mort.
 
 ### Les unités anéanties

@@ -109,7 +109,7 @@ tier = 1
 atk = 0
 hp = 3
 def = 0
-keywords = [{ kind = "Taunt" }, { kind = "Thorns", dmg = 1 }, { kind = "Recurrence" }]
+keywords = [{ kind = "Taunt" }, { kind = "Thorns", dmg = 1 }, { kind = "Rebirth" }]
 
 [[unit]]
 id = "ankou"

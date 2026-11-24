@@ -26,7 +26,7 @@ Les 31 créatures du jeu, rang par rang. Les règles générales sont dans [regl
 | 🪨 | Sisyphe | Gréco-Romain | 🐺 Revanche | 1 | 2🙏 | 0 | 3 | 0 | Provocation · Rancune +1⚔ +1❤ |
 | 🙌 | Ka | Égyptien | 🌱 Croissance | 1 | 2🙏 | 1 | 2 | 0 | Bénédiction +1❤ |
 | 👁️ | Cyclope | Gréco-Romain | 🎲 Chance | 1 | 2🙏 | 3 | 2 | 0 | Démesure |
-| 🧟 | Draugr | Scandinave | 🔒 Contrôle | 1 | 2🙏 | 0 | 3 | 0 | Provocation · Représailles 1 · Éternel retour |
+| 🧟 | Draugr | Scandinave | 🔒 Contrôle | 1 | 2🙏 | 0 | 3 | 0 | Provocation · Représailles 1 · Renaissance |
 | ⚰️ | Ankou | Gaulois | ♻️ Cycle / 🐺 Revanche | 1 | 2🙏 | 1 | 3 | 0 | Offrande (5 morts → +8✨) |
 | 🐖 | Sæhrímnir | Scandinave | ♻️ Cycle | 1 | 2🙏 | 2 | 1 | 0 | Renaissance · Héritage |
 | 🌲 | Bugul-noz | Gaulois | 🔒 Contrôle | 1 | 2🙏 | 1 | 4 | 0 | Provocation · Effroi −1⚔ |
@@ -172,15 +172,14 @@ sur quatre.
 - **Représailles 1** · chaque fois qu'un ennemi l'attaque, cet ennemi subit 1 dégât qui
   **ignore la DÉF**, même si le Draugr tombe. Les pouvoirs ne déclenchent pas Représailles.
   ⭐ : 2 dégâts.
-- **Éternel retour** · une fois par combat, le premier allié qui meurt définitivement (le
-  Draugr compris) revient avec 1❤. S'ajoute à la synergie ♻️ Éternel retour. ⭐ : les deux
-  premiers.
+- **Renaissance** · la première fois qu'il meurt dans un combat, il revient avec 1❤. Une
+  seule fois par combat, même ⭐.
 
 > Les morts-vivants nordiques qui gardent jalousement leur tombe et leurs trésors, et
 > sortent de leur tertre même après qu'on les a abattus.
 
-**En pratique** : il n'attaque pas, use tous ceux qui le frappent, et se relève souvent une
-fois.
+**En pratique** : il n'attaque pas, use tous ceux qui le frappent, et se relève une fois
+pour encaisser encore.
 
 ### ⚰️ Ankou
 *Gaulois · ♻️ Cycle / 🐺 Revanche · 1⚔ / 3❤ / 0🛡*

@@ -606,7 +606,7 @@ mod tests {
             let l = log(&c);
             assert!(l.contains("Regard de pierre"), "{l}");
             assert!(!l.contains("Représailles"), "{l}");
-            assert!(!l.contains("Éternel retour"), "{l}");
+            assert!(!l.contains("renaît"), "{l}");
             assert_eq!(c.result.outcome, Outcome::WinA);
         }
     }
@@ -615,7 +615,8 @@ mod tests {
     fn draugr_returns_and_dread_weakens() {
         let data = data();
         let c = duel(&data, &[("draugr", false, 0, 3, 0, 0)], &[("vouivre", false, 6, 7, 2, 0)], 1);
-        assert!(log(&c).contains("Éternel retour : 🧟 Draugr"), "{}", log(&c));
+        assert!(log(&c).contains("🧟 Draugr (Alice) renaît"), "{}", log(&c));
+        assert!(!log(&c).contains("Éternel retour"), "{}", log(&c));
         let c = duel(&data, &[("bugul_noz", false, 1, 4, 0, 0)], &[("cyclops", false, 3, 2, 0, 0)], 1);
         assert!(log(&c).contains("Effroi : 🌲 Bugul-noz (Alice) → 👁️ Cyclope (Bob) perd 1⚔"), "{}", log(&c));
     }

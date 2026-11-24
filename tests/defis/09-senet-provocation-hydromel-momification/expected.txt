@@ -21,7 +21,7 @@ Représailles : 🧟 Draugr (Odin) → 📜 Setné (Setné) : 1 dégât (ignore 
 🧟 Draugr (Odin) riposte : 0⚔ → 1 dégât (minimum), reste 3❤
 Représailles : 🧟 Draugr (Odin) → 🐐 Heiðrún (Setné) : 1 dégât (ignore la DÉF), reste 2❤
 Hydromel : 🐐 Heiðrún (Setné) soigne 📜 Setné (Setné) de 2❤, reste 3❤
-Éternel retour : 🧟 Draugr (Odin) revient avec 1❤
+🧟 Draugr (Odin) renaît
 🔥 Bénou (Odin) attaque 🐐 Heiðrún (Setné) : 6⚔ → 6 dégâts, mort
 🐐 Heiðrún (Setné) riposte : 3⚔ → 3 dégâts, reste 3❤
 🏺 Embaumeur (Setné) attaque 🧟 Draugr (Odin) (provocation) : 2⚔ → 2 dégâts, mort
@@ -56,4 +56,4 @@ Survivants d'Odin : 🔥 3 + 🪓 2 = 5✨
 Setné perd 5✨ · reste 11✨ · 🔻 1 défaite d'affilée
 [/spoiler]
 {hr}
-[i]Seed 307403571882 · dés 31 75 4 / 58 19 83 · données 615a7b6e · moteur 0.1.0[/i]
+[i]Seed 307403571882 · dés 31 75 4 / 58 19 83 · données 39d977a2 · moteur 0.1.0[/i]
