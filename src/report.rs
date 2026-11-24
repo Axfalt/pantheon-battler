@@ -306,13 +306,14 @@ pub fn arena(data: &Data, strats: &[Strategy], results: &[crate::arena::ArenaRes
     let winners: Vec<&ArenaPlayer> = all.iter().copied().filter(|p| p.place == 1).collect();
     writeln!(
         out,
-        "🏆 du gagnant en moyenne : {:.1} · 🏆 de tous les joueurs : {:.1} · ✨ en fin de partie : {:.1} · remises à zéro par joueur : {:.2} · Ascensions par partie : {:.2} · jours sans combat par joueur : {:.2}\n",
+        "🏆 du gagnant en moyenne : {:.1} · 🏆 de tous les joueurs : {:.1} · ✨ en fin de partie : {:.1} · remises à zéro par joueur : {:.2} · Ascensions par partie : {:.2} · jours sans combat par joueur : {:.2} · unités anéanties (Néant) par joueur : {:.2}\n",
         mean(&winners, &|p| p.vp as f64),
         mean(&all, &|p| p.vp as f64),
         mean(&all, &|p| p.essence as f64),
         mean(&all, &|p| p.resets as f64),
         all.iter().map(|p| p.ascensions as f64).sum::<f64>() / games,
         mean(&all, &|p| p.idle_days as f64),
+        mean(&all, &|p| p.destroyed as f64),
     )
     .unwrap();
 

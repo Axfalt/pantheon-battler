@@ -185,6 +185,26 @@ pub enum Keyword {
         #[serde(default)]
         hp: i32,
     },
+    /// A unit it kills (attacking or striking back) is destroyed: it can't come back in this
+    /// fight, its death powers don't trigger, and its owner loses it (back to the reserve).
+    Annihilate,
+    /// On attack: the target loses all its powers for the rest of the fight ("Regard de pierre").
+    Silence,
+    /// When attacked by an enemy (not by abilities): the attacker loses `atk` ATK for the rest of
+    /// the fight, after the blow ("Effroi").
+    Dread { atk: i32 },
+    /// When it kills a unit (attacking or striking back), it dies too ("Châtiment").
+    Vengeance,
+    /// Start of fight: itself and its two neighbours gain the stats once per ⭐ ally on its
+    /// board, itself included, for this fight ("Bonne étoile").
+    LuckyStar {
+        #[serde(default)]
+        atk: i32,
+        #[serde(default)]
+        hp: i32,
+    },
+    /// Each day: `favors` per ⭐ unit on its board, with the income ("Pot d'or").
+    PotOfGold { favors: i32 },
 }
 
 pub fn bonus(atk: i32, hp: i32, def: i32) -> String {
@@ -220,6 +240,9 @@ impl Keyword {
             Keyword::Endure { essence, floor } => Keyword::Endure { essence: essence * m, floor },
             Keyword::Thorns { dmg } => Keyword::Thorns { dmg: dmg * m },
             Keyword::Unleash { atk, hp } => Keyword::Unleash { atk: atk * m, hp: hp * m },
+            Keyword::Dread { atk } => Keyword::Dread { atk: atk * m },
+            Keyword::LuckyStar { atk, hp } => Keyword::LuckyStar { atk: atk * m, hp: hp * m },
+            Keyword::PotOfGold { favors } => Keyword::PotOfGold { favors: favors * m },
             k => k,
         }
     }
@@ -260,6 +283,9 @@ impl Keyword {
                     )
                 }
                 Keyword::Offering { .. } => text += " Fusionnée, chacune de ses morts compte double.",
+                Keyword::Recurrence => {
+                    text = format!("Dans chaque combat, les {m} premiers alliés qui meurent définitivement (lui compris) reviennent avec 1❤. S'ajoute à la synergie ♻️ Éternel retour.")
+                }
                 _ => {}
             }
         }
@@ -283,7 +309,7 @@ impl Keyword {
             ),
             Keyword::Legacy => (
                 "À sa mort",
-                "Donne son ATQ à l'allié placé juste à sa droite, pour la suite du combat.".to_string(),
+                "Donne son ATQ à l'allié placé juste à sa droite, pour la suite du combat. À chaque mort, même s'il revient ensuite (Renaissance, Éternel retour…).".to_string(),
             ),
             Keyword::Phalanx { atk, hp } => (
                 "Début de combat",
@@ -381,8 +407,8 @@ impl Keyword {
                 "Chaque Vigueur et Bénédiction donne +1 de plus dans chaque caractéristique qu'elle augmente.".to_string(),
             ),
             Keyword::Recurrence => (
-                "Synergie",
-                "Une fois par combat, le premier allié qui meurt définitivement revient avec 1❤.".to_string(),
+                "En combat",
+                "Une fois par combat, le premier allié qui meurt définitivement (lui compris) revient avec 1❤. S'ajoute à la synergie ♻️ Éternel retour.".to_string(),
             ),
             Keyword::Fortune => (
                 "Synergie",
@@ -399,6 +425,36 @@ impl Keyword {
             Keyword::Raise => (
                 "À chaque attaque",
                 "1 chance sur 2 (3 sur 4 si ⭐) de ramener un allié mort dans ce combat, au hasard, avec 1❤. Jamais une unité qui a elle-même Momification.".to_string(),
+            ),
+            Keyword::Annihilate => (
+                "Quand il tue",
+                format!(
+                    "Une unité qu'il tue, en attaquant ou en ripostant, est anéantie : elle ne revient pas dans ce combat (Renaissance, Éternel retour, Résurrection, Momification sans effet), ses pouvoirs de mort ne se déclenchent pas, et son propriétaire la perd pour de bon : elle retourne dans la réserve commune ({} exemplaires pour une unité ⭐).",
+                    rules.merge_copies
+                ),
+            ),
+            Keyword::Silence => (
+                "À chaque attaque",
+                "Sa cible perd tous ses pouvoirs pour le reste du combat (Provocation, Représailles, Renaissance…) et garde ses stats. Ses Représailles ne répondent déjà pas à ce coup.".to_string(),
+            ),
+            Keyword::Dread { atk } => (
+                "Quand on l'attaque",
+                format!("L'attaquant perd {atk}⚔ pour le reste du combat, après son coup. Les pouvoirs ne déclenchent pas Effroi."),
+            ),
+            Keyword::Vengeance => (
+                "Quand elle tue",
+                "Quand elle tue une unité, en attaquant ou en ripostant, elle meurt aussi : sa vengeance est accomplie.".to_string(),
+            ),
+            Keyword::LuckyStar { atk, hp } => (
+                "Début de combat",
+                format!("Lui et ses deux voisins gagnent {} pour ce combat par unité ⭐ sur le terrain de son joueur, lui compris.", bonus(atk, hp, 0)),
+            ),
+            Keyword::PotOfGold { favors } => (
+                "Chaque jour",
+                format!(
+                    "Chaque jour, rapporte +{favors}🙏 par unité ⭐ sur le terrain de son joueur, avec le revenu (plafond de {}🙏).",
+                    rules.favor_cap
+                ),
             ),
             Keyword::Unleash { atk, hp } => (
                 "Début de combat",
@@ -451,6 +507,12 @@ impl fmt::Display for Keyword {
             Keyword::Unleash { atk, hp } => {
                 write!(f, "Déchaînement {}/défaite à toute l'armée en combat", bonus(atk, hp, 0))
             }
+            Keyword::Annihilate => write!(f, "Néant"),
+            Keyword::Silence => write!(f, "Regard de pierre"),
+            Keyword::Dread { atk } => write!(f, "Effroi −{atk}⚔"),
+            Keyword::Vengeance => write!(f, "Châtiment"),
+            Keyword::LuckyStar { atk, hp } => write!(f, "Bonne étoile {}/⭐", bonus(atk, hp, 0)),
+            Keyword::PotOfGold { favors } => write!(f, "Pot d'or +{favors}🙏/⭐"),
         }
     }
 }

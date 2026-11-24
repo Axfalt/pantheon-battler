@@ -93,15 +93,19 @@ n'a besoin d'aucun réglage serveur ; HTTPS est conseillé pour les boutons « C
 - Les PV sont entièrement restaurés au début de chaque combat ; seuls les bonus permanents
   sont conservés.
 - Les unités sont alignées de gauche à droite ; la position compte.
-- Début de combat : Dévoration → Phalange → Pétrification (chacune simultanée). La
-  Phalange est recalculée pendant le combat, après chaque Gel et chaque attaque.
+- Début de combat : Dévoration → Bonne étoile → Phalange → Pétrification → Emprise
+  (chacune simultanée). La Phalange est recalculée pendant le combat, après chaque Gel et
+  chaque attaque.
 - Puis les camps attaquent à tour de rôle, en commençant par celui qui a le plus d'unités
   (tirage au sort en cas d'égalité). À son tour, un camp attaque avec son unité la plus à
   gauche qui n'a pas encore attaqué, puis la suivante à sa droite, et ainsi de suite ; une
   fois que toutes ont attaqué, on recommence par la gauche. L'attaquant frappe un ennemi
   au hasard, qui riposte en même temps. Au-delà de `max_fight_steps` attaques, c'est un
   match nul.
-- Une attaque : Gel de l'attaquant → coups simultanés → Fascination et Chaos → morts.
+- Une attaque : Gel de l'attaquant → coups simultanés (Regard de pierre) → Néant et
+  Châtiment des unités tuées par ces coups → Représailles et Effroi → Fascination et Chaos →
+  morts. Une unité anéantie (Néant) quitte la composition de son joueur et retourne dans la
+  réserve ; Héritage se déclenche à chaque mort, même suivie d'un retour.
   Une Pétrification annule la prochaine attaque du camp visé (son tour est perdu).
 - Une unité dévorée est consommée sans déclencher ses effets de mort, et seulement pour ce
   combat.

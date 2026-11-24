@@ -1,0 +1,50 @@
+[b]⚔ Défi : Lovecraft contre Némésis[/b]
+Lovecraft : 🎭5/7🛡1 🐍2/4 🙌1/2 🧿2/3
+Némésis : 🦇3/3🛡1 🧟0/3 ⭐🐖4/2 🌲1/4
+
+[b]Déroulé du combat[/b]
+[spoiler]
+Bonne étoile : 🧿 Oudjat (Lovecraft) : aucune unité ⭐ sur le terrain
+Pétrification : 🐍 Méduse (Lovecraft) → Némésis : sa prochaine attaque annulée
+Lovecraft attaque en premier (tirage au sort)
+🎭 Nyarlathotep (Lovecraft) attaque 🌲 Bugul-noz (Némésis) (provocation) : 5⚔ → 5 dégâts, mort
+🌲 Bugul-noz (Némésis) riposte : 1⚔ − 1🛡 → 1 dégât (minimum), reste 6❤
+Néant : 🎭 Nyarlathotep (Lovecraft) anéantit 🌲 Bugul-noz (Némésis)
+Effroi : 🌲 Bugul-noz (Némésis) → 🎭 Nyarlathotep (Lovecraft) perd 1⚔
+🦇 Érinye (Némésis) est pétrifié : attaque annulée
+🐍 Méduse (Lovecraft) attaque 🧟 Draugr (Némésis) (provocation) : 2⚔ → 2 dégâts, reste 1❤
+🧟 Draugr (Némésis) riposte : 0⚔ → 1 dégât (minimum), reste 3❤
+Regard de pierre : 🐍 Méduse (Lovecraft) → 🧟 Draugr (Némésis) perd tous ses pouvoirs
+🧟 Draugr (Némésis) attaque 🎭 Nyarlathotep (Lovecraft) : 0⚔ − 1🛡 → 1 dégât (minimum), reste 5❤
+🎭 Nyarlathotep (Lovecraft) riposte : 4⚔ → 4 dégâts, mort
+Néant : 🎭 Nyarlathotep (Lovecraft) anéantit 🧟 Draugr (Némésis)
+🙌 Ka (Lovecraft) attaque 🦇 Érinye (Némésis) : 1⚔ − 1🛡 → 1 dégât (minimum), reste 2❤
+🦇 Érinye (Némésis) riposte : 3⚔ → 3 dégâts, mort
+Châtiment : 🦇 Érinye (Némésis) a tué, sa vengeance est accomplie : mort
+⭐🐖 Sæhrímnir (Némésis) attaque 🧿 Oudjat (Lovecraft) : 4⚔ → 4 dégâts, mort
+🧿 Oudjat (Lovecraft) riposte : 2⚔ → 2 dégâts, mort
+⭐🐖 Sæhrímnir (Némésis) renaît
+🎭 Nyarlathotep (Lovecraft) attaque ⭐🐖 Sæhrímnir (Némésis) : 4⚔ → 4 dégâts, mort
+⭐🐖 Sæhrímnir (Némésis) riposte : 4⚔ − 1🛡 → 3 dégâts, reste 2❤
+Néant : 🎭 Nyarlathotep (Lovecraft) anéantit ⭐🐖 Sæhrímnir (Némésis)
+[/spoiler]
+
+[b]Résultat[/b]
+[spoiler]
+Victoire de Lovecraft (exploit)
+Lovecraft : 🎭4/2🛡1 🐍2/3
+Némésis : —
+[/spoiler]
+
+[b]Bilan[/b]
+[spoiler]
+Néant : 🧟 Draugr (Némésis) est anéanti : il quitte sa composition et retourne dans la réserve commune
+Néant : ⭐🐖 Sæhrímnir (Némésis) est anéanti : il quitte sa composition et ses 3 exemplaires retournent dans la réserve commune
+Néant : 🌲 Bugul-noz (Némésis) est anéanti : il quitte sa composition et retourne dans la réserve commune
+Exploit : Lovecraft avait moins de 🏆 que Némésis (2 contre 3) : +2🏆, et la perte de Némésis est doublée
+Lovecraft : +2🏆 (2 → 4🏆) · +1🙏 · 🔺 2 victoires d'affilée
+Survivants de Lovecraft : 🎭 3 + 🐍 2 = 5✨
+Némésis perd 10✨ (5 ×2 exploit) · reste 8✨ · 🔻 1 défaite d'affilée
+[/spoiler]
+{hr}
+[i]Seed 36800891683 · dés 4 69 1 / 90 17 84 · données 615a7b6e · moteur 0.1.0[/i]

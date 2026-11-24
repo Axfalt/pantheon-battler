@@ -28,11 +28,13 @@ Hydromel : 🐐 Heiðrún (Setné) soigne 📜 Setné (Setné) de 2❤, reste 3�
 🧟 Draugr (Odin) riposte : 0⚔ − 1🛡 → 1 dégât (minimum), reste 3❤
 Représailles : 🧟 Draugr (Odin) → 🏺 Embaumeur (Setné) : 1 dégât (ignore la DÉF), reste 2❤
 Momification : 🏺 Embaumeur (Setné) ramène 🐗 Sanglier (Setné) avec 1❤
+Éternel retour : 🧟 Draugr (Odin) revient avec 1❤
 🪓 Einherjar (Odin) attaque 🐗 Sanglier (Setné) (provocation) : 2⚔ → 2 dégâts, mort
 🐗 Sanglier (Setné) riposte : 1⚔ → 1 dégât, reste 1❤
 Senet : 📜 Setné (Setné) : pile
-📜 Setné (Setné) attaque 🪽 Valkyrie (Odin) : 2⚔ − 1🛡 → 1 dégât, changé en 1🙏 (Senet), reste 2❤
-🪽 Valkyrie (Odin) riposte : 3⚔ − 1🛡 → 2 dégâts, reste 1❤
+📜 Setné (Setné) attaque 🧟 Draugr (Odin) (provocation) : 2⚔ → 2 dégâts, dont 1 changé en 1🙏 (Senet), mort
+🧟 Draugr (Odin) riposte : 0⚔ − 1🛡 → 1 dégât (minimum), reste 2❤
+Représailles : 🧟 Draugr (Odin) → 📜 Setné (Setné) : 1 dégât (ignore la DÉF), reste 1❤
 🪽 Valkyrie (Odin) attaque 🏺 Embaumeur (Setné) : 3⚔ − 1🛡 → 2 dégâts, mort
 🏺 Embaumeur (Setné) riposte : 2⚔ − 1🛡 → 1 dégât, reste 1❤
 📜 Setné (Setné) attaque 🪽 Valkyrie (Odin) : 2⚔ − 1🛡 → 1 dégât, mort
@@ -54,4 +56,4 @@ Survivants d'Odin : 🔥 3 + 🪓 2 = 5✨
 Setné perd 5✨ · reste 11✨ · 🔻 1 défaite d'affilée
 [/spoiler]
 {hr}
-[i]Seed 307403571882 · dés 31 75 4 / 58 19 83 · données ed27cf26 · moteur 0.1.0[/i]
+[i]Seed 307403571882 · dés 31 75 4 / 58 19 83 · données 615a7b6e · moteur 0.1.0[/i]

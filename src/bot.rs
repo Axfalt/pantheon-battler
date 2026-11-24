@@ -72,7 +72,16 @@ fn keyword_value(k: &Keyword) -> f64 {
         Keyword::Taunt => 1.5,
         Keyword::Lifelink => 2.0,
         // Synergies only, never on a unit.
-        Keyword::Sap | Keyword::Recurrence | Keyword::Fortune | Keyword::Grip { .. } => 0.0,
+        Keyword::Sap | Keyword::Fortune | Keyword::Grip { .. } => 0.0,
+        Keyword::Recurrence => 3.0,
+        Keyword::Annihilate => 3.0,
+        Keyword::Silence => 2.5,
+        Keyword::Dread { atk } => 2.0 * atk as f64,
+        // A drawback: it trades itself for its first kill.
+        Keyword::Vengeance => -2.0,
+        // Worth something only with ⭐ allies, which most boards lack.
+        Keyword::LuckyStar { atk, hp } => 0.75 * (atk + hp) as f64,
+        Keyword::PotOfGold { favors } => 1.0 * favors as f64,
         Keyword::Thorns { dmg } => 1.5 * dmg as f64,
         Keyword::Offering { essence, .. } => 0.4 * essence as f64,
         Keyword::Raise => 3.0,

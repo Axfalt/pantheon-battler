@@ -193,7 +193,7 @@ Une unité à double archétype compte pour les deux.
 | Archétype | Synergie | Effet |
 |---|---|---|
 | 🌱 Croissance | **Sève** | Chaque Vigueur et Bénédiction donne +1 de plus dans chaque caractéristique qu'elle augmente. |
-| ♻️ Cycle | **Éternel retour** | Une fois par combat, le premier allié qui meurt définitivement revient avec 1❤. |
+| ♻️ Cycle | **Éternel retour** | Une fois par combat, le premier allié qui meurt définitivement revient avec 1❤. Le 🧟 Draugr en donne un de plus. |
 | 🎲 Chance | **Fortune** | Chaque tirage raté (pile ou face, Momification…) est retenté une fois ; un Chaos ou une Dévoration qui tombe sur un allié est retiré une fois. |
 | 🔒 Contrôle | **Emprise** | Au début du combat, chaque ennemi perd 1⚔. |
 | 🐺 Revanche | **Endurance** | Une défaite coûte 2✨ de moins, avec un minimum de 1✨. |
@@ -272,9 +272,10 @@ Dans cet ordre :
 
 1. **Déchaînement** (🦑 Cthulhu) : les bonus s'appliquent à toute l'armée.
 2. **Dévoration** (🐂 Minotaure).
-3. **Phalange** (🪖 Hoplite).
-4. **Pétrification** (🐍 Méduse).
-5. **Emprise** (synergie Contrôle).
+3. **Bonne étoile** (🧿 Oudjat).
+4. **Phalange** (🪖 Hoplite).
+5. **Pétrification** (🐍 Méduse).
+6. **Emprise** (synergie Contrôle).
 
 ### Les attaques
 
@@ -293,11 +294,22 @@ Dans cet ordre :
 1. **Gel** de l'attaquant.
 2. Choix de la cible (Provocation).
 3. Pile ou face de **Démesure** et de **Senet**.
-4. Coups simultanés de l'attaquant et de la cible.
-5. **Représailles** de la cible.
-6. Effets d'attaque : **Fascination**, **Chaos**, **Hydromel**.
-7. **Momification**.
-8. Les morts : **Résurrection**, **Renaissance**, **Éternel retour**, puis **Héritage**.
+4. Coups simultanés de l'attaquant et de la cible ; **Regard de pierre** (🐍 Méduse) frappe
+   avec le coup.
+5. Une unité tuée par ces coups : **Néant** (🎭 Nyarlathotep) l'anéantit, **Châtiment**
+   (🦇 Érinye) fait mourir son tueur.
+6. **Représailles** et **Effroi** de la cible.
+7. Effets d'attaque : **Fascination**, **Chaos**, **Hydromel**.
+8. **Momification**.
+9. Les morts : une unité anéantie disparaît sans rien déclencher ; sinon **Résurrection**,
+   **Renaissance** ou **Éternel retour** (synergie Cycle et 🧟 Draugr), et **Héritage** à
+   chaque mort.
+
+### Les unités anéanties
+
+Une unité tuée par 🎭 Nyarlathotep est **perdue pour de bon** : elle disparaît de la
+composition de son joueur et retourne dans la réserve commune (les 3 exemplaires d'une unité
+⭐). Le bilan du combat l'indique et la composition mise à jour ne la contient plus.
 
 ### Fin du combat
 

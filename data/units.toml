@@ -56,7 +56,7 @@ id = "hoplite"
 name = "Hoplite"
 emoji = "🪖"
 pantheon = "GrecoRoman"
-archetype = "Cycle"
+archetype = "Control"
 tier = 1
 atk = 1
 hp = 2
@@ -76,16 +76,16 @@ def = 0
 keywords = [{ kind = "Taunt" }, { kind = "Grudge", atk = 1, hp = 1 }]
 
 [[unit]]
-id = "scarab"
-name = "Scarabée sacré"
-emoji = "🪲"
+id = "ka"
+name = "Ka"
+emoji = "🙌"
 pantheon = "Egyptian"
 archetype = "Growth"
 tier = 1
 atk = 1
 hp = 2
 def = 0
-keywords = [{ kind = "Grow", atk = 1 }]
+keywords = [{ kind = "Bless", hp = 1 }]
 
 [[unit]]
 id = "cyclops"
@@ -107,9 +107,9 @@ pantheon = "Norse"
 archetype = "Control"
 tier = 1
 atk = 0
-hp = 4
+hp = 3
 def = 0
-keywords = [{ kind = "Taunt" }, { kind = "Thorns", dmg = 1 }]
+keywords = [{ kind = "Taunt" }, { kind = "Thorns", dmg = 1 }, { kind = "Recurrence" }]
 
 [[unit]]
 id = "ankou"
@@ -124,6 +124,54 @@ hp = 3
 def = 0
 keywords = [{ kind = "Offering", deaths = 5, essence = 8 }]
 
+[[unit]]
+id = "saehrimnir"
+name = "Sæhrímnir"
+emoji = "🐖"
+pantheon = "Norse"
+archetype = "Cycle"
+tier = 1
+atk = 2
+hp = 1
+def = 0
+keywords = [{ kind = "Rebirth" }, { kind = "Legacy" }]
+
+[[unit]]
+id = "bugul_noz"
+name = "Bugul-noz"
+emoji = "🌲"
+pantheon = "Gaulish"
+archetype = "Control"
+tier = 1
+atk = 1
+hp = 4
+def = 0
+keywords = [{ kind = "Taunt" }, { kind = "Dread", atk = 1 }]
+
+[[unit]]
+id = "leprechaun"
+name = "Leprechaun"
+emoji = "🍀"
+pantheon = "Gaulish"
+archetype = "Gamble"
+tier = 1
+atk = 2
+hp = 2
+def = 0
+keywords = [{ kind = "PotOfGold", favors = 1 }]
+
+[[unit]]
+id = "erinys"
+name = "Érinye"
+emoji = "🦇"
+pantheon = "GrecoRoman"
+archetype = "Underdog"
+tier = 1
+atk = 3
+hp = 3
+def = 1
+keywords = [{ kind = "Vengeance" }]
+
 # ---- Rang 2 ----
 
 [[unit]]
@@ -136,7 +184,7 @@ tier = 2
 atk = 2
 hp = 4
 def = 0
-keywords = [{ kind = "Bless", atk = 1 }]
+keywords = [{ kind = "Bless", atk = 1, hp = 1 }]
 
 [[unit]]
 id = "valkyrie"
@@ -172,7 +220,7 @@ tier = 2
 atk = 2
 hp = 4
 def = 0
-keywords = [{ kind = "Petrify" }]
+keywords = [{ kind = "Petrify" }, { kind = "Silence" }]
 
 [[unit]]
 id = "tomb_robber"
@@ -185,6 +233,18 @@ atk = 3
 hp = 3
 def = 0
 keywords = [{ kind = "Plunder", favors = 3 }, { kind = "Hoard", per = 4 }]
+
+[[unit]]
+id = "wedjat"
+name = "Oudjat"
+emoji = "🧿"
+pantheon = "Egyptian"
+archetype = "Gamble"
+tier = 2
+atk = 2
+hp = 3
+def = 0
+keywords = [{ kind = "LuckyStar", atk = 2, hp = 2 }]
 
 # Unités doubles : un mot-clé de chacun de leurs deux archétypes.
 
@@ -224,7 +284,7 @@ archetype2 = "Control"
 tier = 2
 atk = 2
 hp = 3
-def = 0
+def = 1
 keywords = [{ kind = "Chaos", dmg = 1 }, { kind = "Chill", amount = 1 }]
 
 [[unit]]
@@ -237,7 +297,7 @@ archetype2 = "Underdog"
 tier = 2
 atk = 3
 hp = 4
-def = 0
+def = 1
 keywords = [{ kind = "Lifelink" }]
 
 [[unit]]
@@ -314,3 +374,15 @@ atk = 4
 hp = 6
 def = 1
 keywords = [{ kind = "Unleash", atk = 1, hp = 1 }]
+
+[[unit]]
+id = "nyarlathotep"
+name = "Nyarlathotep"
+emoji = "🎭"
+pantheon = "Elder"
+archetype = "Control"
+tier = 3
+atk = 5
+hp = 7
+def = 1
+keywords = [{ kind = "Annihilate" }]

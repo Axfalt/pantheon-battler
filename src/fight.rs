@@ -1,11 +1,13 @@
 //! Fight resolution between two boards. Index 0 of a board is its leftmost unit.
 //!
-//! Start of fight: Devour, then Phalanx, then Petrify, then Emprise (all simultaneous per phase).
+//! Start of fight: Devour, then Bonne étoile, then Phalanx, then Petrify, then Emprise (all
+//! simultaneous per phase).
 //! Phalanx is recounted whenever the board changes: after Chill and after each attack.
 //! Then the sides take turns, the one with more units first (a coin flip on a tie). On its
 //! turn, a side's leftmost unit that hasn't attacked yet attacks (looping back once all
-//! have): Chill, then it strikes a random enemy which strikes back at the same time,
-//! then Fascination and Chaos, then deaths. Petrify skips a side's next attack. Until one
+//! have): Chill, then it strikes a random enemy which strikes back at the same time
+//! (Regard de pierre lands with the blow), then Néant and Châtiment for the units killed by
+//! the blows, Représailles and Effroi, then Fascination and Chaos, then deaths. Petrify skips a side's next attack. Until one
 //! side is empty, or a draw after `max_fight_steps` attacks.
 
 use crate::data::{Data, Keyword};
@@ -37,6 +39,8 @@ pub struct FightResult {
     pub rebirths: [Vec<u32>; 2],
     /// Divine essence each side gets back (Offering).
     pub essence: [i32; 2],
+    /// Units destroyed for good (Néant), indexed by board position at the start of the fight.
+    pub destroyed: [Vec<bool>; 2],
     /// Favors each side earns for the next round (Senet).
     pub favors: [i32; 2],
     /// Quest deaths counted, indexed by board position at the start of the fight.
@@ -69,6 +73,10 @@ struct F {
     /// Phalanx bonus currently included in `atk`, and in `max_hp` and `hp`.
     ph_atk: i32,
     ph_hp: i32,
+    /// All its powers are cancelled (Regard de pierre).
+    silenced: bool,
+    /// Killed by a Néant unit: gone for good.
+    destroyed: bool,
 }
 
 impl F {
@@ -92,8 +100,9 @@ struct Fight<'a> {
     essence: [i32; 2],
     favors: [i32; 2],
     perks: [Perks; 2],
-    /// Éternel retour already used.
-    recurred: [bool; 2],
+    /// Éternel retour returns already used (synergy and units with the power together).
+    recurred: [i32; 2],
+    destroyed: [Vec<bool>; 2],
     log: Option<&'a mut Vec<String>>,
 }
 
@@ -124,6 +133,8 @@ pub fn fight<'a>(
                 max_hp: u.hp,
                 ph_atk: 0,
                 ph_hp: 0,
+                silenced: false,
+                destroyed: false,
             })
             .collect()
     };
@@ -138,7 +149,8 @@ pub fn fight<'a>(
         essence: [0, 0],
         favors: [0, 0],
         perks,
-        recurred: [false, false],
+        recurred: [0, 0],
+        destroyed: [vec![false; a.len()], vec![false; b.len()]],
         log,
     };
     let start = f.render();
@@ -146,19 +158,31 @@ pub fn fight<'a>(
         say!(f.log, "    {line}");
     }
     f.devour(rng);
+    f.lucky_star();
     f.phalanx();
     f.petrify();
     f.grip();
     let outcome = f.combat(rng);
     let end = f.render();
     let survivors = [0, 1].map(|s| f.sides[s].iter().map(|u| (u.id, u.mult)).collect());
-    FightResult { outcome, rebirths: f.rebirths, essence: f.essence, favors: f.favors, deaths: f.deaths, survivors, start, end }
+    FightResult {
+        outcome,
+        rebirths: f.rebirths,
+        essence: f.essence,
+        destroyed: f.destroyed,
+        favors: f.favors,
+        deaths: f.deaths,
+        survivors,
+        start,
+        end,
+    }
 }
 
 impl<'a> Fight<'a> {
+    /// The unit's powers: none once Regard de pierre has cancelled them.
     fn kws(&self, f: &F) -> &'a [Keyword] {
         let data: &'a Data = self.data;
-        &data.units[f.id].keywords
+        if f.silenced { &[] } else { &data.units[f.id].keywords }
     }
 
     fn damage(&self, raw: i32, def: i32) -> i32 {
@@ -220,6 +244,9 @@ impl<'a> Fight<'a> {
         for s in 0..2 {
             let mut updates = Vec::new();
             for (i, f) in self.sides[s].iter().enumerate() {
+                if f.silenced && (f.ph_atk, f.ph_hp) != (0, 0) {
+                    updates.push((i, 0, 0, [0, 0, 0]));
+                }
                 for k in self.kws(f) {
                     if let Keyword::Phalanx { atk, hp } = *k {
                         let me = f.core();
@@ -303,6 +330,47 @@ impl<'a> Fight<'a> {
                 let (n, pn) = (self.label(s, &self.sides[s][i]), self.label(ts, &prey));
                 let gain = crate::data::bonus(prey.atk * m, prey.hp * m, prey.def * m);
                 say!(self.log, "    Dévoration : {n} {fail_note}dévore {pn} : {gain}");
+            }
+        }
+    }
+
+    /// Bonne étoile: itself and its two neighbours gain the stats once per ⭐ ally on its board
+    /// (itself included), for this fight. Every Bonne étoile counts the same board.
+    fn lucky_star(&mut self) {
+        for s in 0..2 {
+            let stars = self.sides[s].iter().filter(|f| f.mult > 1).count() as i32;
+            let mut gifts = Vec::new();
+            for (i, f) in self.sides[s].iter().enumerate() {
+                for k in self.kws(f) {
+                    if let Keyword::LuckyStar { atk, hp } = *k {
+                        gifts.push((i, atk * f.mult * stars, hp * f.mult * stars));
+                    }
+                }
+            }
+            for (i, a, h) in gifts {
+                if stars == 0 {
+                    let n = self.label(s, &self.sides[s][i]);
+                    say!(self.log, "    Bonne étoile : {n} : aucune unité ⭐ sur le terrain");
+                    continue;
+                }
+                let lo = i.saturating_sub(1);
+                let hi = (i + 1).min(self.sides[s].len() - 1);
+                let mut names = Vec::new();
+                for j in lo..=hi {
+                    let g = &mut self.sides[s][j];
+                    g.atk += a;
+                    g.hp += h;
+                    g.max_hp += h;
+                    if j != i {
+                        names.push(self.label(s, &self.sides[s][j]));
+                    }
+                }
+                if self.log.is_some() {
+                    let n = self.label(s, &self.sides[s][i]);
+                    let with = if names.is_empty() { String::new() } else { format!(" et {}", names.join(", ")) };
+                    let plural = if stars > 1 { "s" } else { "" };
+                    say!(self.log, "    Bonne étoile : {n}{with} : {} ({stars} unité{plural} ⭐ sur le terrain)", crate::data::bonus(a, h, 0));
+                }
             }
         }
     }
@@ -463,7 +531,7 @@ impl<'a> Fight<'a> {
         self.rebirths[s][slot] += 1;
         let mut back = Vec::new();
         for j in 0..self.sides[s].len() {
-            if j != i && self.sides[s][j].hp <= 0 {
+            if j != i && self.sides[s][j].hp <= 0 && !self.sides[s][j].destroyed {
                 self.sides[s][j].hp = 1;
                 back.push(self.label(s, &self.sides[s][j]));
             }
@@ -482,6 +550,34 @@ impl<'a> Fight<'a> {
         }
     }
 
+    /// Héritage: the ally standing at `next` (right of the dead unit) gets its ATK.
+    fn legacy(&mut self, s: usize, dead: &F, next: usize) {
+        if !self.kws(dead).contains(&Keyword::Legacy) {
+            return;
+        }
+        if let Some(n) = self.sides[s].get(next) {
+            let next_name = self.label(s, n);
+            let gift = dead.atk.max(0) * dead.mult;
+            if gift == 0 {
+                return;
+            }
+            self.sides[s][next].atk += gift;
+            say!(self.log, "    Héritage : {next_name} reçoit +{gift}⚔");
+        }
+    }
+
+    /// Éternel retour returns the side still has: the synergy's one, plus those of its units
+    /// with the power (on the field or dead in this fight; ⭐ ones count double).
+    fn returns_left(&self, s: usize) -> i32 {
+        let units: i32 = self.sides[s]
+            .iter()
+            .chain(&self.graveyard[s])
+            .filter(|f| self.kws(f).contains(&Keyword::Recurrence))
+            .map(|f| f.mult)
+            .sum();
+        self.perks[s].recurrence as i32 + units - self.recurred[s]
+    }
+
     fn resolve_deaths(&mut self, s: usize) {
         let mut i = 0;
         while i < self.sides[s].len() {
@@ -490,15 +586,23 @@ impl<'a> Fight<'a> {
                 continue;
             }
             let mut dead = self.sides[s][i].clone();
-            let kws = self.kws(&dead);
             let n = self.label(s, &dead);
+            // Néant: gone for good, nothing triggers.
+            if dead.destroyed {
+                self.sides[s].remove(i);
+                self.destroyed[s][dead.slot] = true;
+                continue;
+            }
+            let kws = self.kws(&dead);
             if dead.rebirths_left > 0 && kws.contains(&Keyword::Resurrect) {
+                self.legacy(s, &dead, i + 1);
                 self.resurrect(s, i);
                 // Units came back on both sides of i: check the whole line again.
                 i = 0;
                 continue;
             }
             if dead.rebirths_left > 0 && kws.contains(&Keyword::Rebirth) {
+                self.legacy(s, &dead, i + 1);
                 let f = &mut self.sides[s][i];
                 f.hp = 1;
                 f.rebirths_left -= 1;
@@ -507,8 +611,9 @@ impl<'a> Fight<'a> {
                 i += 1;
                 continue;
             }
-            if self.perks[s].recurrence && !self.recurred[s] {
-                self.recurred[s] = true;
+            if self.returns_left(s) > 0 {
+                self.legacy(s, &dead, i + 1);
+                self.recurred[s] += 1;
                 self.sides[s][i].hp = 1;
                 say!(self.log, "    Éternel retour : {n} revient avec 1❤");
                 i += 1;
@@ -535,14 +640,7 @@ impl<'a> Fight<'a> {
             }
             self.graveyard[s].push(dead.clone());
             // The unit that was behind the dead one now stands at index i.
-            if kws.contains(&Keyword::Legacy) {
-                if let Some(next) = self.sides[s].get(i) {
-                    let next_name = self.label(s, next);
-                    let gift = dead.atk.max(0) * dead.mult;
-                    self.sides[s][i].atk += gift;
-                    say!(self.log, "    Héritage : {next_name} reçoit +{gift}⚔");
-                }
-            }
+            self.legacy(s, &dead, i);
         }
     }
 
@@ -593,7 +691,7 @@ impl<'a> Fight<'a> {
                 None => rng.gen_range(0..self.sides[1 - s].len() as u64) as usize,
             };
             let taunted = if taunters.is_empty() { "" } else { " (provocation)" };
-            let (att, tgt) = (self.sides[s][i].clone(), self.sides[1 - s][t].clone());
+            let (att, mut tgt) = (self.sides[s][i].clone(), self.sides[1 - s][t].clone());
             let mut power = att.atk;
             if kws.contains(&Keyword::Hubris) {
                 let (heads, retried) = self.flip(s, 0.5, rng);
@@ -646,6 +744,33 @@ impl<'a> Fight<'a> {
                 say!(self.log, "    {an} attaque {tn}{taunted} : {hit}");
                 say!(self.log, "    {tn} riposte : {back}");
             }
+            // Regard de pierre lands with the blow: the target's powers are gone, Représailles,
+            // Néant and Châtiment included.
+            if kws.contains(&Keyword::Silence) && !tgt.silenced && !self.data.units[tgt.id].keywords.is_empty() {
+                self.sides[1 - s][t].silenced = true;
+                tgt.silenced = true;
+                let (an, tn) = (self.label(s, &att), self.label(1 - s, &tgt));
+                say!(self.log, "    Regard de pierre : {an} → {tn} perd tous ses pouvoirs");
+            }
+            // Units killed by the blows: Néant destroys them, Châtiment kills their killer.
+            let tgt_fell = self.sides[1 - s][t].hp <= 0 && tgt.hp > 0;
+            let att_fell = self.sides[s][i].hp <= 0 && att.hp > 0;
+            for (ks, ki, killer, vs, vi, fell) in [(s, i, &att, 1 - s, t, tgt_fell), (1 - s, t, &tgt, s, i, att_fell)] {
+                if !fell {
+                    continue;
+                }
+                let kk = self.kws(killer);
+                if kk.contains(&Keyword::Annihilate) && !self.sides[vs][vi].destroyed {
+                    self.sides[vs][vi].destroyed = true;
+                    let (kn, vn) = (self.label(ks, killer), self.label(vs, &self.sides[vs][vi]));
+                    say!(self.log, "    Néant : {kn} anéantit {vn}");
+                }
+                if kk.contains(&Keyword::Vengeance) && self.sides[ks][ki].hp > 0 {
+                    self.sides[ks][ki].hp = 0;
+                    let kn = self.label(ks, killer);
+                    say!(self.log, "    Châtiment : {kn} a tué, sa vengeance est accomplie : mort");
+                }
+            }
             // Thorns: the target hits back again, ignoring DEF, even if it fell.
             for k in self.kws(&tgt) {
                 if let Keyword::Thorns { dmg } = *k {
@@ -656,6 +781,15 @@ impl<'a> Fight<'a> {
                         let plural = if dmg > 1 { "s" } else { "" };
                         let left = Self::after(self.sides[s][i].hp);
                         say!(self.log, "    Représailles : {tn} → {an} : {dmg} dégât{plural} (ignore la DÉF), {left}");
+                    }
+                }
+                // Effroi: the attacker loses ATK for the rest of the fight.
+                if let Keyword::Dread { atk } = *k {
+                    let lost = (atk * tgt.mult).min(self.sides[s][i].atk.max(0));
+                    if lost > 0 {
+                        self.sides[s][i].atk -= lost;
+                        let (an, tn) = (self.label(s, &att), self.label(1 - s, &tgt));
+                        say!(self.log, "    Effroi : {tn} → {an} perd {lost}⚔");
                     }
                 }
             }

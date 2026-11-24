@@ -106,6 +106,8 @@ struct Arenist {
     ascensions: u32,
     /// Days ended without a fight (each one cost victory points).
     idle_days: u32,
+    /// Own units destroyed by Néant.
+    destroyed: u32,
 }
 
 /// The Bazar: one shop per level on the current page.
@@ -133,6 +135,7 @@ pub struct ArenaPlayer {
     pub level: usize,
     pub ascensions: u32,
     pub idle_days: u32,
+    pub destroyed: u32,
     pub board: Vec<usize>,
 }
 
@@ -164,6 +167,7 @@ pub fn run(data: &Data, strats: &[Strategy], seats: &[Seat], rng: &mut GameRng) 
             win_streak: 0,
             senet_today: 0,
             resets: 0,
+            destroyed: 0,
             vp_lost: 0,
             fights: 0,
             upsets: 0,
@@ -296,6 +300,7 @@ pub fn run(data: &Data, strats: &[Strategy], seats: &[Seat], rng: &mut GameRng) 
             vp: x.vp,
             essence: x.p.essence,
             resets: x.resets,
+            destroyed: x.destroyed,
             vp_lost: x.vp_lost,
             fights: x.fights,
             wins: x.p.wins,
@@ -495,6 +500,14 @@ fn fight(data: &Data, ps: &mut [Arenist], i: usize, j: usize, pool: &mut Pool, r
         state::record_deaths(data, &mut x.p.board, &res.deaths[side]);
         for (u, &rb) in x.p.board.iter_mut().zip(&res.rebirths[side]) {
             u.rebirths += rb;
+        }
+        // Néant: destroyed units are lost for good, their copies back to the reserve.
+        for k in (0..x.p.board.len()).rev() {
+            if res.destroyed[side].get(k).copied().unwrap_or(false) {
+                let u = x.p.board.remove(k);
+                pool.put_unit(data, &u);
+                x.destroyed += 1;
+            }
         }
         // Senet: favors right away, capped per day.
         let cap = x

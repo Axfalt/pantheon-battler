@@ -167,7 +167,7 @@ pub fn format(data: &Data, c: &Composition) -> String {
     lines.join("\n")
 }
 
-/// Lowercase, without accents: "Heiðrún" → "heidrun", "Scarabée" → "scarabee".
+/// Lowercase, without accents: "Heiðrún" → "heidrun", "Érinye" → "erinye".
 pub fn fold(s: &str) -> String {
     let mut out = String::with_capacity(s.len());
     for c in s.chars().flat_map(char::to_lowercase) {
@@ -618,7 +618,7 @@ mod tests {
         assert!(c.units[1].star);
         assert_eq!(c.units[3].deaths, 2);
         // No emoji, no accents, ★.
-        let p = parse(&data, "🏆 0 · ✨ 25 · série de 0 défaite\n1. ★Scarabee sacre · 2/4/0\n2. Geant du givre · 2/3/0\n3. 🏺 Embaumeur · 2/4/1");
+        let p = parse(&data, "🏆 0 · ✨ 25 · série de 0 défaite\n1. ★Erinye · 6/6/2\n2. Geant du givre · 2/3/0\n3. 🏺 Embaumeur · 2/4/1");
         assert!(p.errors.is_empty(), "{:?}", p.errors);
         assert_eq!(p.compo.units.len(), 3);
         assert!(p.compo.units[0].star);

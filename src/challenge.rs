@@ -202,6 +202,23 @@ pub fn settle(data: &Data, names: &[String; 2], compos: &[Composition; 2], board
         }
     }
 
+    // Néant: destroyed units leave their owner's composition for good.
+    for s in 0..2 {
+        let mut gone = Vec::new();
+        for k in (0..after_boards[s].len()).rev() {
+            if res.destroyed[s].get(k).copied().unwrap_or(false) {
+                let u = after_boards[s].remove(k);
+                let back = if u.merged { format!("ses {} exemplaires retournent", r.merge_copies) } else { "retourne".to_string() };
+                gone.push(format!(
+                    "Néant : {} ({}) est anéanti : il quitte sa composition et {back} dans la réserve commune",
+                    unit_name(data, &u),
+                    names[s]
+                ));
+            }
+        }
+        lines.extend(gone.into_iter().rev());
+    }
+
     let winner = match res.outcome {
         Outcome::WinA => Some(0),
         Outcome::WinB => Some(1),
@@ -433,6 +450,7 @@ mod tests {
             outcome,
             rebirths: sizes.map(|n| vec![0; n]),
             essence: [0, 0],
+            destroyed: sizes.map(|n| vec![false; n]),
             favors: [0, 0],
             deaths: sizes.map(|n| vec![0; n]),
             survivors,
@@ -546,5 +564,96 @@ mod tests {
         let err = challenge(&data, [a, "rien"], [None, None], &[1, 2, 3]).err().unwrap();
         assert!(err.iter().any(|e| e.starts_with("Défenseur")));
         assert!(err.iter().any(|e| e.contains("6 dés")));
+    }
+
+    /// A fight between two hand-made line-ups, with seed `seed`.
+    fn duel(data: &Data, a: &[(&str, bool, i32, i32, i32, u32)], b: &[(&str, bool, i32, i32, i32, u32)], seed: u64) -> Challenge {
+        play(data, names(), [compo(data, a, 0, 25, 0), compo(data, b, 0, 25, 0)], vec![1; 6], seed)
+    }
+    fn log(c: &Challenge) -> String {
+        c.log.join("\n")
+    }
+
+    #[test]
+    fn annihilate_destroys_for_good() {
+        let data = data();
+        for seed in 0..10 {
+            let c = duel(&data, &[("nyarlathotep", false, 5, 7, 1, 0)], &[("saehrimnir", false, 2, 1, 0, 0)], seed);
+            let l = log(&c);
+            assert!(l.contains("anéantit"), "{l}");
+            assert!(!l.contains("renaît"), "Renaissance after Néant: {l}");
+            assert!(c.settlement.after[1].units.is_empty());
+            assert!(c.settlement.lines.iter().any(|x| x.starts_with("Néant :")));
+            assert!(c.settlement.after[0].units.len() == 1);
+        }
+    }
+
+    #[test]
+    fn vengeance_dies_with_its_kill() {
+        let data = data();
+        for seed in 0..10 {
+            let c = duel(&data, &[("erinys", false, 3, 3, 1, 0)], &[("leprechaun", false, 2, 2, 0, 0)], seed);
+            assert!(log(&c).contains("Châtiment"), "{}", log(&c));
+            assert_eq!(c.result.outcome, Outcome::Draw);
+        }
+    }
+
+    #[test]
+    fn stone_gaze_cancels_every_power() {
+        let data = data();
+        for seed in 0..10 {
+            let c = duel(&data, &[("medusa", false, 2, 4, 0, 0)], &[("draugr", false, 0, 3, 0, 0)], seed);
+            let l = log(&c);
+            assert!(l.contains("Regard de pierre"), "{l}");
+            assert!(!l.contains("Représailles"), "{l}");
+            assert!(!l.contains("Éternel retour"), "{l}");
+            assert_eq!(c.result.outcome, Outcome::WinA);
+        }
+    }
+
+    #[test]
+    fn draugr_returns_and_dread_weakens() {
+        let data = data();
+        let c = duel(&data, &[("draugr", false, 0, 3, 0, 0)], &[("vouivre", false, 6, 7, 2, 0)], 1);
+        assert!(log(&c).contains("Éternel retour : 🧟 Draugr"), "{}", log(&c));
+        let c = duel(&data, &[("bugul_noz", false, 1, 4, 0, 0)], &[("cyclops", false, 3, 2, 0, 0)], 1);
+        assert!(log(&c).contains("Effroi : 🌲 Bugul-noz (Alice) → 👁️ Cyclope (Bob) perd 1⚔"), "{}", log(&c));
+    }
+
+    #[test]
+    fn lucky_star_counts_merged_allies() {
+        let data = data();
+        let c = duel(
+            &data,
+            &[("boar", true, 2, 8, 0, 0), ("wedjat", false, 2, 3, 0, 0), ("korrigan", true, 4, 6, 0, 0)],
+            &[("boar", false, 1, 4, 0, 0)],
+            1,
+        );
+        assert!(log(&c).contains("+4⚔ +4❤ (2 unités ⭐ sur le terrain)"), "{}", log(&c));
+    }
+
+    #[test]
+    fn legacy_on_every_death() {
+        let data = data();
+        let twice = (0..30).any(|seed| {
+            let c = duel(&data, &[("saehrimnir", false, 2, 1, 0, 0), ("ushabti", false, 2, 2, 1, 0)], &[("ymir", false, 7, 11, 1, 0)], seed);
+            log(&c).matches("Héritage : 🗿 Ouchebti").count() == 2
+        });
+        assert!(twice, "Sæhrímnir never gave its ATK on both deaths");
+    }
+
+    #[test]
+    fn pot_of_gold_pays_per_merged_unit() {
+        let data = data();
+        let mut p = crate::state::Player::new("A".into(), 0, 25);
+        let star = |id: &str| {
+            let mut u = Unit::new(&data, data.unit_index(id).unwrap());
+            u.merged = true;
+            u.power = 2;
+            u
+        };
+        p.board = vec![star("boar"), star("korrigan"), Unit::new(&data, data.unit_index("leprechaun").unwrap())];
+        crate::shop::income(&data, &mut p);
+        assert_eq!(p.favors, data.rules.base_income + 2);
     }
 }

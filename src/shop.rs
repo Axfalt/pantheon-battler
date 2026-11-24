@@ -89,7 +89,19 @@ pub fn income(data: &Data, p: &mut Player) {
             })
         })
         .max();
-    let total = p.favors + r.base_income + p.bonus_favors + interest.unwrap_or(0);
+    // Pot d'or: favors per ⭐ unit on the board.
+    let stars = p.board.iter().filter(|u| u.merged).count() as i32;
+    let gold: i32 = p
+        .board
+        .iter()
+        .flat_map(|u| {
+            data.units[u.id].keywords.iter().filter_map(move |k| match *k {
+                Keyword::PotOfGold { favors } => Some(favors * u.mult() * stars),
+                _ => None,
+            })
+        })
+        .sum();
+    let total = p.favors + r.base_income + p.bonus_favors + interest.unwrap_or(0) + gold;
     p.favors = if interest.is_some() { total } else { total.min(r.favor_cap) };
     p.bonus_favors = 0;
 }

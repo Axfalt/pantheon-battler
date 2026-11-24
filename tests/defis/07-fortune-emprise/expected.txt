@@ -19,12 +19,14 @@ Gel : ❄️ Géant du givre (Skadi) → 👁️ Cyclope (Tyché) perd 1⚔
 Chaos : 🍄 Korrigan (Tyché) → ❄️ Géant du givre (Skadi) : 1 dégât (ignore la DÉF), mort
 🐍 Méduse (Skadi) attaque 👁️ Cyclope (Tyché) : 2⚔ → 2 dégâts, mort
 👁️ Cyclope (Tyché) riposte : 1⚔ → 1 dégât, reste 3❤
+Regard de pierre : 🐍 Méduse (Skadi) → 👁️ Cyclope (Tyché) perd tous ses pouvoirs
 Gel : 🐢 Tarasque (Tyché) → 🐍 Méduse (Skadi) perd 1⚔
 🐢 Tarasque (Tyché) attaque 🐍 Méduse (Skadi) : 1⚔ → 1 dégât, reste 2❤
 🐍 Méduse (Skadi) riposte : 1⚔ → 1 dégât, reste 2❤
 Chaos : 🐢 Tarasque (Tyché) → tombe sur 🐂 Minotaure (Tyché), retente (Fortune) → 🐍 Méduse (Skadi) : 1 dégât (ignore la DÉF), reste 1❤
 🐍 Méduse (Skadi) attaque 🐢 Tarasque (Tyché) : 1⚔ → 1 dégât, reste 1❤
 🐢 Tarasque (Tyché) riposte : 1⚔ → 1 dégât, mort
+Regard de pierre : 🐍 Méduse (Skadi) → 🐢 Tarasque (Tyché) perd tous ses pouvoirs
 [/spoiler]
 
 [b]Résultat[/b]
@@ -41,4 +43,4 @@ Survivants de Tyché : 🐢 2 + 🐂 3 = 5✨
 Skadi perd 5✨ · reste 15✨ · 🔻 1 défaite d'affilée
 [/spoiler]
 {hr}
-[i]Seed 981351356920 · dés 99 14 52 / 36 70 21 · données ed27cf26 · moteur 0.1.0[/i]
+[i]Seed 981351356920 · dés 99 14 52 / 36 70 21 · données 615a7b6e · moteur 0.1.0[/i]
