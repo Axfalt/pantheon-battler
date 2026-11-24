@@ -51,9 +51,9 @@ Odin : 🔥6/3 🪓2/1
 [b]Bilan[/b]
 [spoiler]
 Senet : Setné gagne 3🙏, dans la limite de 3🙏 de Senet par jour
-Odin : +1🏆 (2 → 3🏆) · +1🙏 · 🔺 1 victoire d'affilée · défaites d'affilée remises à 0
+Odin : +1🏆 (2 → 3🏆) · +1🙏 · 🔥 1 victoire d'affilée · défaites d'affilée remises à 0
 Survivants d'Odin : 🔥 3 + 🪓 2 = 5✨
-Setné perd 5✨ · reste 11✨ · 🔻 1 défaite d'affilée
+Setné perd 5✨ · reste 11✨ · 💔 1 défaite d'affilée
 [/spoiler]
 {hr}
 [i]Seed 307403571882 · dés 31 75 4 / 58 19 83 · données be27ff4d · moteur 0.1.0[/i]

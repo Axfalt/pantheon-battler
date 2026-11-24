@@ -28,9 +28,9 @@ Ulysse : 🪽3/2🛡1
 [spoiler]
 Offrande : ⚰️ Ankou (Morgane) en est à 5/5 morts : quête accomplie
 Morgane récupère 8✨ grâce à l'Offrande : 25✨
-Ulysse : +1🏆 (1 → 2🏆) · +1🙏 · 🔺 1 victoire d'affilée
+Ulysse : +1🏆 (1 → 2🏆) · +1🙏 · 🔥 1 victoire d'affilée
 Survivants d'Ulysse : 🪽 2 = 2✨
-Morgane perd 2✨ · reste 23✨ · 🔻 2 défaites d'affilée
+Morgane perd 2✨ · reste 23✨ · 💔 2 défaites d'affilée
 [/spoiler]
 {hr}
 [i]Seed 225807764065 · dés 23 59 8 / 77 41 66 · données be27ff4d · moteur 0.1.0[/i]

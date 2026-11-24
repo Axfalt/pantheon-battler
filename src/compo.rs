@@ -146,10 +146,10 @@ pub fn format(data: &Data, c: &Composition) -> String {
         head += &format!(" · ✨ {e}");
     }
     if let Some(s) = c.streak {
-        head += &format!(" · 🔻 {s} défaite{} d'affilée", if s > 1 { "s" } else { "" });
+        head += &format!(" · 💔 {s} défaite{} d'affilée", if s > 1 { "s" } else { "" });
     }
     if let Some(w) = c.wins {
-        head += &format!(" · 🔺 {w} victoire{} d'affilée", if w > 1 { "s" } else { "" });
+        head += &format!(" · 🔥 {w} victoire{} d'affilée", if w > 1 { "s" } else { "" });
     }
     let mut lines = vec![head];
     for (k, e) in c.units.iter().enumerate() {
@@ -412,7 +412,7 @@ fn header_fields(line: &str, c: &mut Composition) {
                 break;
             }
         }
-        let end = ['·', '|', '🏆', '✨', '🔻', '🔺']
+        let end = ['·', '|', '🏆', '✨', '💔', '🔥', '🔻', '🔺']
             .iter()
             .filter_map(|&ch| rest.find(ch))
             .chain(["série", "Série", "serie", "Serie"].iter().filter_map(|w| rest.find(w)))
@@ -429,10 +429,12 @@ fn header_fields(line: &str, c: &mut Composition) {
     if let Some(e) = number_near(&folded, "✨") {
         c.essence = Some(e);
     }
-    if let Some(w) = number_near(&folded, "🔺").or_else(|| number_near(&folded, "victoire")) {
+    // 🔥 and 💔 since 2026-11-25; 🔺 and 🔻 in older posts.
+    let near = |a: &str, b: &str| number_near(&folded, a).or_else(|| number_near(&folded, b));
+    if let Some(w) = near("🔥", "🔺").or_else(|| number_near(&folded, "victoire")) {
         c.wins = Some(w);
     }
-    if let Some(v) = number_near(&folded, "🔻") {
+    if let Some(v) = near("💔", "🔻") {
         c.streak = Some(v);
     } else if let Some(at) = folded.find("serie") {
         let after = &folded[at + "serie".len()..];
@@ -623,6 +625,24 @@ mod tests {
         assert_eq!(p.compo.units.len(), 3);
         assert!(p.compo.units[0].star);
         assert_eq!(p.compo.units[1].id, "frost_giant");
+    }
+
+    #[test]
+    fn streak_icons_old_and_new() {
+        let data = data();
+        for head in [
+            "[b]⚔ Composition de Bob[/b] · 🏆 3 · ✨ 18 · 💔 2 défaites d'affilée · 🔥 4 victoires d'affilée",
+            "[b]⚔ Composition de Bob[/b] · 🏆 3 · ✨ 18 · 🔻 2 défaites d'affilée · 🔺 4 victoires d'affilée",
+        ] {
+            let p = parse(&data, &format!("{head}\n1. 🔥 Bénou · 6/6/0\n2. 🐗 Sanglier · 1/4/0"));
+            assert!(p.errors.is_empty(), "{:?}", p.errors);
+            assert_eq!((p.compo.name.as_str(), p.compo.streak, p.compo.wins), ("Bob", Some(2), Some(4)), "{head}");
+            assert_eq!(p.compo.units[0].id, "bennu");
+        }
+        // Written back with the new icons.
+        let p = parse(&data, "Composition de Bob · 🏆 0 · ✨ 25 · 🔻 1 défaite d'affilée · 🔺 0 victoire d'affilée\n1. Sanglier · 1/4/0");
+        let text = format(&data, &p.compo);
+        assert!(text.contains("💔 1 défaite d'affilée · 🔥 0 victoire d'affilée"), "{text}");
     }
 
     #[test]

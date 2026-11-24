@@ -242,7 +242,7 @@ pub fn settle(data: &Data, names: &[String; 2], compos: &[Composition; 2], board
             let bonus_text = if bonus > 0 { format!(" (dont +{bonus}🙏 de bonus de série)") } else { String::new() };
             let reset_streak = if streak[w] > 0 { " · défaites d'affilée remises à 0" } else { "" };
             lines.push(format!(
-                "{} : +{gain}🏆 ({} → {}🏆) · +{}🙏{bonus_text} · 🔺 {}{reset_streak}",
+                "{} : +{gain}🏆 ({} → {}🏆) · +{}🙏{bonus_text} · 🔥 {}{reset_streak}",
                 names[w],
                 vp[w],
                 vp[w] + gain,
@@ -285,7 +285,7 @@ pub fn settle(data: &Data, names: &[String; 2], compos: &[Composition; 2], board
                 }
                 None => String::new(),
             };
-            lines.push(format!("{} perd {lost}✨{how}{left} · 🔻 {}{broken}", names[l], streak_text(streak[l], i32::MAX)));
+            lines.push(format!("{} perd {lost}✨{how}{left} · 💔 {}{broken}", names[l], streak_text(streak[l], i32::MAX)));
 
             // A loser who falls to 0✨ loses its units: nothing more to apply.
             if !essence[l].is_some_and(|e| e <= 0) {

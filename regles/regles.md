@@ -241,8 +241,8 @@ Chaque composition indique deux compteurs, mis à jour par le bilan de chaque co
 
 | Compteur | Avance quand… | Retombe à 0 quand… | Effet |
 |---|---|---|---|
-| 🔻 **Défaites d'affilée** | le joueur perd | le joueur gagne | **Prime de retour** : toutes les **3 défaites d'affilée** (3, 6, 9…), **+5🙏**. Compte aussi pour le Déchaînement de 🦑 Cthulhu. |
-| 🔺 **Victoires d'affilée** | le joueur gagne | le joueur perd | **Bonus de série** : à partir de la **3e victoire d'affilée**, chaque victoire rapporte **+1🙏** de plus. |
+| 💔 **Défaites d'affilée** | le joueur perd | le joueur gagne | **Prime de retour** : toutes les **3 défaites d'affilée** (3, 6, 9…), **+5🙏**. Compte aussi pour le Déchaînement de 🦑 Cthulhu. |
+| 🔥 **Victoires d'affilée** | le joueur gagne | le joueur perd | **Bonus de série** : à partir de la **3e victoire d'affilée**, chaque victoire rapporte **+1🙏** de plus. |
 
 Un match nul ne change aucun des deux compteurs. Les séries continuent d'un jour à l'autre.
 
