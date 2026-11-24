@@ -1,6 +1,6 @@
 # 📖 Les créatures de Pantheon Battler
 
-Les 32 créatures du jeu, rang par rang. Les règles générales sont dans [regles.md](regles.md).
+Les 31 créatures du jeu, rang par rang. Les règles générales sont dans [regles.md](regles.md).
 
 **Rappels**
 
@@ -47,7 +47,6 @@ Les 32 créatures du jeu, rang par rang. Les règles générales sont dans [regl
 | 🏔️ | Ymir | Scandinave | 🌱 Croissance | 3 | 5🙏 | 7 | 11 | 1 | Vigueur collective +1❤ |
 | 🔥 | Bénou | Égyptien | ♻️ Cycle | 3 | 5🙏 | 6 | 6 | 0 | Résurrection · Récupération (max 3) |
 | 🐂 | Minotaure | Gréco-Romain | 🎲 Chance | 3 | 5🙏 | 1 | 1 | 1 | Dévoration |
-| 🐉 | Vouivre | Gaulois | 🔒 Contrôle | 3 | 5🙏 | 6 | 7 | 2 | Fascination 2 |
 | 🦑 | Cthulhu | Grands Anciens | 🐺 Revanche | 3 | 5🙏 | 4 | 6 | 1 | Déchaînement +1⚔ +1❤ |
 | 🎭 | Nyarlathotep | Grands Anciens | 🔒 Contrôle | 3 | 5🙏 | 5 | 7 | 1 | Néant |
 
@@ -58,7 +57,7 @@ Les 32 créatures du jeu, rang par rang. Les règles générales sont dans [regl
 | 🌱 Croissance | Des unités qui grandissent chaque jour. | Sanglier, Ka, Louve capitoline, Druide, Einherjar, Hydre de Lerne, Ymir |
 | ♻️ Cycle | La mort n'est qu'un passage : retours, héritages, quêtes. | Ouchebti, Draugr, Ankou, Sæhrímnir, Valkyrie, Einherjar, Embaumeur, Bénou |
 | 🎲 Chance | Pile ou face, coups au hasard, gros paris. | Korrigan, Cyclope, Leprechaun, Setné, Oudjat, Embaumeur, Tarasque, Minotaure |
-| 🔒 Contrôle | Affaiblir, bloquer et user l'adversaire. | Géant du givre, Hoplite, Bugul-noz, Méduse, Tarasque, Heiðrún, Vouivre, Nyarlathotep |
+| 🔒 Contrôle | Affaiblir, bloquer et user l'adversaire. | Géant du givre, Hoplite, Bugul-noz, Méduse, Tarasque, Heiðrún, Nyarlathotep |
 | 🐺 Revanche | Chaque défaite rend plus fort. | Sisyphe, Ankou, Érinye, Pilleur de tombes, Heiðrún, Hydre de Lerne, Cthulhu |
 
 ---
@@ -433,16 +432,6 @@ synergies.
 
 **En pratique** : un pari. Dévorer le meilleur ennemi gagne le combat ; dévorer un allié
 coûte cher.
-
-### 🐉 Vouivre
-*Gaulois · 🔒 Contrôle · 6⚔ / 7❤ / 2🛡*
-
-- **Fascination 2** · après chaque attaque, prend 2⚔ à sa cible et les ajoute aux siennes,
-  pour le reste du combat. ⭐ : 4⚔.
-
-> Le serpent ailé de Franche-Comté, qui porte au front une escarboucle dont l'éclat envoûte.
-
-**En pratique** : plus elle frappe, plus l'ennemi faiblit et plus elle devient forte.
 
 ### 🦑 Cthulhu
 *Grands Anciens · 🐺 Revanche · 4⚔ / 6❤ / 1🛡*

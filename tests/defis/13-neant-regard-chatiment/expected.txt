@@ -47,4 +47,4 @@ Survivants de Lovecraft : 🎭 3 + 🐍 2 = 5✨
 Némésis perd 10✨ (5 ×2 exploit) · reste 8✨ · 🔻 1 défaite d'affilée
 [/spoiler]
 {hr}
-[i]Seed 36800891683 · dés 4 69 1 / 90 17 84 · données 8c3c18e8 · moteur 0.1.0[/i]
+[i]Seed 36800891683 · dés 4 69 1 / 90 17 84 · données be27ff4d · moteur 0.1.0[/i]

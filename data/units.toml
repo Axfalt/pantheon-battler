@@ -364,18 +364,6 @@ def = 1
 keywords = [{ kind = "Devour" }]
 
 [[unit]]
-id = "vouivre"
-name = "Vouivre"
-emoji = "🐉"
-pantheon = "Gaulish"
-archetype = "Control"
-tier = 3
-atk = 6
-hp = 7
-def = 2
-keywords = [{ kind = "Steal", amount = 2 }]
-
-[[unit]]
 id = "cthulhu"
 name = "Cthulhu"
 emoji = "🦑"

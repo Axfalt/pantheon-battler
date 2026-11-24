@@ -25,7 +25,6 @@ Chaque unité a une [b]ATQ[/b] ⚔, des [b]PV[/b] ❤ et une [b]DÉF[/b] 🛡, p
 
 [*] [b]Gel N[/b] · ❄️ Géant du givre (Gel 1) : avant de frapper, l'ennemi placé [b]à la même position[/b] que le Géant perd N⚔ pour ce combat. S'il n'y a personne à cette position, c'est le dernier ennemi de la ligne.
 [*] [b]Chaos N[/b] · 🍄 Korrigan (Chaos 2) : après avoir frappé, inflige N dégâts [b]qui ignorent la DÉF[/b] à une unité vivante au hasard, [b]alliés compris[/b] (jamais à lui-même).
-[*] [b]Fascination N[/b] · 🐉 Vouivre (Fascination 2) : l'éclat de son escarboucle envoûte sa cible. Après avoir frappé, elle lui prend N⚔ pour le reste du combat.
 
 [big][b]💀 À la mort[/b][/big]
 

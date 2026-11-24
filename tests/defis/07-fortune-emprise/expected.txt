@@ -43,4 +43,4 @@ Survivants de Tyché : 🐢 2 + 🐂 3 = 5✨
 Skadi perd 5✨ · reste 15✨ · 🔻 1 défaite d'affilée
 [/spoiler]
 {hr}
-[i]Seed 981351356920 · dés 99 14 52 / 36 70 21 · données 8c3c18e8 · moteur 0.1.0[/i]
+[i]Seed 981351356920 · dés 99 14 52 / 36 70 21 · données be27ff4d · moteur 0.1.0[/i]

@@ -466,9 +466,9 @@ mod tests {
     #[test]
     fn upset_with_endurance() {
         let data = data();
-        let vouivre = data.unit_index("vouivre").unwrap();
+        let ymir = data.unit_index("ymir").unwrap();
         // Bob: three Revanche units (Endurance), Alice has fewer 🏆.
-        let a = compo(&data, &[("vouivre", false, 6, 7, 2, 0)], 1, 20, 2);
+        let a = compo(&data, &[("ymir", false, 7, 11, 1, 0)], 1, 20, 2);
         let b = compo(
             &data,
             &[("sisyphus", false, 0, 3, 0, 0), ("hydra", false, 2, 3, 0, 0), ("tomb_robber", false, 3, 3, 0, 0)],
@@ -478,8 +478,8 @@ mod tests {
         );
         let compos = [a, b];
         let boards = [compos[0].board(&data), compos[1].board(&data)];
-        // The Vouivre (rank 3) survives: 3✨, doubled by the upset = 6, −2 Endurance = 4.
-        let res = result(Outcome::WinA, [vec![(vouivre, 1)], vec![]], [1, 3]);
+        // Ymir (rank 3) survives: 3✨, doubled by the upset = 6, −2 Endurance = 4.
+        let res = result(Outcome::WinA, [vec![(ymir, 1)], vec![]], [1, 3]);
         let s = settle(&data, &names(), &compos, &boards, &res);
         assert_eq!(s.winner, Some(0));
         assert!(s.upset);
@@ -497,15 +497,15 @@ mod tests {
     #[test]
     fn streak_bonus_and_comeback_prime() {
         let data = data();
-        let vouivre = data.unit_index("vouivre").unwrap();
+        let ymir = data.unit_index("ymir").unwrap();
         // Alice wins her 3rd in a row (+1🙏 bonus); Bob loses his 3rd in a row (prime +5🙏).
-        let mut a = compo(&data, &[("vouivre", false, 6, 7, 2, 0)], 4, 20, 0);
+        let mut a = compo(&data, &[("ymir", false, 7, 11, 1, 0)], 4, 20, 0);
         a.wins = Some(2);
         let mut b = compo(&data, &[("boar", false, 1, 4, 0, 0)], 1, 20, 2);
         b.wins = Some(1);
         let compos = [a, b];
         let boards = [compos[0].board(&data), compos[1].board(&data)];
-        let res = result(Outcome::WinA, [vec![(vouivre, 1)], vec![]], [0, 1]);
+        let res = result(Outcome::WinA, [vec![(ymir, 1)], vec![]], [0, 1]);
         let s = settle(&data, &names(), &compos, &boards, &res);
         assert_eq!((s.after[0].wins, s.after[0].streak), (Some(3), Some(0)));
         assert_eq!((s.after[1].wins, s.after[1].streak), (Some(0), Some(3)));
@@ -614,7 +614,7 @@ mod tests {
     #[test]
     fn draugr_returns_and_dread_weakens() {
         let data = data();
-        let c = duel(&data, &[("draugr", false, 0, 3, 0, 0)], &[("vouivre", false, 6, 7, 2, 0)], 1);
+        let c = duel(&data, &[("draugr", false, 0, 3, 0, 0)], &[("ymir", false, 7, 11, 1, 0)], 1);
         assert!(log(&c).contains("🧟 Draugr (Alice) renaît"), "{}", log(&c));
         assert!(!log(&c).contains("Éternel retour"), "{}", log(&c));
         let c = duel(&data, &[("bugul_noz", false, 1, 4, 0, 0)], &[("cyclops", false, 3, 2, 0, 0)], 1);
