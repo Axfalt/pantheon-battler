@@ -82,7 +82,7 @@ fn keyword_value(k: &Keyword) -> f64 {
         // Worth something only with ⭐ allies, which most boards lack.
         Keyword::LuckyStar { atk, hp } => 0.75 * (atk + hp) as f64,
         Keyword::PotOfGold { favors } => 1.0 * favors as f64,
-        Keyword::Nurture { atk, hp } => 3.5 * (atk + hp) as f64,
+        Keyword::Forge { atk, hp } => 3.5 * (atk + hp) as f64,
         Keyword::Thorns { dmg } => 1.5 * dmg as f64,
         Keyword::Offering { essence, .. } => 0.4 * essence as f64,
         Keyword::Raise => 3.0,
@@ -191,7 +191,7 @@ pub fn arrange(data: &Data, s: &Strategy, p: &mut Player) {
                 Keyword::Rebirth | Keyword::Legacy => 4,
                 Keyword::Bless { all: false, .. } => -6,
                 // Feeds the ally on its right: better on the left.
-                Keyword::Nurture { .. } => 6,
+                Keyword::Forge { .. } => 6,
                 _ => 0,
             };
         }

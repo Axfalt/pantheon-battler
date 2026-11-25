@@ -173,16 +173,16 @@ def = 1
 keywords = [{ kind = "Vengeance" }]
 
 [[unit]]
-id = "she_wolf"
-name = "Louve capitoline"
-emoji = "🐺"
+id = "kabeiros"
+name = "Cabire"
+emoji = "🔨"
 pantheon = "GrecoRoman"
 archetype = "Growth"
 tier = 1
 atk = 1
 hp = 3
 def = 0
-keywords = [{ kind = "Nurture", atk = 1 }]
+keywords = [{ kind = "Forge", atk = 1 }]
 
 # ---- Rang 2 ----
 

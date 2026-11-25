@@ -56,4 +56,4 @@ Survivants d'Odin : 🔥 3 + 🪓 2 = 5✨
 Setné perd 5✨ · reste 11✨ · 💔 1 défaite d'affilée
 [/spoiler]
 {hr}
-[i]Seed 307403571882 · dés 31 75 4 / 58 19 83 · données be27ff4d · moteur 0.1.0[/i]
+[i]Seed 307403571882 · dés 31 75 4 / 58 19 83 · données bbe3da02 · moteur 0.1.0[/i]

@@ -31,4 +31,4 @@ Morgane perd 3✨ · reste 22✨ · 💔 3 défaites d'affilée
 Prime de retour : 3 défaites d'affilée pour Morgane : +5🙏
 [/spoiler]
 {hr}
-[i]Seed 464611028769 · dés 47 47 12 / 3 88 70 · données be27ff4d · moteur 0.1.0[/i]
+[i]Seed 464611028769 · dés 47 47 12 / 3 88 70 · données bbe3da02 · moteur 0.1.0[/i]

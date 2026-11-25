@@ -32,7 +32,7 @@ Les 31 créatures du jeu, rang par rang. Les règles générales sont dans [regl
 | 🌲 | Bugul-noz | Gaulois | 🔒 Contrôle | 1 | 2🙏 | 1 | 4 | 0 | Provocation · Effroi −1⚔ |
 | 🍀 | Leprechaun | Gaulois | 🎲 Chance | 1 | 2🙏 | 2 | 2 | 0 | Pot d'or +1🙏/⭐ |
 | 🦇 | Érinye | Gréco-Romain | 🐺 Revanche | 1 | 2🙏 | 3 | 3 | 1 | Châtiment |
-| 🐺 | Louve capitoline | Gréco-Romain | 🌱 Croissance | 1 | 2🙏 | 1 | 3 | 0 | Nourricière +1⚔ |
+| 🔨 | Cabire | Gréco-Romain | 🌱 Croissance | 1 | 2🙏 | 1 | 3 | 0 | Forge +1⚔ |
 | 🌿 | Druide | Gaulois | 🌱 Croissance | 2 | 3🙏 | 2 | 4 | 0 | Bénédiction +1⚔ +1❤ |
 | 🪽 | Valkyrie | Scandinave | ♻️ Cycle | 2 | 3🙏 | 3 | 3 | 1 | Escorte +2⚔ +2❤ |
 | 📜 | Setné | Égyptien | 🎲 Chance | 2 | 3🙏 | 2 | 3 | 1 | Senet |
@@ -54,7 +54,7 @@ Les 31 créatures du jeu, rang par rang. Les règles générales sont dans [regl
 
 | Archétype | Style de jeu | Unités |
 |---|---|---|
-| 🌱 Croissance | Des unités qui grandissent chaque jour. | Sanglier, Ka, Louve capitoline, Druide, Einherjar, Hydre de Lerne, Ymir |
+| 🌱 Croissance | Des unités qui grandissent chaque jour. | Sanglier, Ka, Cabire, Druide, Einherjar, Hydre de Lerne, Ymir |
 | ♻️ Cycle | La mort n'est qu'un passage : retours, héritages, quêtes. | Ouchebti, Draugr, Ankou, Sæhrímnir, Valkyrie, Einherjar, Embaumeur, Bénou |
 | 🎲 Chance | Pile ou face, coups au hasard, gros paris. | Korrigan, Cyclope, Leprechaun, Setné, Oudjat, Embaumeur, Tarasque, Minotaure |
 | 🔒 Contrôle | Affaiblir, bloquer et user l'adversaire. | Géant du givre, Hoplite, Bugul-noz, Méduse, Tarasque, Heiðrún, Nyarlathotep |
@@ -243,17 +243,17 @@ le Draugr.
 **En pratique** : de grosses stats pour un rang 1, mais elle s'échange contre sa première
 victime. Idéale contre une unité qui compte beaucoup pour l'adversaire.
 
-### 🐺 Louve capitoline
+### 🔨 Cabire
 *Gréco-Romain · 🌱 Croissance · 1⚔ / 3❤ / 0🛡*
 
-- **Nourricière +1⚔** · chaque jour, la Louve **et** l'allié placé **juste à sa droite**
-  gagnent +1⚔ en bonus permanent. ⭐ : +2⚔ chacun.
+- **Forge +1⚔** · chaque jour, le Cabire forge des armes pour lui **et** pour l'allié placé
+  **juste à sa droite** : tous deux gagnent +1⚔ en bonus permanent. ⭐ : +2⚔ chacun.
 
-> La louve du Capitole qui recueillit et allaita Romulus et Remus, les jumeaux fondateurs de
-> Rome.
+> Les Cabires, génies forgerons de l'île de Lemnos, fils et compagnons d'Héphaïstos (le
+> Vulcain des Romains), qui battaient le fer dans ses forges volcaniques.
 
-**En pratique** : elle grandit avec son protégé. Placez à sa droite l'unité à faire grandir ;
-avec la synergie Sève, chacun gagne +2⚔ par jour.
+**En pratique** : il s'arme avec son compagnon. Placez à sa droite l'unité à armer ; avec
+la synergie Sève, chacun gagne +2⚔ par jour.
 
 ---
 
