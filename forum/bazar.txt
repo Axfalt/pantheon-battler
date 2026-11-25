@@ -8,6 +8,7 @@
 [li][b]Un message coûte 1🙏[/b], plus le prix de l'unité : [b]2🙏[/b] (rang 1), [b]3🙏[/b] (rang 2), [b]5🙏[/b] (rang 3) au total.[/li]
 [li][b]Un achat par message[/b], et [b]pas deux messages d'affilée[/b].[/li]
 [li][b]Premier arrivé, premier servi[/b] : une unité achetée disparaît de la boutique.[/li]
+[li][b]Chaque message affiche votre état après l'achat[/b] : votre [b]terrain[/b] et votre [b]réserve[/b], nouvelle unité comprise, et vos [b]faveurs restantes[/b].[/li]
 [/ul]
 
 [b]Les ordres :[/b] [b]acheter X[/b] :middot: [b]acheter X, sinon Y[/b] :middot: [b]passer[/b] (n'achète rien, fait avancer la page) :middot: [b]vendre X[/b] (+1🙏) :middot: [b]investir N[/b] :middot: [b]aligner[/b] / [b]réserver[/b]
@@ -15,15 +16,39 @@
 
 {hr}
 [big][b]🔎 Exemple[/b][/big]
-[quote=Page 3 · boutique de niveau 1]
-🐗 Sanglier · ❄️ Géant du givre · 🍄 Korrigan · 🐍 Méduse · …
+[i]Page 3, boutique de niveau 1 : 🐗 Sanglier · ❄️ Géant du givre · 🍄 Korrigan · 🐍 Méduse · … Alice a 10🙏 et un ❄️ Géant du givre ; Bob a 5🙏 et rien d'autre.[/i]
+
+[quote=Alice]
+acheter Méduse, sinon Sanglier
+Terrain : ❄️ Géant du givre 2/3/0 · 🐍 Méduse 2/4/0
+Réserve : —
+Faveurs : 7🙏
 [/quote]
-[ol]
-[li][b]Alice[/b] : « acheter Méduse, sinon Sanglier » :arrowright: elle obtient la 🐍 Méduse pour [b]3🙏[/b].[/li]
-[li][b]Bob[/b] : « acheter Méduse, sinon Sanglier » :arrowright: la Méduse est partie, il obtient le 🐗 Sanglier pour [b]2🙏[/b].[/li]
-[li][b]Alice[/b] : « acheter Korrigan · vendre Sanglier · investir 2 » :arrowright: Bob a posté entre ses deux messages, c'est permis. Elle paie 2🙏, récupère 1🙏 et verse 2🙏 vers le niveau 2.[/li]
-[li][b]Bob[/b] : « passer » :arrowright: 1🙏, la page se rapproche de la prochaine boutique.[/li]
-[/ol]
+:arrowright: Elle obtient la Méduse pour [b]3🙏[/b].
+
+[quote=Bob]
+acheter Méduse, sinon Sanglier
+Terrain : 🐗 Sanglier 1/4/0
+Réserve : —
+Faveurs : 3🙏
+[/quote]
+:arrowright: La Méduse est partie : il obtient le Sanglier pour [b]2🙏[/b].
+
+[quote=Alice]
+acheter Korrigan · vendre Géant du givre · investir 2
+Terrain : 🐍 Méduse 2/4/0 · 🍄 Korrigan 2/3/0
+Réserve : —
+Faveurs : 4🙏 (2/5🙏 investis vers le niveau 2)
+[/quote]
+:arrowright: Bob a posté entre ses deux messages, c'est permis. Elle paie 2🙏, récupère 1🙏 et en investit 2.
+
+[quote=Bob]
+passer
+Terrain : 🐗 Sanglier 1/4/0
+Réserve : —
+Faveurs : 2🙏
+[/quote]
+:arrowright: 1🙏, la page se rapproche de la prochaine boutique.
 
 {hr}
 [big][b]📈 Les niveaux[/b][/big]

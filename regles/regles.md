@@ -75,6 +75,8 @@ affiche 10 messages par page : **chaque page est une nouvelle boutique**.
 - **Pas deux messages d'affilée** : un autre joueur doit poster entre deux de vos messages.
 - **Un message achète au plus une unité.** Une unité achetée disparaît de la boutique de la
   page.
+- **Chaque message affiche l'état du joueur après ses ordres** : son terrain et sa réserve
+  (nouvelle unité comprise, avec leurs stats) et ses faveurs restantes.
 - **Quand la page est pleine (10 messages), la boutique change** : le MJ poste les boutiques
   de la page suivante.
 - On peut poster **sans rien acheter** (`passer`) pour rapprocher le renouvellement de la

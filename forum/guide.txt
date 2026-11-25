@@ -50,6 +50,7 @@
 [li]Chaque page propose [b]une boutique de 7 unités par niveau[/b] . Vous n'achetez que dans la boutique de [b]votre niveau[/b] .[/li]
 [li][b]Chaque message coûte 1🙏[/b] , qu'on achète ou non.[/li]
 [li][b]Un achat par message[/b] , et [b]pas deux messages d'affilée[/b] : un autre joueur doit poster entre deux de vos messages.[/li]
+[li][b]Chaque message affiche votre état après l'achat[/b] : terrain et réserve, nouvelle unité comprise, et faveurs restantes.[/li]
 [li]Premier message, premier servi : une unité achetée disparaît de la boutique.[/li]
 [li]Quand la page est pleine, la boutique change. Poster [b]passer[/b] fait avancer la page sans rien acheter.[/li]
 [/ul]
