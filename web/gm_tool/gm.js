@@ -1,76 +1,90 @@
-// Pantheon Battler: the GM tools (/gm_tool/). The Bazar draw, the common reserve and its journal,
-// shared between GMs through a secret GitHub Gist.
+// Pantheon Battler: the GM tools (/gm_tool/). The Bazar draw, the common reserve and its journal.
 //
-// Everything a GM does is an event appended to the journal of this browser. Each browser writes
-// only its own file of the Gist (journal-<device>.json), so GMs never overwrite each other; the
-// reserve is recomputed by replaying the events of every journal in time order.
+// Everything the GM does is an event appended to the journal kept in this browser; the reserve is
+// recomputed by replaying the events in time order. The journal can be saved to a file and
+// imported back (Réglages tab): it is the only copy.
 //
-// With the Bazar server (Partage tab), the current shop and the reserve are published there for
+// With the Bazar server (Réglages tab), the current shop and the reserve are published there for
 // the players' Bazar tab, and the posts players confirm come back as journal events whose id is
-// "srv.<server number>", the same in every GM's journal.
+// "srv.<server number>". One browser keeps the reserve: two journals would publish two reserves.
 "use strict";
 
 (function () {
   const { $, $$, el, Engine, store, copyText, messages, renderTwino, unitById, tipBody, placeTip } = window.PB;
 
-  const API = "https://api.github.com";
-  const MARKER = "pantheon-mj.json"; // the file that marks a Gist as a Pantheon Battler reserve
-  const JOURNAL_RE = /^journal-[\w-]{1,40}\.json$/;
-  const POLL_MS = 20000;
   const SERVER_POLL_MS = 10000; // the Bazar server: players' posts
   const MAX_COPIES = 999;
+  const JOURNAL = "pantheon.gm.journal.local";
 
-  // ---------------------------------------------------------------- Settings and journals
-  // settings: { name, token, gist } — the token never leaves this browser except towards GitHub.
+  // ---------------------------------------------------------------- Settings and journal
+  // settings: { name }
   let settings = store.get("pantheon.gm.settings", {}) || {};
   let device = store.get("pantheon.gm.device", null);
   if (typeof device !== "string" || !/^[a-z0-9]{6,12}$/.test(device)) {
     device = Array.from(crypto.getRandomValues(new Uint8Array(6)), (b) => (b % 36).toString(36)).join("");
     store.set("pantheon.gm.device", device);
   }
-  const myFile = `journal-${device}.json`;
-  const connected = () => !!(settings.gist && settings.token);
-  const place = () => (connected() ? settings.gist : "local");
 
-  let mine = []; // this browser's events, append-only
-  let synced = 0; // how many of them GitHub has
-  let others = {}; // file name → { name, events } for the other journals of the Gist
-  let nameDirty = false; // the GM name changed: this browser's journal file must be rewritten
-  let lastSync = null; // Date of the last successful exchange with GitHub
-  let syncError = null;
-  let gistOwner = "";
+  let mine = []; // the journal's events, append-only
+
+  // Events of several journals, each id once, in time order.
+  const byTime = (a, b) => a.at - b.at || (a.id < b.id ? -1 : a.id > b.id ? 1 : 0);
+  function mergeEvents(...lists) {
+    const seen = new Set();
+    const out = [];
+    for (const list of lists)
+      for (const e of Array.isArray(list) ? list : [])
+        if (e && typeof e.id === "string" && !seen.has(e.id)) {
+          seen.add(e.id);
+          out.push(e);
+        }
+    return out.sort(byTime);
+  }
+
+  // The reserve used to be shared through a GitHub Gist: its journals, kept by this browser,
+  // become the local journal (once), and the GitHub token is forgotten.
+  function migrateGist() {
+    const gist = settings.gist;
+    if (!gist) return;
+    const others = store.get(`pantheon.gm.others.${gist}`, {}) || {};
+    const old = store.get(JOURNAL, []);
+    const events = mergeEvents(store.get(`pantheon.gm.journal.${gist}`, []), ...Object.values(others).map((j) => j && j.events));
+    if (events.length) {
+      if (Array.isArray(old) && old.length) store.set("pantheon.gm.journal.before-gist", old);
+      store.set(JOURNAL, events);
+    }
+    for (const k of ["journal", "synced", "others"]) {
+      try {
+        localStorage.removeItem(`pantheon.gm.${k}.${gist}`);
+      } catch (e) {
+        /* ignore */
+      }
+    }
+    settings = { name: settings.name };
+    saveSettings();
+  }
 
   function loadJournal() {
-    mine = store.get(`pantheon.gm.journal.${place()}`, []);
+    mine = store.get(JOURNAL, []);
     if (!Array.isArray(mine)) mine = [];
-    synced = connected() ? Math.min(mine.length, store.get(`pantheon.gm.synced.${place()}`, 0) || 0) : mine.length;
-    others = connected() ? store.get(`pantheon.gm.others.${place()}`, {}) || {} : {};
   }
-  function saveJournal() {
-    store.set(`pantheon.gm.journal.${place()}`, mine);
-    if (connected()) {
-      store.set(`pantheon.gm.synced.${place()}`, synced);
-      store.set(`pantheon.gm.others.${place()}`, others);
-    }
-  }
+  const saveJournal = () => store.set(JOURNAL, mine);
   const saveSettings = () => store.set("pantheon.gm.settings", settings);
   const gmName = () => (settings.name || "").trim() || "MJ";
 
   // Another tab of this browser may have written to the journal meanwhile.
   function reloadMine() {
-    const stored = store.get(`pantheon.gm.journal.${place()}`, []);
+    const stored = store.get(JOURNAL, []);
     if (Array.isArray(stored) && stored.length > mine.length) mine = stored;
   }
-  const needPush = () => synced < mine.length || nameDirty;
 
-  // Records an action: replayed at once, sent to GitHub soon after.
+  // Records an action: replayed at once, published to the Bazar server soon after.
   function record(type, fields, fixed = null) {
     reloadMine();
-    const e = { id: `${device}.${(mine.length + 1).toString(36)}`, at: Date.now(), by: gmName(), type, ...fields, ...(fixed || {}) };
+    const e = { id: `${device}.${Date.now().toString(36)}.${(mine.length + 1).toString(36)}`, at: Date.now(), by: gmName(), type, ...fields, ...(fixed || {}) };
     mine.push(e);
     saveJournal();
     refresh();
-    syncSoon();
     return e;
   }
 
@@ -113,17 +127,7 @@
   let view = null; // the last replay
 
   function replay() {
-    const seen = new Set();
-    const all = [];
-    for (const list of [mine, ...Object.values(others).map((j) => j.events || [])]) {
-      for (const e of list) {
-        if (validEvent(e) && !seen.has(e.id)) {
-          seen.add(e.id);
-          all.push(e);
-        }
-      }
-    }
-    all.sort((a, b) => a.at - b.at || (a.id < b.id ? -1 : a.id > b.id ? 1 : 0));
+    const all = mergeEvents(mine.filter(validEvent));
     // An event counts unless an undo that counts targets it (an undo can be undone too).
     const undosOf = new Map();
     for (const e of all) if (e.type === "undo") undosOf.set(e.target, [...(undosOf.get(e.target) || []), e]);
@@ -168,110 +172,51 @@
     return view;
   }
 
-  // ---------------------------------------------------------------- GitHub Gist
-  class GistError extends Error {}
+  // ---------------------------------------------------------------- Backup
+  // The journal is the only copy of the reserve: it can be saved to a file and imported back
+  // (another browser, another computer). Importing merges: an event already there is skipped.
+  function exportJournal() {
+    const day = new Date().toLocaleDateString("sv-SE"); // YYYY-MM-DD, local
+    const blob = new Blob([JSON.stringify({ app: "pantheon-battler", kind: "gm-journal", name: gmName(), saved: new Date().toISOString(), events: mine }, null, 1)], {
+      type: "application/json",
+    });
+    const a = el("a", { href: URL.createObjectURL(blob), download: `pantheon-journal-${day}.json` });
+    document.body.append(a);
+    a.click();
+    a.remove();
+    setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+    messages($("#sh-backup-messages"), [], [], [`Journal enregistré (${mine.length} action${mine.length > 1 ? "s" : ""}).`]);
+  }
 
-  async function gh(method, path, body) {
-    let r;
+  async function importJournal(input) {
+    const files = [...input.files];
+    input.value = "";
+    if (!files.length) return;
+    const lists = [];
     try {
-      r = await fetch(API + path, {
-        method,
-        cache: "no-cache",
-        headers: {
-          Accept: "application/vnd.github+json",
-          Authorization: `Bearer ${settings.token}`,
-          ...(body ? { "Content-Type": "application/json" } : {}),
-        },
-        body: body ? JSON.stringify(body) : undefined,
-      });
-    } catch (e) {
-      throw new GistError("GitHub ne répond pas (connexion coupée ?). Les actions attendent et partiront plus tard.");
-    }
-    if (r.ok) return r.json();
-    const why = {
-      401: "GitHub refuse le jeton : il a expiré ou a été supprimé. Demandez un nouveau lien d'invitation.",
-      403: "GitHub refuse l'accès (jeton sans la case « gist », ou trop de requêtes : réessayez dans quelques minutes).",
-      404: "Gist introuvable : l'identifiant est faux, ou le jeton n'appartient pas au compte qui possède le Gist.",
-      409: "GitHub était occupé par une autre modification : nouvel essai au prochain passage.",
-      422: "GitHub a refusé le contenu envoyé.",
-    }[r.status];
-    throw new GistError(why || `GitHub a répondu ${r.status}.`);
-  }
-
-  async function fileText(f) {
-    if (!f.truncated) return f.content;
-    const r = await fetch(f.raw_url, { cache: "no-cache" });
-    if (!r.ok) throw new GistError(`Impossible de lire ${f.filename} sur GitHub.`);
-    return r.text();
-  }
-
-  // Reads the other journals out of a Gist answer.
-  async function absorb(gist) {
-    if (!gist.files || !gist.files[MARKER]) throw new GistError("Ce Gist n'est pas une réserve de Pantheon Battler.");
-    gistOwner = (gist.owner && gist.owner.login) || "";
-    const next = {};
-    for (const [name, f] of Object.entries(gist.files)) {
-      if (name === myFile || !JOURNAL_RE.test(name)) continue;
-      try {
-        const j = JSON.parse(await fileText(f));
-        next[name] = { name: String(j.name || "MJ").slice(0, 40), events: Array.isArray(j.events) ? j.events : [] };
-      } catch (e) {
-        next[name] = others[name] || { name: "?", events: [] }; // a broken file: keep what we had
+      for (const f of files) {
+        const j = JSON.parse(await f.text());
+        const events = Array.isArray(j) ? j : j && j.events;
+        if (!Array.isArray(events)) throw new Error(`${f.name} n'est pas un journal de Pantheon Battler.`);
+        lists.push(events.filter(validEvent));
       }
-    }
-    others = next;
-  }
-
-  const journalContent = () =>
-    `{"name":${JSON.stringify(gmName())},"device":"${device}","events":[\n` + mine.map((e) => JSON.stringify(e)).join(",\n") + "\n]}\n";
-
-  let busy = false;
-  let again = false;
-
-  async function sync() {
-    if (!connected()) return;
-    if (busy) {
-      again = true;
-      return;
-    }
-    busy = true;
-    renderBadge();
-    try {
-      reloadMine();
-      const sending = mine.length;
-      let gist;
-      if (needPush()) {
-        gist = await gh("PATCH", `/gists/${settings.gist}`, { files: { [myFile]: { content: journalContent() } } });
-        synced = sending;
-        nameDirty = false;
-      } else {
-        gist = await gh("GET", `/gists/${settings.gist}`);
-      }
-      await absorb(gist);
-      lastSync = new Date();
-      syncError = null;
-      saveJournal();
-      refresh();
     } catch (e) {
-      syncError = e instanceof GistError ? e.message : `Erreur de synchronisation : ${e.message}`;
-    } finally {
-      busy = false;
-      renderBadge();
+      return messages($("#sh-backup-messages"), [e instanceof SyntaxError ? "Fichier illisible (JSON attendu)." : e.message]);
     }
-    if (again || needPush()) {
-      again = false;
-      setTimeout(sync, syncError ? 5000 : 300);
-    }
-  }
-
-  let soon = null;
-  function syncSoon() {
-    clearTimeout(soon);
-    soon = setTimeout(sync, 400);
+    reloadMine();
+    const before = mine.length;
+    const merged = mergeEvents(mine, ...lists);
+    const added = merged.length - before;
+    if (!added) return messages($("#sh-backup-messages"), [], [], ["Rien de nouveau : ce journal contient déjà toutes ces actions."]);
+    if (!window.confirm(`Ajouter ${added} action${added > 1 ? "s" : ""} au journal de ce navigateur ? La réserve est recalculée et publiée sur le Bazar en ligne.`)) return;
+    mine = merged;
+    saveJournal();
+    refresh();
+    messages($("#sh-backup-messages"), [], [], [`${added} action${added > 1 ? "s" : ""} importée${added > 1 ? "s" : ""}.`]);
   }
 
   // ---------------------------------------------------------------- Bazar server
-  // server: { url, key } — the GM key stays in this browser, like the GitHub token.
+  // server: { url, key } — the GM key stays in this browser.
   const local = /^(localhost|127\.0\.0\.1|\[::1\])$/.test(location.hostname);
   let server = store.get("pantheon.gm.server", null) || (local ? { url: `${location.origin}/api`, key: "dev" } : {});
   const serverOn = () => !!(server.url && server.key);
@@ -402,7 +347,7 @@
 
   // A player's post cancelled by a GM: on the server, which sends the cancellation back.
   async function cancelOnServer(e, button) {
-    if (!serverOn()) return window.alert("Connectez d'abord le serveur du Bazar (onglet Partage).");
+    if (!serverOn()) return window.alert("Connectez d'abord le serveur du Bazar (onglet Réglages).");
     if (!window.confirm(`Annuler le message n°${e.srv} de ${e.player} sur le Bazar ?\nL'unité achetée revient en boutique ; le joueur le voit dans son onglet Bazar.`)) return;
     button.disabled = true;
     try {
@@ -429,6 +374,16 @@
         `dernier message reçu n°${view ? view.srvSeen : 0} · à jour ` +
         srvLast.toLocaleTimeString("fr-FR", { hour: "2-digit", minute: "2-digit", second: "2-digit" });
     box.dataset.state = !serverOn() ? "local" : srvError ? "error" : "ok";
+    // The header: where the reserve is published.
+    const badge = $("#sync-badge");
+    badge.dataset.state = box.dataset.state === "ok" && !srvLast ? "busy" : box.dataset.state;
+    badge.textContent = !serverOn()
+      ? "Bazar en ligne non connecté · onglet Réglages"
+      : srvError
+        ? "⚠ Bazar en ligne : voir l'onglet Réglages"
+        : srvLast
+          ? `☁ Publié sur le Bazar en ligne · à jour ${srvLast.toLocaleTimeString("fr-FR", { hour: "2-digit", minute: "2-digit" })}`
+          : "Connexion au Bazar en ligne…";
   }
 
   async function saveServer() {
@@ -459,37 +414,6 @@
     srvLast = null;
     messages($("#sh-srv-messages"));
     renderServer();
-  }
-
-  // ---------------------------------------------------------------- Header badge
-  function renderBadge() {
-    const badge = $("#sync-badge");
-    const pending = mine.length - synced;
-    let state;
-    if (pending === 0 && nameDirty && !syncError) {
-      badge.dataset.state = "busy";
-      badge.textContent = "Synchronisation…";
-      return;
-    }
-    let text;
-    if (!connected()) {
-      state = "local";
-      text = "Ce navigateur seulement · onglet Partage pour partager";
-    } else if (syncError) {
-      state = "error";
-      text = `⚠ ${syncError}` + (pending > 0 ? ` (${pending} action${pending > 1 ? "s" : ""} en attente)` : "");
-    } else if (busy || pending > 0) {
-      state = "busy";
-      text = "Synchronisation…";
-    } else {
-      state = "ok";
-      const gms = new Set(Object.values(others).map((j) => j.name).concat(gmName())).size;
-      text = `☁ Réserve partagée · ${gms} MJ` + (lastSync ? ` · à jour ${lastSync.toLocaleTimeString("fr-FR", { hour: "2-digit", minute: "2-digit", second: "2-digit" })}` : "");
-    }
-    badge.dataset.state = state;
-    badge.textContent = text;
-    const s = $("#sh-sync");
-    if (s) s.textContent = text;
   }
 
   // ---------------------------------------------------------------- Tabs
@@ -618,7 +542,7 @@
     if (!draft) return;
     await copyText(draft.forum, ev.currentTarget);
     record("shop", draft);
-    messages($("#bz-messages"), [], [], [`Boutique de la page ${draft.page} enregistrée : c'est la boutique en cours pour tous les MJ.`]);
+    messages($("#bz-messages"), [], [], [`Boutique de la page ${draft.page} enregistrée : c'est la boutique en cours, publiée sur le Bazar en ligne.`]);
     draft = null;
     pageTouched = false;
     $("#bz-result").hidden = true;
@@ -801,139 +725,6 @@
     $("#journal-more").hidden = list.length <= journalShown;
   }
 
-  // ---------------------------------------------------------------- Sharing
-  const b64url = (s) => {
-    const bytes = new TextEncoder().encode(s);
-    let bin = "";
-    bytes.forEach((b) => (bin += String.fromCharCode(b)));
-    return btoa(bin).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");
-  };
-  const unb64url = (s) => {
-    const b64 = s.replace(/-/g, "+").replace(/_/g, "/");
-    const bin = atob(b64 + "===".slice((b64.length + 3) % 4));
-    return new TextDecoder().decode(Uint8Array.from(bin, (c) => c.charCodeAt(0)));
-  };
-  const inviteLink = () => `${location.origin}${location.pathname}#rejoindre=${b64url(JSON.stringify({ g: settings.gist, t: settings.token }))}`;
-
-  function parseInvite(text) {
-    const m = String(text).match(/#rejoindre=([\w-]+)/) || String(text).match(/^([\w-]{20,})$/);
-    if (!m) return null;
-    try {
-      const j = JSON.parse(unb64url(m[1]));
-      return typeof j.g === "string" && /^[0-9a-f]{20,40}$/.test(j.g) && typeof j.t === "string" && j.t.length > 10 ? j : null;
-    } catch (e) {
-      return null;
-    }
-  }
-
-  function renderShare() {
-    $("#sh-connected").hidden = !connected();
-    $("#sh-setup").hidden = connected();
-    if (!connected()) return;
-    const a = $("#sh-gist-link");
-    a.href = `https://gist.github.com/${gistOwner ? gistOwner + "/" : ""}${settings.gist}`;
-    a.textContent = settings.gist.slice(0, 8) + "…" + (gistOwner ? ` (compte ${gistOwner})` : "");
-    $("#sh-invite").value = inviteLink();
-    const gms = [{ name: gmName() + " (vous)", at: mine.length ? mine[mine.length - 1].at : 0 }].concat(
-      Object.values(others).map((j) => ({ name: j.name, at: j.events.length ? j.events[j.events.length - 1].at : 0 })),
-    );
-    $("#sh-gms").textContent =
-      "Journaux : " + gms.map((g) => `${g.name}${g.at ? ` (dernière action ${timeLabel(g.at)})` : " (aucune action)"}`).join(" · ");
-  }
-
-  async function connect(gist, token, { create = false } = {}) {
-    const before = { ...settings };
-    const localEvents = mine.slice();
-    settings = { ...settings, gist, token };
-    try {
-      if (create) {
-        const created = await gh("POST", "/gists", {
-          description: "Pantheon Battler · réserve commune du Bazar (MJ)",
-          public: false,
-          files: {
-            [MARKER]: { content: JSON.stringify({ app: "pantheon-battler", kind: "bazar-reserve", version: 1, created: new Date().toISOString() }, null, 2) + "\n" },
-          },
-        });
-        settings.gist = created.id;
-      }
-      saveSettings();
-      loadJournal();
-      // The reserve kept in this browser becomes the shared one when the GM creates it.
-      if (create && mine.length === 0 && localEvents.length) {
-        mine = localEvents;
-        synced = 0;
-      }
-      const gist = await gh(synced < mine.length || create ? "PATCH" : "GET", `/gists/${settings.gist}`,
-        synced < mine.length || create ? { files: { [myFile]: { content: journalContent() } } } : undefined);
-      synced = mine.length;
-      await absorb(gist);
-      lastSync = new Date();
-      syncError = null;
-      saveJournal();
-      return true;
-    } catch (e) {
-      settings = before;
-      saveSettings();
-      loadJournal();
-      throw e;
-    } finally {
-      refresh();
-    }
-  }
-
-  async function join() {
-    const inv = parseInvite($("#sh-join-link").value.trim());
-    if (!inv) return messages($("#sh-join-messages"), ["Lien d'invitation illisible : copiez-le en entier."]);
-    if (!(settings.name || "").trim()) return messages($("#sh-join-messages"), ["Entrez d'abord votre nom de MJ, en haut de cet onglet."]);
-    const b = $("#sh-join");
-    b.disabled = true;
-    try {
-      await connect(inv.g, inv.t);
-      $("#sh-join-link").value = "";
-      messages($("#sh-join-messages"));
-      messages($("#sh-messages"), [], [], ["Vous avez rejoint la réserve partagée."]);
-    } catch (e) {
-      messages($("#sh-join-messages"), [e.message]);
-    } finally {
-      b.disabled = false;
-    }
-  }
-
-  async function create() {
-    const token = $("#sh-token").value.trim();
-    if (!(settings.name || "").trim()) return messages($("#sh-create-messages"), ["Entrez d'abord votre nom de MJ, en haut de cet onglet."]);
-    if (token.length < 20) return messages($("#sh-create-messages"), ["Collez le jeton GitHub (il commence par ghp_)."]);
-    const b = $("#sh-create");
-    b.disabled = true;
-    try {
-      await connect(null, token, { create: true });
-      $("#sh-token").value = "";
-      messages($("#sh-create-messages"));
-      messages($("#sh-messages"), [], [], ["Réserve partagée créée. Envoyez le lien d'invitation aux autres MJ, en message privé."]);
-    } catch (e) {
-      messages($("#sh-create-messages"), [e.message]);
-    } finally {
-      b.disabled = false;
-    }
-  }
-
-  function logout() {
-    const pending = mine.length - synced;
-    const ask =
-      (pending > 0 ? `${pending} action(s) ne sont pas encore parties sur GitHub et seront perdues.\n` : "") +
-      "Déconnecter ce navigateur de la réserve partagée ? Le jeton y sera effacé ; le lien d'invitation permet de revenir.";
-    if (!window.confirm(ask)) return;
-    store.set(`pantheon.gm.journal.${settings.gist}`, []);
-    store.set(`pantheon.gm.synced.${settings.gist}`, 0);
-    store.set(`pantheon.gm.others.${settings.gist}`, {});
-    settings = { name: settings.name };
-    saveSettings();
-    syncError = null;
-    lastSync = null;
-    loadJournal();
-    refresh();
-  }
-
   // ---------------------------------------------------------------- Rendering
   function refresh() {
     if (!Engine.info) return;
@@ -941,15 +732,13 @@
     renderBazar();
     renderReserve();
     renderJournal();
-    renderShare();
-    renderBadge();
     renderServer();
     serverSoon();
   }
 
   // The reserve typed in the old Bazar tab of the public page becomes the first local events.
   function migrateOldTab() {
-    if (connected() || mine.length) return;
+    if (mine.length) return;
     const old = store.get("pantheon.bazar.stock", null);
     if (!old || typeof old !== "object") return;
     const players = store.get("pantheon.bazar.players", Engine.info.rules.players);
@@ -1016,24 +805,14 @@
     name.addEventListener("input", () => {
       settings.name = name.value.slice(0, 40);
       saveSettings();
-      renderShare();
     });
-    // A new name reaches the other GMs at once.
-    name.addEventListener("change", () => {
-      if (!connected()) return;
-      nameDirty = true;
-      syncSoon();
-    });
-    $("#sh-join").addEventListener("click", join);
-    $("#sh-create").addEventListener("click", create);
-    $("#sh-logout").addEventListener("click", logout);
-    $("#sh-sync-now").addEventListener("click", sync);
-    $("#sh-invite-copy").addEventListener("click", (ev) => copyText($("#sh-invite").value, ev.currentTarget));
+    $("#sh-export").addEventListener("click", exportJournal);
+    $("#sh-import").addEventListener("change", (ev) => importJournal(ev.currentTarget));
+    $("#sh-import-btn").addEventListener("click", () => $("#sh-import").click());
     $("#sh-srv-save").addEventListener("click", saveServer);
     $("#sh-srv-forget").addEventListener("click", forgetServer);
     pushed = store.get(pushedKey(), {}) || {};
 
-    setInterval(() => document.visibilityState === "visible" && sync(), POLL_MS);
     setInterval(() => document.visibilityState === "visible" && serverSync(), SERVER_POLL_MS);
     // Another tab of this browser changed the journal or the settings.
     window.addEventListener("storage", (ev) => {
@@ -1042,23 +821,22 @@
       loadJournal();
       refresh();
     });
-    document.addEventListener("visibilitychange", () => document.visibilityState === "visible" && sync());
-    window.addEventListener("online", sync);
+    document.addEventListener("visibilitychange", () => document.visibilityState === "visible" && serverSync());
+    window.addEventListener("online", serverSync);
   }
 
   async function start() {
-    // An invitation link: its secret leaves the address bar at once.
-    const inv = location.hash.startsWith("#rejoindre=") ? location.hash : null;
-    if (inv) {
+    // An old invitation link (shared reserve on GitHub): its secret leaves the address bar.
+    if (location.hash.startsWith("#rejoindre=")) {
       try {
         history.replaceState(null, "", location.pathname + location.search);
       } catch (e) {
         /* ignore */
       }
     }
+    migrateGist();
     wire();
     loadJournal();
-    renderBadge();
     const status = $("#engine-status");
     try {
       await Engine.load();
@@ -1078,22 +856,6 @@
     migrateOldTab();
     refresh();
     showTab(store.get("pantheon.gm.tab", "bazar"));
-    if (inv) {
-      showTab("partage");
-      const parsed = parseInvite(inv);
-      $("#sh-join-link").value = inv;
-      if (!parsed) {
-        messages($("#sh-join-messages"), ["Lien d'invitation illisible : copiez-le en entier."]);
-      } else if (connected() && parsed.g === settings.gist) {
-        messages($("#sh-messages"), [], [], ["Ce navigateur est déjà connecté à cette réserve."]);
-      } else if (connected()) {
-        messages($("#sh-messages"), [], ["Ce lien mène à une autre réserve : déconnectez d'abord ce navigateur, puis « Rejoindre »."]);
-      } else {
-        messages($("#sh-join-messages"), [], [], ["Lien d'invitation reçu : entrez votre nom de MJ puis « Rejoindre »."]);
-        if (!(settings.name || "").trim()) $("#sh-name").focus();
-      }
-    }
-    sync();
   }
 
   start();

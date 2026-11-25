@@ -58,7 +58,7 @@ node server/dev.mjs --fresh   # repartir d'un Bazar vide
   (`http://localhost:8787/api`, clé `dev`) : créez la réserve (onglet Réserve), tirez une boutique
   et « Copier et enregistrer » ; elle apparaît chez les joueurs. Si l'outil MJ est ouvert depuis
   une autre adresse (autre aperçu local, 127.0.0.1…), entrez cette adresse et cette clé dans
-  l'onglet **Partage** → **Serveur du Bazar**.
+  l'onglet **Réglages** → **Serveur du Bazar**.
 
 Après `--fresh`, le serveur reprend au message n° 1 et tous les noms sont libres : l'outil MJ le
 signale et n'importe plus ses messages tant que son journal contient ceux de l'ancien serveur
@@ -120,7 +120,7 @@ Ensuite :
 
 1. Copier l'adresse `api_url` affichée à la fin (`https://….lambda-url.<région>.on.aws/`) dans
    `web/config.js` (à la place de `""`).
-2. Dans l'outil MJ, onglet **Partage** → **Serveur du Bazar** : cette adresse et la clé MJ.
+2. Dans l'outil MJ, onglet **Réglages** → **Serveur du Bazar** : cette adresse et la clé MJ.
 3. Publier le site (push sur `main`).
 4. Si vous avez donné un e-mail : confirmer l'abonnement à l'alerte dans le message d'AWS.
 
