@@ -287,8 +287,8 @@ impl Keyword {
                 }
                 Keyword::Hoard { per } => {
                     text = format!(
-                        "Plus de plafond de faveurs ({}🙏 sinon), et chaque revenu rapporte +{m}🙏 pour {per}🙏 gardées : idéal pour épargner.",
-                        rules.favor_cap
+                        "{}haque revenu rapporte +{m}🙏 pour {per}🙏 gardées : idéal pour épargner.",
+                        no_cap_prefix(rules)
                     )
                 }
                 Keyword::Offering { .. } => text += " Fusionnée, chacune de ses morts compte double.",
@@ -389,7 +389,7 @@ impl Keyword {
             ),
             Keyword::Hoard { per } => (
                 "En permanence",
-                format!("Plus de plafond de faveurs ({}🙏 sinon), et chaque revenu rapporte +1🙏 pour {per}🙏 gardées : idéal pour épargner.", rules.favor_cap),
+                format!("{}haque revenu rapporte +1🙏 pour {per}🙏 gardées : idéal pour épargner.", no_cap_prefix(rules)),
             ),
             Keyword::Endure { essence, floor } => (
                 "Défaite",
@@ -461,8 +461,8 @@ impl Keyword {
             Keyword::PotOfGold { favors } => (
                 "Chaque jour",
                 format!(
-                    "Chaque jour, rapporte +{favors}🙏 par unité ⭐ sur le terrain de son joueur, avec le revenu (plafond de {}🙏).",
-                    rules.favor_cap
+                    "Chaque jour, rapporte +{favors}🙏 par unité ⭐ sur le terrain de son joueur, avec le revenu{}.",
+                    rules.favor_cap.map(|c| format!(" (plafond de {c}🙏)")).unwrap_or_default()
                 ),
             ),
             Keyword::Forge { atk, hp } => (
@@ -505,7 +505,7 @@ impl fmt::Display for Keyword {
             Keyword::Plunder { favors } => write!(f, "Pillage +{favors}🙏"),
             Keyword::Changeling => write!(f, "Changelin"),
             Keyword::Toil { favors } => write!(f, "Labeur +{favors}🙏 investie"),
-            Keyword::Hoard { per } => write!(f, "Magot (sans plafond, +1🙏 par {per} gardées)"),
+            Keyword::Hoard { per } => write!(f, "Magot (+1🙏 par {per} gardées)"),
             Keyword::Endure { essence, floor } => write!(f, "Endurance (−{essence}✨ perdue, min {floor})"),
             Keyword::Hubris => write!(f, "Démesure"),
             Keyword::Taunt => write!(f, "Provocation"),
@@ -577,6 +577,14 @@ pub struct Synergy {
     pub keyword: Keyword,
 }
 
+/// Start of the Hoard text: "Plus de plafond de faveurs (10🙏 sinon), et c" with a cap, "C" without.
+fn no_cap_prefix(rules: &Rules) -> String {
+    match rules.favor_cap {
+        Some(c) => format!("Plus de plafond de faveurs ({c}🙏 sinon), et c"),
+        None => "C".to_string(),
+    }
+}
+
 #[derive(Debug, Clone, Deserialize)]
 pub struct Rules {
     pub players: usize,
@@ -584,7 +592,9 @@ pub struct Rules {
     pub board_size: usize,
     pub reserve_size: usize,
     pub base_income: i32,
-    pub favor_cap: i32,
+    /// Most favors a player keeps when the income arrives; none (the default): no cap.
+    #[serde(default)]
+    pub favor_cap: Option<i32>,
     pub sell_value: i32,
     pub reroll_cost: i32,
     pub tier_cost: Vec<i32>,

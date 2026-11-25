@@ -132,8 +132,8 @@ n'a besoin d'aucun réglage serveur ; HTTPS est conseillé pour les boutons « C
   joueurs sont classés selon leur situation.
 - Fin de boutique : les Changelins agissent d'abord (une copie peut compléter une fusion),
   puis Vigueur et Bénédiction.
-- Magot supprime le plafond de faveurs et rapporte
-  des intérêts.
+- Pas de plafond de faveurs (`favor_cap` absent de rules.toml) ; Magot rapporte des
+  intérêts (et ignorerait un plafond s'il était remis).
 - Synergies (`[[synergy]]` dans rules.toml) : aligner assez d'unités d'un archétype donne un
   mot-clé au joueur. Actuellement : 3 unités Revanche → Endurance (−2✨ par défaite ou nul, min 1).
 - Essence divine : 25✨ au départ. Une défaite coûte 1✨ par rang de chaque unité adverse encore

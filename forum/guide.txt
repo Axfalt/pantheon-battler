@@ -39,7 +39,7 @@
 
 [b]Chaque jour, à 00H20 :[/b]
 [ol]
-[li][b]Revenu[/b] : +5🙏 pour chacun. Au-delà de [b]10🙏[/b] , le surplus est perdu (sauf avec le ⚱️ Magot).[/li]
+[li][b]Revenu[/b] : +5🙏 pour chacun. [b]Pas de plafond[/b] : vos faveurs s'accumulent sans limite.[/li]
 [li]Les pouvoirs « chaque jour » agissent : Pillage, Magot, Pot d'or, Changelin, Vigueur, Bénédiction, Forge…[/li]
 [li]Les compteurs du jour sont remis à zéro.[/li]
 [/ol]

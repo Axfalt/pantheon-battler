@@ -224,7 +224,7 @@ le Draugr.
 *Gaulois · 🎲 Chance · 2⚔ / 2❤ / 0🛡*
 
 - **Pot d'or +1🙏/⭐** · chaque jour, rapporte +1🙏 par unité ⭐ sur votre terrain, avec le
-  revenu (dans la limite de 10🙏). ⭐ : +2🙏 par unité ⭐, lui compris.
+  revenu. ⭐ : +2🙏 par unité ⭐, lui compris.
 
 > Le petit cordonnier des légendes celtes, qui cache son chaudron d'or au pied de
 > l'arc-en-ciel.
@@ -311,7 +311,7 @@ pouvoirs de chaque unité qu'elle frappe.
 
 - **Pillage** · chaque jour, s'il est sur le terrain, rapporte des faveurs **pour chaque
   défaite subie dans la journée** : **+1🙏 par défaite**. ⭐ : +2🙏 par défaite.
-- **Magot** · plus de plafond de faveurs (10🙏 sinon). À chaque revenu, +1🙏 pour 4🙏
+- **Magot** · à chaque revenu, +1🙏 pour 4🙏
   gardées. ⭐ : +2🙏 pour 4🙏 gardées.
 
 > Les voleurs de la Vallée des Rois, qui tiraient profit des tombes des pharaons.

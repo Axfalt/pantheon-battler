@@ -7,7 +7,7 @@ reserve_size = 4       # unités gardées qui ne combattent ni n'agissent ; réo
 
 # Économie
 base_income = 5        # faveurs reçues au début de chaque phase de boutique
-favor_cap = 10         # les faveurs au-delà sont perdues à l'arrivée du revenu
+# favor_cap = 10       # plafond de faveurs à l'arrivée du revenu ; absent : pas de plafond
 sell_value = 1
 reroll_cost = 1        # ordre `relancer` : remet les offres dans la réserve commune et en tire de nouvelles
 tier_cost = [2, 3, 5]  # prix d'une unité de rang 1, 2, 3

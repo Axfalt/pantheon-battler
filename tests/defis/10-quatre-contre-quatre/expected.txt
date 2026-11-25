@@ -44,4 +44,4 @@ Survivants de Freyja : 🏔️ 3 = 3✨
 Héra perd 6✨ (3 ×2 comeback) · reste 13✨ · 💔 1 défaite d'affilée
 [/spoiler]
 {hr}
-[i]Seed 670826835441 · dés 68 9 27 / 84 55 42 · données e384e85b · moteur 0.1.0[/i]
+[i]Seed 670826835441 · dés 68 9 27 / 84 55 42 · données 7a7d5c47 · moteur 0.1.0[/i]

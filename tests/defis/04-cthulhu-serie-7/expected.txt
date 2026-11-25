@@ -32,4 +32,4 @@ Match nul : Lovecraft perd 1✨ · reste 5✨
 Match nul : Mélusine perd 1✨ · reste 20✨
 [/spoiler]
 {hr}
-[i]Seed 800145629629 · dés 81 2 46 / 63 97 30 · données e384e85b · moteur 0.1.0[/i]
+[i]Seed 800145629629 · dés 81 2 46 / 63 97 30 · données 7a7d5c47 · moteur 0.1.0[/i]

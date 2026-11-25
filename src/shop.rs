@@ -76,7 +76,7 @@ pub fn add_investment(data: &Data, p: &mut Player, amount: i32, mut log: Option<
     }
 }
 
-/// Start of shop: income, delayed favors and Hoard interest. A hoarder ignores the cap.
+/// Start of shop: income, delayed favors and Hoard interest. A hoarder ignores the cap, if any.
 pub fn income(data: &Data, p: &mut Player) {
     let r = &data.rules;
     let interest = p
@@ -102,7 +102,10 @@ pub fn income(data: &Data, p: &mut Player) {
         })
         .sum();
     let total = p.favors + r.base_income + p.bonus_favors + interest.unwrap_or(0) + gold;
-    p.favors = if interest.is_some() { total } else { total.min(r.favor_cap) };
+    p.favors = match r.favor_cap {
+        Some(cap) if interest.is_none() => total.min(cap),
+        _ => total,
+    };
     p.bonus_favors = 0;
 }
 

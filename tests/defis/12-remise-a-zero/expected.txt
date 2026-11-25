@@ -25,4 +25,4 @@ Héraclès perd 6✨ (3 ×2 comeback) · reste 0✨ · 💔 1 défaite d'affilé
 💀 Héraclès tombe à 0✨ : terrain, réserve, faveurs, quêtes et 3🏆 perdus ; il repart de zéro avec 25✨
 [/spoiler]
 {hr}
-[i]Seed 494949494949 · dés 50 50 50 / 50 50 50 · données e384e85b · moteur 0.1.0[/i]
+[i]Seed 494949494949 · dés 50 50 50 / 50 50 50 · données 7a7d5c47 · moteur 0.1.0[/i]

@@ -57,8 +57,8 @@ recruter et combattre quand on veut, dans les limites suivantes.
 
 Une fois par jour, **à 00h20**, dans cet ordre :
 
-1. **Revenu** : chaque joueur reçoit **+5🙏**. Au-delà de **10🙏**, le surplus est perdu
-   (sauf avec ⚱️ Magot).
+1. **Revenu** : chaque joueur reçoit **+5🙏**. **Pas de plafond** : les faveurs
+   s'accumulent sans limite.
 2. **Pouvoirs « chaque jour »** : ⚱️ Pillage, ⚱️ Magot (intérêts).
 3. **Changelins**, puis **Vigueur** et **Bénédiction** (voir les unités).
 4. Les compteurs du jour (combats, défaites, Senet…) sont remis à zéro.

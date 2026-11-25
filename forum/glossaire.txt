@@ -58,4 +58,4 @@ Chaque unité a une [b]ATQ[/b] ⚔, des [b]PV[/b] ❤ et une [b]DÉF[/b] 🛡, p
 
 [big][b]🏦 En permanence[/b][/big]
 
-[*] [b]Magot[/b] · ⚱️ Pilleur de tombes (par 4) : plus de plafond de faveurs (10🙏 sinon), et chaque revenu rapporte +1🙏 pour 4🙏 gardées.
+[*] [b]Magot[/b] · ⚱️ Pilleur de tombes (par 4) : chaque revenu rapporte +1🙏 pour 4🙏 gardées.
