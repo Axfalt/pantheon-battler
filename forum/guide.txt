@@ -11,6 +11,14 @@
  Avoir le plus de [b]points de victoire 🏆[/b] à la fin de la saison ([i]to be defined[/i] ). On en gagne en remportant des combats.
 
 [aparte]:warning: Un dieu qui tombe à [b]0✨[/b] perd [b]tout[/b] , y compris ses 🏆, et repart de zéro.[/aparte]
+
+[b]🎁 Votre unité de départ :[/b] en commençant, choisissez [b]une unité de rang 1 de votre mythologie, gratuitement[/b]. Elle ne coûte aucune faveur et n'est pas prise dans la réserve commune.
+[ul]
+[li][b]Égyptienne[/b] : 🗿 Ouchebti · 🙌 Ka[/li]
+[li][b]Gréco-romaine[/b] : 🪖 Hoplite · 🪨 Sisyphe · 👁️ Cyclope · 🦇 Érinye · 🔨 Cabire[/li]
+[li][b]Gauloise[/b] : 🐗 Sanglier · 🍄 Korrigan · ⚰️ Ankou · 🌲 Bugul-noz · 🍀 Leprechaun[/li]
+[li][b]Scandinave[/b] : ❄️ Géant du givre · 🧟 Draugr · 🐖 Sæhrímnir[/li]
+[/ul]
 [collapse=Le vocabulaire][ul]
 [li]🙏 [b]Faveurs[/b] : la monnaie. Elle sert à poster dans le Bazar, à recruter et à investir.[/li]
 [li]✨ [b]Essence divine[/b] : vos « vies ». 25 au départ, 25 au maximum, [b]jamais régénérées[/b] .[/li]
@@ -202,6 +210,7 @@
 {hr}[big][b]:chat: Premiers pas[/b][/big]
 
 [ol]
+[li]Choisissez votre [b]unité de départ gratuite[/b] parmi les rangs 1 de votre mythologie.[/li]
 [li]Achetez vos premières unités au Bazar : un message, un achat, puis laissez poster les autres.[/li]
 [li]Visez [b]3 unités d'un même archétype[/b] pour sa synergie, et [b]3 exemplaires d'une même unité[/b] pour une fusion ⭐.[/li]
 [li]Soignez [b]l'ordre de votre terrain[/b] : les unités avec Provocation protègent les plus fragiles, et certains pouvoirs visent l'allié de gauche ou de droite.[/li]

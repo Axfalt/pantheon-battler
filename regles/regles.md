@@ -34,6 +34,18 @@ On gagne des 🏆 en remportant des combats. Mais attention : un joueur qui tomb
 | **Réserve** | 4 emplacements pour garder des unités qui ne combattent pas. |
 | **Chaque jour** | Le moment fixe de la journée où l'on reçoit son revenu et où certains pouvoirs agissent. |
 
+### Le départ
+
+Chaque joueur commence avec **25✨** et choisit **une unité de rang 1 de sa mythologie,
+gratuitement** : elle ne coûte aucune faveur et n'est **pas prise dans la réserve commune**.
+
+| Mythologie | Unités de rang 1 au choix |
+|---|---|
+| Égyptienne | 🗿 Ouchebti · 🙌 Ka |
+| Gréco-romaine | 🪖 Hoplite · 🪨 Sisyphe · 👁️ Cyclope · 🦇 Érinye · 🔨 Cabire |
+| Gauloise | 🐗 Sanglier · 🍄 Korrigan · ⚰️ Ankou · 🌲 Bugul-noz · 🍀 Leprechaun |
+| Scandinave | ❄️ Géant du givre · 🧟 Draugr · 🐖 Sæhrímnir |
+
 ---
 
 ## 3. Le rythme de jeu
