@@ -3,57 +3,59 @@ Setné : 🐗1/5 📜2/3🛡1 🐐3/4 🏺2/4🛡1
 Odin : 🧟0/4 🪽3/3🛡1 🔥6/6 🪓2/2
 Synergies de Odin : ♻️ Éternel retour
 
-[b]Déroulé du combat[/b]
-[spoiler]
-Setné attaque en premier (tirage au sort)
-🐗 Sanglier (Setné) attaque 🧟 Draugr (Odin) (provocation) : 1⚔ → 1 dégât, reste 3❤
-🧟 Draugr (Odin) riposte : 0⚔ → 1 dégât (minimum), reste 4❤
-Représailles : 🧟 Draugr (Odin) → 🐗 Sanglier (Setné) : 1 dégât (ignore la DÉF), reste 3❤
-🧟 Draugr (Odin) attaque 🐗 Sanglier (Setné) (provocation) : 0⚔ → 1 dégât (minimum), reste 2❤
-🐗 Sanglier (Setné) riposte : 1⚔ → 1 dégât, reste 2❤
-Senet : 📜 Setné (Setné) : pile
-📜 Setné (Setné) attaque 🧟 Draugr (Odin) (provocation) : 2⚔ → 2 dégâts, changés en 2🙏 (Senet), reste 2❤
-🧟 Draugr (Odin) riposte : 0⚔ − 1🛡 → 1 dégât (minimum), reste 2❤
-Représailles : 🧟 Draugr (Odin) → 📜 Setné (Setné) : 1 dégât (ignore la DÉF), reste 1❤
-🪽 Valkyrie (Odin) attaque 🐗 Sanglier (Setné) (provocation) : 3⚔ → 3 dégâts, mort
-🐗 Sanglier (Setné) riposte : 1⚔ − 1🛡 → 1 dégât (minimum), reste 2❤
-🐐 Heiðrún (Setné) attaque 🧟 Draugr (Odin) (provocation) : 3⚔ → 3 dégâts, mort
-🧟 Draugr (Odin) riposte : 0⚔ → 1 dégât (minimum), reste 3❤
-Représailles : 🧟 Draugr (Odin) → 🐐 Heiðrún (Setné) : 1 dégât (ignore la DÉF), reste 2❤
-Hydromel : 🐐 Heiðrún (Setné) soigne 📜 Setné (Setné) de 2❤, reste 3❤
-🧟 Draugr (Odin) renaît
-🔥 Bénou (Odin) attaque 🐐 Heiðrún (Setné) : 6⚔ → 6 dégâts, mort
-🐐 Heiðrún (Setné) riposte : 3⚔ → 3 dégâts, reste 3❤
-🏺 Embaumeur (Setné) attaque 🧟 Draugr (Odin) (provocation) : 2⚔ → 2 dégâts, mort
-🧟 Draugr (Odin) riposte : 0⚔ − 1🛡 → 1 dégât (minimum), reste 3❤
-Représailles : 🧟 Draugr (Odin) → 🏺 Embaumeur (Setné) : 1 dégât (ignore la DÉF), reste 2❤
-Momification : 🏺 Embaumeur (Setné) ramène 🐗 Sanglier (Setné) avec 1❤
-Éternel retour : 🧟 Draugr (Odin) revient avec 1❤
-🪓 Einherjar (Odin) attaque 🐗 Sanglier (Setné) (provocation) : 2⚔ → 2 dégâts, mort
-🐗 Sanglier (Setné) riposte : 1⚔ → 1 dégât, reste 1❤
-Senet : 📜 Setné (Setné) : pile
-📜 Setné (Setné) attaque 🧟 Draugr (Odin) (provocation) : 2⚔ → 2 dégâts, dont 1 changé en 1🙏 (Senet), mort
-🧟 Draugr (Odin) riposte : 0⚔ − 1🛡 → 1 dégât (minimum), reste 2❤
-Représailles : 🧟 Draugr (Odin) → 📜 Setné (Setné) : 1 dégât (ignore la DÉF), reste 1❤
-🪽 Valkyrie (Odin) attaque 🏺 Embaumeur (Setné) : 3⚔ − 1🛡 → 2 dégâts, mort
-🏺 Embaumeur (Setné) riposte : 2⚔ − 1🛡 → 1 dégât, reste 1❤
-📜 Setné (Setné) attaque 🪽 Valkyrie (Odin) : 2⚔ − 1🛡 → 1 dégât, mort
-🪽 Valkyrie (Odin) riposte : 3⚔ − 1🛡 → 2 dégâts, mort
-[/spoiler]
+[collapse=Déroulé du combat][b]Setné[/b] attaque en premier (tirage au sort)
+{hr}
+[b]🐗 Sanglier (Setné)[/b] attaque 🧟 Draugr (Odin) (provocation) : 1⚔ → [b]1 dégât[/b], reste 3❤
+🧟 Draugr (Odin) riposte : 0⚔ → [b]1 dégât[/b] (minimum), reste 4❤
+[b]Représailles[/b] : 🧟 Draugr (Odin) → 🐗 Sanglier (Setné) : [b]1 dégât[/b] (ignore la DÉF), reste 3❤
+{hr}
+[b]🧟 Draugr (Odin)[/b] attaque 🐗 Sanglier (Setné) (provocation) : 0⚔ → [b]1 dégât[/b] (minimum), reste 2❤
+🐗 Sanglier (Setné) riposte : 1⚔ → [b]1 dégât[/b], reste 2❤
+{hr}
+[b]Senet[/b] : 📜 Setné (Setné) : pile
+[b]📜 Setné (Setné)[/b] attaque 🧟 Draugr (Odin) (provocation) : 2⚔ → [b]2 dégâts[/b], changés en 2🙏 (Senet), reste 2❤
+🧟 Draugr (Odin) riposte : 0⚔ − 1🛡 → [b]1 dégât[/b] (minimum), reste 2❤
+[b]Représailles[/b] : 🧟 Draugr (Odin) → 📜 Setné (Setné) : [b]1 dégât[/b] (ignore la DÉF), reste 1❤
+{hr}
+[b]🪽 Valkyrie (Odin)[/b] attaque 🐗 Sanglier (Setné) (provocation) : 3⚔ → [b]3 dégâts[/b], [b]mort[/b]
+🐗 Sanglier (Setné) riposte : 1⚔ − 1🛡 → [b]1 dégât[/b] (minimum), reste 2❤
+{hr}
+[b]🐐 Heiðrún (Setné)[/b] attaque 🧟 Draugr (Odin) (provocation) : 3⚔ → [b]3 dégâts[/b], [b]mort[/b]
+🧟 Draugr (Odin) riposte : 0⚔ → [b]1 dégât[/b] (minimum), reste 3❤
+[b]Représailles[/b] : 🧟 Draugr (Odin) → 🐐 Heiðrún (Setné) : [b]1 dégât[/b] (ignore la DÉF), reste 2❤
+[b]Hydromel[/b] : 🐐 Heiðrún (Setné) soigne 📜 Setné (Setné) de 2❤, reste 3❤
+[b]Renaissance[/b] : 🧟 Draugr (Odin) renaît
+{hr}
+[b]🔥 Bénou (Odin)[/b] attaque 🐐 Heiðrún (Setné) : 6⚔ → [b]6 dégâts[/b], [b]mort[/b]
+🐐 Heiðrún (Setné) riposte : 3⚔ → [b]3 dégâts[/b], reste 3❤
+{hr}
+[b]🏺 Embaumeur (Setné)[/b] attaque 🧟 Draugr (Odin) (provocation) : 2⚔ → [b]2 dégâts[/b], [b]mort[/b]
+🧟 Draugr (Odin) riposte : 0⚔ − 1🛡 → [b]1 dégât[/b] (minimum), reste 3❤
+[b]Représailles[/b] : 🧟 Draugr (Odin) → 🏺 Embaumeur (Setné) : [b]1 dégât[/b] (ignore la DÉF), reste 2❤
+[b]Momification[/b] : 🏺 Embaumeur (Setné) ramène 🐗 Sanglier (Setné) avec 1❤
+[b]Éternel retour[/b] : 🧟 Draugr (Odin) revient avec 1❤
+{hr}
+[b]🪓 Einherjar (Odin)[/b] attaque 🐗 Sanglier (Setné) (provocation) : 2⚔ → [b]2 dégâts[/b], [b]mort[/b]
+🐗 Sanglier (Setné) riposte : 1⚔ → [b]1 dégât[/b], reste 1❤
+{hr}
+[b]Senet[/b] : 📜 Setné (Setné) : pile
+[b]📜 Setné (Setné)[/b] attaque 🧟 Draugr (Odin) (provocation) : 2⚔ → [b]2 dégâts[/b], dont 1 changé en 1🙏 (Senet), [b]mort[/b]
+🧟 Draugr (Odin) riposte : 0⚔ − 1🛡 → [b]1 dégât[/b] (minimum), reste 2❤
+[b]Représailles[/b] : 🧟 Draugr (Odin) → 📜 Setné (Setné) : [b]1 dégât[/b] (ignore la DÉF), reste 1❤
+{hr}
+[b]🪽 Valkyrie (Odin)[/b] attaque 🏺 Embaumeur (Setné) : 3⚔ − 1🛡 → [b]2 dégâts[/b], [b]mort[/b]
+🏺 Embaumeur (Setné) riposte : 2⚔ − 1🛡 → [b]1 dégât[/b], reste 1❤
+{hr}
+[b]📜 Setné (Setné)[/b] attaque 🪽 Valkyrie (Odin) : 2⚔ − 1🛡 → [b]1 dégât[/b], [b]mort[/b]
+🪽 Valkyrie (Odin) riposte : 3⚔ − 1🛡 → [b]2 dégâts[/b], [b]mort[/b][/collapse]
 
-[b]Résultat[/b]
-[spoiler]
-Victoire d'Odin
+[collapse=Résultat]Victoire d'Odin
 Setné : —
-Odin : 🔥6/3 🪓2/1
-[/spoiler]
+Odin : 🔥6/3 🪓2/1[/collapse]
 
-[b]Bilan[/b]
-[spoiler]
-Senet : Setné gagne 3🙏, dans la limite de 3🙏 de Senet par jour
+[collapse=Bilan]Senet : Setné gagne 3🙏, dans la limite de 3🙏 de Senet par jour
 Odin : +1🏆 (2 → 3🏆) · +1🙏 · 🔥 1 victoire d'affilée · défaites d'affilée remises à 0
 Survivants d'Odin : 🔥 3 + 🪓 2 = 5✨
-Setné perd 5✨ · reste 11✨ · 💔 1 défaite d'affilée
-[/spoiler]
+Setné perd 5✨ · reste 11✨ · 💔 1 défaite d'affilée[/collapse]
 {hr}
-[i]Seed 307403571882 · dés 31 75 4 / 58 19 83 · moteur 0.1.0[/i]
+[i]Seed 307403571882 · dés 31 75 4 / 58 19 83 · moteur 0.1.1[/i]

@@ -59,7 +59,7 @@ enum Cmd {
     Sample {
         #[arg(long, default_value_t = 1)]
         seed: u64,
-        /// Combats au format forum (Twino) : alignements visibles, déroulé et résultat en spoilers
+        /// Combats au format forum (Twino) : alignements visibles, déroulé et résultat repliables
         #[arg(long)]
         forum: bool,
     },

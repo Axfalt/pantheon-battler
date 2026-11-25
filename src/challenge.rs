@@ -380,7 +380,7 @@ impl Challenge {
         }
     }
 
-    /// "Seed 110276440899 · dés 12 3 77 / 45 9 100 · moteur 0.1.0"
+    /// "Seed 110276440899 · dés 12 3 77 / 45 9 100 · moteur 0.1.1"
     pub fn footer(&self) -> String {
         let dice = |r: &[u32]| r.iter().map(u32::to_string).collect::<Vec<_>>().join(" ");
         format!(
@@ -399,10 +399,7 @@ impl Challenge {
         let mut lines = forum::fight_post(&title, &r.start, &self.prelude, &self.log, &self.verdict(), &r.end);
         let hr = lines.pop();
         lines.push(String::new());
-        lines.push("[b]Bilan[/b]".to_string());
-        lines.push("[spoiler]".to_string());
-        lines.extend(self.settlement.lines.iter().cloned());
-        lines.push("[/spoiler]".to_string());
+        lines.extend(forum::collapse("Bilan", &self.settlement.lines));
         lines.extend(hr);
         lines.push(format!("[i]{}[/i]", self.footer()));
         lines.join("\n")
@@ -569,8 +566,9 @@ mod tests {
     fn duel(data: &Data, a: &[(&str, bool, i32, i32, i32, u32)], b: &[(&str, bool, i32, i32, i32, u32)], seed: u64) -> Challenge {
         play(data, names(), [compo(data, a, 0, 25, 0), compo(data, b, 0, 25, 0)], vec![1; 6], seed)
     }
+    /// The fight log without its Twino markup.
     fn log(c: &Challenge) -> String {
-        c.log.join("\n")
+        forum::plain(&c.log.join("\n"))
     }
 
     #[test]

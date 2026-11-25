@@ -133,7 +133,7 @@
     );
   }
 
-  // Twino (BBCode) preview: [b] [i] [big] [*] {hr} and [spoiler] blocks, everything else escaped.
+  // Twino (BBCode) preview: [b] [i] [big] [*] {hr}, [spoiler] and [collapse=…] blocks, everything else escaped.
   function escapeHtml(s) {
     return s.replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]);
   }
@@ -162,7 +162,21 @@
       } else if (t === "{hr}") {
         html += "<hr>";
       } else {
-        html += inline(line) + "<br>";
+        // [collapse=Title] at the start of a line, [/collapse] at its end (the engine's layout).
+        let rest = line;
+        const open = rest.match(/^\s*\[collapse=([^\]]*)\]/);
+        if (open) {
+          html += `<details class="collapse"><summary>${inline(open[1])}</summary>`;
+          depth++;
+          rest = rest.slice(open[0].length);
+        }
+        const close = /\[\/collapse\]\s*$/.test(rest);
+        if (close) rest = rest.replace(/\[\/collapse\]\s*$/, "");
+        if (rest.trim() || !open) html += inline(rest) + "<br>";
+        if (close && depth > 0) {
+          html += "</details>";
+          depth--;
+        }
       }
     }
     while (depth-- > 0) html += "</details>";

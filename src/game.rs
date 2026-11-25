@@ -134,7 +134,7 @@ pub fn run_game(
                 let (na, nb) = (&players[a].name, &players[b].name);
                 let title = format!("{na} vs {nb}{}", if ghost { " (fantôme)" } else { "" });
                 if forum {
-                    // Line-up in the open, then the fight and its outcome behind spoilers.
+                    // Line-up in the open, the fight and its outcome in collapse blocks.
                     let mut verdict = vec![match res.outcome {
                         Outcome::WinA => format!("Victoire de {na}"),
                         Outcome::WinB => format!("Victoire de {nb}"),
@@ -168,7 +168,7 @@ pub fn run_game(
                         say!(log, "    {line}");
                     }
                     for line in fight_log {
-                        say!(log, "{line}");
+                        say!(log, "{}", forum::plain(&line));
                     }
                 }
             }

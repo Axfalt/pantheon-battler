@@ -2,46 +2,44 @@
 Héra : 👁️3/2 🌿2/4 🎭5/7🛡1 🙌3/2
 Freyja : 🍄2/3 🪽3/3🛡1 🏔️7/11🛡1 🐲3/5
 
-[b]Déroulé du combat[/b]
-[spoiler]
-Héra attaque en premier (tirage au sort)
-Démesure : 👁️ Cyclope (Héra) : face
-👁️ Cyclope (Héra) attaque 🐲 Hydre de Lerne (Freyja) : 3⚔ → 3 dégâts, reste 2❤
-🐲 Hydre de Lerne (Freyja) riposte : 3⚔ → 3 dégâts, mort
-🍄 Korrigan (Freyja) attaque 🎭 Nyarlathotep (Héra) : 2⚔ − 1🛡 → 1 dégât, reste 6❤
-🎭 Nyarlathotep (Héra) riposte : 5⚔ → 5 dégâts, mort
-Néant : 🎭 Nyarlathotep (Héra) anéantit 🍄 Korrigan (Freyja)
-Chaos : 🍄 Korrigan (Freyja) → 🪽 Valkyrie (Freyja) : 1 dégât (ignore la DÉF), reste 2❤
-🌿 Druide (Héra) attaque 🏔️ Ymir (Freyja) : 2⚔ − 1🛡 → 1 dégât, reste 10❤
-🏔️ Ymir (Freyja) riposte : 7⚔ → 7 dégâts, mort
-🪽 Valkyrie (Freyja) attaque 🎭 Nyarlathotep (Héra) : 3⚔ − 1🛡 → 2 dégâts, reste 4❤
-🎭 Nyarlathotep (Héra) riposte : 5⚔ − 1🛡 → 4 dégâts, mort
-Néant : 🎭 Nyarlathotep (Héra) anéantit 🪽 Valkyrie (Freyja)
-🎭 Nyarlathotep (Héra) attaque 🐲 Hydre de Lerne (Freyja) : 5⚔ → 5 dégâts, mort
-🐲 Hydre de Lerne (Freyja) riposte : 3⚔ − 1🛡 → 2 dégâts, reste 2❤
-Néant : 🎭 Nyarlathotep (Héra) anéantit 🐲 Hydre de Lerne (Freyja)
-🏔️ Ymir (Freyja) attaque 🎭 Nyarlathotep (Héra) : 7⚔ − 1🛡 → 6 dégâts, mort
-🎭 Nyarlathotep (Héra) riposte : 5⚔ − 1🛡 → 4 dégâts, reste 6❤
-🙌 Ka (Héra) attaque 🏔️ Ymir (Freyja) : 3⚔ − 1🛡 → 2 dégâts, reste 4❤
-🏔️ Ymir (Freyja) riposte : 7⚔ → 7 dégâts, mort
-[/spoiler]
+[collapse=Déroulé du combat][b]Héra[/b] attaque en premier (tirage au sort)
+{hr}
+[b]Démesure[/b] : 👁️ Cyclope (Héra) : face
+[b]👁️ Cyclope (Héra)[/b] attaque 🐲 Hydre de Lerne (Freyja) : 3⚔ → [b]3 dégâts[/b], reste 2❤
+🐲 Hydre de Lerne (Freyja) riposte : 3⚔ → [b]3 dégâts[/b], [b]mort[/b]
+{hr}
+[b]🍄 Korrigan (Freyja)[/b] attaque 🎭 Nyarlathotep (Héra) : 2⚔ − 1🛡 → [b]1 dégât[/b], reste 6❤
+🎭 Nyarlathotep (Héra) riposte : 5⚔ → [b]5 dégâts[/b], [b]mort[/b]
+[b]Néant[/b] : 🎭 Nyarlathotep (Héra) anéantit 🍄 Korrigan (Freyja)
+[b]Chaos[/b] : 🍄 Korrigan (Freyja) → 🪽 Valkyrie (Freyja) : [b]1 dégât[/b] (ignore la DÉF), reste 2❤
+{hr}
+[b]🌿 Druide (Héra)[/b] attaque 🏔️ Ymir (Freyja) : 2⚔ − 1🛡 → [b]1 dégât[/b], reste 10❤
+🏔️ Ymir (Freyja) riposte : 7⚔ → [b]7 dégâts[/b], [b]mort[/b]
+{hr}
+[b]🪽 Valkyrie (Freyja)[/b] attaque 🎭 Nyarlathotep (Héra) : 3⚔ − 1🛡 → [b]2 dégâts[/b], reste 4❤
+🎭 Nyarlathotep (Héra) riposte : 5⚔ − 1🛡 → [b]4 dégâts[/b], [b]mort[/b]
+[b]Néant[/b] : 🎭 Nyarlathotep (Héra) anéantit 🪽 Valkyrie (Freyja)
+{hr}
+[b]🎭 Nyarlathotep (Héra)[/b] attaque 🐲 Hydre de Lerne (Freyja) : 5⚔ → [b]5 dégâts[/b], [b]mort[/b]
+🐲 Hydre de Lerne (Freyja) riposte : 3⚔ − 1🛡 → [b]2 dégâts[/b], reste 2❤
+[b]Néant[/b] : 🎭 Nyarlathotep (Héra) anéantit 🐲 Hydre de Lerne (Freyja)
+{hr}
+[b]🏔️ Ymir (Freyja)[/b] attaque 🎭 Nyarlathotep (Héra) : 7⚔ − 1🛡 → [b]6 dégâts[/b], [b]mort[/b]
+🎭 Nyarlathotep (Héra) riposte : 5⚔ − 1🛡 → [b]4 dégâts[/b], reste 6❤
+{hr}
+[b]🙌 Ka (Héra)[/b] attaque 🏔️ Ymir (Freyja) : 3⚔ − 1🛡 → [b]2 dégâts[/b], reste 4❤
+🏔️ Ymir (Freyja) riposte : 7⚔ → [b]7 dégâts[/b], [b]mort[/b][/collapse]
 
-[b]Résultat[/b]
-[spoiler]
-Victoire de Freyja (comeback)
+[collapse=Résultat]Victoire de Freyja (comeback)
 Héra : —
-Freyja : 🏔️7/4🛡1
-[/spoiler]
+Freyja : 🏔️7/4🛡1[/collapse]
 
-[b]Bilan[/b]
-[spoiler]
-Néant : 🍄 Korrigan (Freyja) est anéanti : il quitte sa composition et retourne dans la réserve commune
+[collapse=Bilan]Néant : 🍄 Korrigan (Freyja) est anéanti : il quitte sa composition et retourne dans la réserve commune
 Néant : 🪽 Valkyrie (Freyja) est anéanti : il quitte sa composition et retourne dans la réserve commune
 Néant : 🐲 Hydre de Lerne (Freyja) est anéanti : il quitte sa composition et retourne dans la réserve commune
 Comeback : Freyja avait moins de 🏆 que Héra (3 contre 4) : +2🏆, et la perte de Héra est doublée
 Freyja : +2🏆 (3 → 5🏆) · +1🙏 · 🔥 1 victoire d'affilée · défaites d'affilée remises à 0
 Survivants de Freyja : 🏔️ 3 = 3✨
-Héra perd 6✨ (3 ×2 comeback) · reste 13✨ · 💔 1 défaite d'affilée
-[/spoiler]
+Héra perd 6✨ (3 ×2 comeback) · reste 13✨ · 💔 1 défaite d'affilée[/collapse]
 {hr}
-[i]Seed 670826835441 · dés 68 9 27 / 84 55 42 · moteur 0.1.0[/i]
+[i]Seed 670826835441 · dés 68 9 27 / 84 55 42 · moteur 0.1.1[/i]

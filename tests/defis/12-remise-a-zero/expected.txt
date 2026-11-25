@@ -2,27 +2,19 @@
 Typhon : 🏔️7/11🛡1
 Héraclès : 🐗1/4
 
-[b]Déroulé du combat[/b]
-[spoiler]
-Héraclès attaque en premier (tirage au sort)
-🐗 Sanglier (Héraclès) attaque 🏔️ Ymir (Typhon) : 1⚔ − 1🛡 → 1 dégât (minimum), reste 10❤
-🏔️ Ymir (Typhon) riposte : 7⚔ → 7 dégâts, mort
-[/spoiler]
+[collapse=Déroulé du combat][b]Héraclès[/b] attaque en premier (tirage au sort)
+{hr}
+[b]🐗 Sanglier (Héraclès)[/b] attaque 🏔️ Ymir (Typhon) : 1⚔ − 1🛡 → [b]1 dégât[/b] (minimum), reste 10❤
+🏔️ Ymir (Typhon) riposte : 7⚔ → [b]7 dégâts[/b], [b]mort[/b][/collapse]
 
-[b]Résultat[/b]
-[spoiler]
-Victoire de Typhon (comeback)
+[collapse=Résultat]Victoire de Typhon (comeback)
 Typhon : 🏔️7/10🛡1
-Héraclès : —
-[/spoiler]
+Héraclès : —[/collapse]
 
-[b]Bilan[/b]
-[spoiler]
-Comeback : Typhon avait moins de 🏆 que Héraclès (0 contre 3) : +2🏆, et la perte de Héraclès est doublée
+[collapse=Bilan]Comeback : Typhon avait moins de 🏆 que Héraclès (0 contre 3) : +2🏆, et la perte de Héraclès est doublée
 Typhon : +2🏆 (0 → 2🏆) · +1🙏 · 🔥 1 victoire d'affilée
 Survivants de Typhon : 🏔️ 3 = 3✨
 Héraclès perd 6✨ (3 ×2 comeback) · reste 0✨ · 💔 1 défaite d'affilée
-💀 Héraclès tombe à 0✨ : terrain, réserve, faveurs, quêtes et 3🏆 perdus ; il repart de zéro avec 25✨
-[/spoiler]
+💀 Héraclès tombe à 0✨ : terrain, réserve, faveurs, quêtes et 3🏆 perdus ; il repart de zéro avec 25✨[/collapse]
 {hr}
-[i]Seed 494949494949 · dés 50 50 50 / 50 50 50 · moteur 0.1.0[/i]
+[i]Seed 494949494949 · dés 50 50 50 / 50 50 50 · moteur 0.1.1[/i]

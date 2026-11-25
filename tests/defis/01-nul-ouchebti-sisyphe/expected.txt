@@ -2,26 +2,19 @@
 Rê : 🗿2/2🛡1
 Atlas : 🪨0/3
 
-[b]Déroulé du combat[/b]
-[spoiler]
-Rê attaque en premier (tirage au sort)
-🗿 Ouchebti (Rê) attaque 🪨 Sisyphe (Atlas) (provocation) : 2⚔ → 2 dégâts, reste 1❤
-🪨 Sisyphe (Atlas) riposte : 0⚔ − 1🛡 → 1 dégât (minimum), reste 1❤
-🪨 Sisyphe (Atlas) attaque 🗿 Ouchebti (Rê) : 0⚔ − 1🛡 → 1 dégât (minimum), mort
-🗿 Ouchebti (Rê) riposte : 2⚔ → 2 dégâts, mort
-[/spoiler]
-
-[b]Résultat[/b]
-[spoiler]
-Match nul
-Rê : —
-Atlas : —
-[/spoiler]
-
-[b]Bilan[/b]
-[spoiler]
-Match nul : Rê perd 1✨ · reste 19✨
-Match nul : Atlas perd 1✨ · reste 24✨
-[/spoiler]
+[collapse=Déroulé du combat][b]Rê[/b] attaque en premier (tirage au sort)
 {hr}
-[i]Seed 110276440899 · dés 12 3 77 / 45 9 100 · moteur 0.1.0[/i]
+[b]🗿 Ouchebti (Rê)[/b] attaque 🪨 Sisyphe (Atlas) (provocation) : 2⚔ → [b]2 dégâts[/b], reste 1❤
+🪨 Sisyphe (Atlas) riposte : 0⚔ − 1🛡 → [b]1 dégât[/b] (minimum), reste 1❤
+{hr}
+[b]🪨 Sisyphe (Atlas)[/b] attaque 🗿 Ouchebti (Rê) : 0⚔ − 1🛡 → [b]1 dégât[/b] (minimum), [b]mort[/b]
+🗿 Ouchebti (Rê) riposte : 2⚔ → [b]2 dégâts[/b], [b]mort[/b][/collapse]
+
+[collapse=Résultat]Match nul
+Rê : —
+Atlas : —[/collapse]
+
+[collapse=Bilan]Match nul : Rê perd 1✨ · reste 19✨
+Match nul : Atlas perd 1✨ · reste 24✨[/collapse]
+{hr}
+[i]Seed 110276440899 · dés 12 3 77 / 45 9 100 · moteur 0.1.1[/i]

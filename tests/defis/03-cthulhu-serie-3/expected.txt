@@ -3,30 +3,25 @@ Lovecraft : 🦑7/9🛡1 🪨4/7
 Mélusine : 🏔️7/11🛡1 🐗1/4
 Déchaînement : 🦑 Cthulhu (Lovecraft) : toute l'armée +3⚔ +3❤ pour ce combat (3 défaites d'affilée)
 
-[b]Déroulé du combat[/b]
-[spoiler]
-Mélusine attaque en premier (tirage au sort)
-🏔️ Ymir (Mélusine) attaque 🪨 Sisyphe (Lovecraft) (provocation) : 7⚔ → 7 dégâts, mort
-🪨 Sisyphe (Lovecraft) riposte : 4⚔ − 1🛡 → 3 dégâts, reste 8❤
-🦑 Cthulhu (Lovecraft) attaque 🐗 Sanglier (Mélusine) (provocation) : 7⚔ → 7 dégâts, mort
-🐗 Sanglier (Mélusine) riposte : 1⚔ − 1🛡 → 1 dégât (minimum), reste 8❤
-🏔️ Ymir (Mélusine) attaque 🦑 Cthulhu (Lovecraft) : 7⚔ − 1🛡 → 6 dégâts, reste 2❤
-🦑 Cthulhu (Lovecraft) riposte : 7⚔ − 1🛡 → 6 dégâts, reste 2❤
-🦑 Cthulhu (Lovecraft) attaque 🏔️ Ymir (Mélusine) : 7⚔ − 1🛡 → 6 dégâts, mort
-🏔️ Ymir (Mélusine) riposte : 7⚔ − 1🛡 → 6 dégâts, mort
-[/spoiler]
-
-[b]Résultat[/b]
-[spoiler]
-Match nul
-Lovecraft : —
-Mélusine : —
-[/spoiler]
-
-[b]Bilan[/b]
-[spoiler]
-Match nul : Lovecraft perd 1✨ · reste 13✨
-Match nul : Mélusine perd 1✨ · reste 20✨
-[/spoiler]
+[collapse=Déroulé du combat][b]Mélusine[/b] attaque en premier (tirage au sort)
 {hr}
-[i]Seed 47037912513 · dés 5 71 38 / 92 26 14 · moteur 0.1.0[/i]
+[b]🏔️ Ymir (Mélusine)[/b] attaque 🪨 Sisyphe (Lovecraft) (provocation) : 7⚔ → [b]7 dégâts[/b], [b]mort[/b]
+🪨 Sisyphe (Lovecraft) riposte : 4⚔ − 1🛡 → [b]3 dégâts[/b], reste 8❤
+{hr}
+[b]🦑 Cthulhu (Lovecraft)[/b] attaque 🐗 Sanglier (Mélusine) (provocation) : 7⚔ → [b]7 dégâts[/b], [b]mort[/b]
+🐗 Sanglier (Mélusine) riposte : 1⚔ − 1🛡 → [b]1 dégât[/b] (minimum), reste 8❤
+{hr}
+[b]🏔️ Ymir (Mélusine)[/b] attaque 🦑 Cthulhu (Lovecraft) : 7⚔ − 1🛡 → [b]6 dégâts[/b], reste 2❤
+🦑 Cthulhu (Lovecraft) riposte : 7⚔ − 1🛡 → [b]6 dégâts[/b], reste 2❤
+{hr}
+[b]🦑 Cthulhu (Lovecraft)[/b] attaque 🏔️ Ymir (Mélusine) : 7⚔ − 1🛡 → [b]6 dégâts[/b], [b]mort[/b]
+🏔️ Ymir (Mélusine) riposte : 7⚔ − 1🛡 → [b]6 dégâts[/b], [b]mort[/b][/collapse]
+
+[collapse=Résultat]Match nul
+Lovecraft : —
+Mélusine : —[/collapse]
+
+[collapse=Bilan]Match nul : Lovecraft perd 1✨ · reste 13✨
+Match nul : Mélusine perd 1✨ · reste 20✨[/collapse]
+{hr}
+[i]Seed 47037912513 · dés 5 71 38 / 92 26 14 · moteur 0.1.1[/i]

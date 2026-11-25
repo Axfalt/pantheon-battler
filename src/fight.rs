@@ -196,9 +196,9 @@ impl<'a> Fight<'a> {
         format!("{star}{} {} ({})", d.emoji, d.name, self.names[s])
     }
 
-    /// "reste 3❤", or "mort".
+    /// "reste 3❤", or "mort" (in bold: the log is Twino).
     fn after(hp: i32) -> String {
-        if hp > 0 { format!("reste {hp}❤") } else { "mort".to_string() }
+        if hp > 0 { format!("reste {hp}❤") } else { "[b]mort[/b]".to_string() }
     }
 
     /// "2⚔ − 1🛡 → 1 dégât, reste 3❤", or "… mort" when the target falls.
@@ -207,7 +207,7 @@ impl<'a> Fight<'a> {
         let calc = if def > 0 { format!("{raw}⚔ − {def}🛡") } else { format!("{raw}⚔") };
         let floor = if raw - def < dmg { " (minimum)" } else { "" };
         let plural = if dmg > 1 { "s" } else { "" };
-        format!("{calc} → {dmg} dégât{plural}{floor}, {}", Self::after(hp_after))
+        format!("{calc} → [b]{dmg} dégât{plural}[/b]{floor}, {}", Self::after(hp_after))
     }
 
     /// Like `hit_text`, when Senet turned `gain` of the damage into favors.
@@ -217,7 +217,7 @@ impl<'a> Fight<'a> {
         let plural = if dmg > 1 { "s" } else { "" };
         let part = if gain < dmg { format!("dont {gain} changé{} ", if gain > 1 { "s" } else { "" }) } else { format!("changé{plural} ") };
         let floor = if raw - def < dmg { " (minimum)" } else { "" };
-        format!("{calc} → {dmg} dégât{plural}{floor}, {part}en {gain}🙏 (Senet), {}", Self::after(hp_after))
+        format!("{calc} → [b]{dmg} dégât{plural}[/b]{floor}, {part}en {gain}🙏 (Senet), {}", Self::after(hp_after))
     }
 
     fn render(&self) -> String {
@@ -283,11 +283,11 @@ impl<'a> Fight<'a> {
                     .collect();
                 let gains = crate::data::bonus(a, h, 0);
                 if a == 0 && h == 0 {
-                    say!(self.log, "    Phalange : {n} perd son bonus");
+                    say!(self.log, "    [b]Phalange[/b] : {n} perd son bonus");
                 } else if first {
-                    say!(self.log, "    Phalange : {n} gagne {gains} ({})", why.join(", "));
+                    say!(self.log, "    [b]Phalange[/b] : {n} gagne {gains} ({})", why.join(", "));
                 } else {
-                    say!(self.log, "    Phalange : le bonus de {n} passe à {gains} ({})", why.join(", "));
+                    say!(self.log, "    [b]Phalange[/b] : le bonus de {n} passe à {gains} ({})", why.join(", "));
                 }
             }
         }
@@ -329,7 +329,7 @@ impl<'a> Fight<'a> {
             if self.log.is_some() {
                 let (n, pn) = (self.label(s, &self.sides[s][i]), self.label(ts, &prey));
                 let gain = crate::data::bonus(prey.atk * m, prey.hp * m, prey.def * m);
-                say!(self.log, "    Dévoration : {n} {fail_note}dévore {pn} : {gain}");
+                say!(self.log, "    [b]Dévoration[/b] : {n} {fail_note}dévore {pn} : {gain}");
             }
         }
     }
@@ -350,7 +350,7 @@ impl<'a> Fight<'a> {
             for (i, a, h) in gifts {
                 if stars == 0 {
                     let n = self.label(s, &self.sides[s][i]);
-                    say!(self.log, "    Bonne étoile : {n} : aucune unité ⭐ sur le terrain");
+                    say!(self.log, "    [b]Bonne étoile[/b] : {n} : aucune unité ⭐ sur le terrain");
                     continue;
                 }
                 let lo = i.saturating_sub(1);
@@ -369,7 +369,7 @@ impl<'a> Fight<'a> {
                     let n = self.label(s, &self.sides[s][i]);
                     let with = if names.is_empty() { String::new() } else { format!(" et {}", names.join(", ")) };
                     let plural = if stars > 1 { "s" } else { "" };
-                    say!(self.log, "    Bonne étoile : {n}{with} : {} ({stars} unité{plural} ⭐ sur le terrain)", crate::data::bonus(a, h, 0));
+                    say!(self.log, "    [b]Bonne étoile[/b] : {n}{with} : {} ({stars} unité{plural} ⭐ sur le terrain)", crate::data::bonus(a, h, 0));
                 }
             }
         }
@@ -386,7 +386,7 @@ impl<'a> Fight<'a> {
                     if self.log.is_some() {
                         let what = if n > 1 { format!("ses {n} prochaines attaques") } else { "sa prochaine attaque".to_string() };
                         let caster = self.label(s, f);
-                        say!(self.log, "    Pétrification : {caster} → {} : {what} annulée{}", self.names[1 - s], if n > 1 { "s" } else { "" });
+                        say!(self.log, "    [b]Pétrification[/b] : {caster} → {} : {what} annulée{}", self.names[1 - s], if n > 1 { "s" } else { "" });
                     }
                 }
             }
@@ -405,7 +405,7 @@ impl<'a> Fight<'a> {
                 e.atk -= amount.min(e.atk.max(0));
             }
             changed = true;
-            say!(self.log, "    Emprise : chaque unité de {} perd {amount}⚔", self.names[1 - s]);
+            say!(self.log, "    [b]Emprise[/b] : chaque unité de {} perd {amount}⚔", self.names[1 - s]);
         }
         if changed {
             self.phalanx();
@@ -437,7 +437,7 @@ impl<'a> Fight<'a> {
             self.sides[ts][ti].atk -= lost;
             if self.log.is_some() {
                 let (n, tn) = (self.label(s, &self.sides[s][i]), self.label(ts, &self.sides[ts][ti]));
-                say!(self.log, "    Gel : {n} → {tn} perd {lost}⚔");
+                say!(self.log, "    [b]Gel[/b] : {n} → {tn} perd {lost}⚔");
             }
         }
     }
@@ -460,7 +460,7 @@ impl<'a> Fight<'a> {
         if self.log.is_some() {
             let (an, tn) = (self.label(s, attacker), self.label(s, &self.sides[s][j]));
             let hp = self.sides[s][j].hp;
-            say!(self.log, "    Hydromel : {an} soigne {tn} de {healed}❤, reste {hp}❤");
+            say!(self.log, "    [b]Hydromel[/b] : {an} soigne {tn} de {healed}❤, reste {hp}❤");
         }
     }
 
@@ -487,7 +487,7 @@ impl<'a> Fight<'a> {
             let (an, tn) = (self.label(s, attacker), self.label(ts, &self.sides[ts][ti]));
             let plural = if dmg > 1 { "s" } else { "" };
             let after = Self::after(self.sides[ts][ti].hp);
-            say!(self.log, "    Chaos : {an} → {note}{tn} : {dmg} dégât{plural} (ignore la DÉF), {after}");
+            say!(self.log, "    [b]Chaos[/b] : {an} → {note}{tn} : [b]{dmg} dégât{plural}[/b] (ignore la DÉF), {after}");
         }
     }
 
@@ -507,7 +507,7 @@ impl<'a> Fight<'a> {
         let (ok, retried) = self.flip(s, chance, rng);
         let fortune = if retried { " (Fortune : retenté)" } else { "" };
         if !ok {
-            say!(self.log, "    Momification : {cn} échoue{fortune}");
+            say!(self.log, "    [b]Momification[/b] : {cn} échoue{fortune}");
             return;
         }
         let k = *eligible.choose(rng).unwrap();
@@ -517,7 +517,7 @@ impl<'a> Fight<'a> {
         let at = self.sides[s].iter().position(|f| f.slot > back.slot).unwrap_or(self.sides[s].len());
         let n = self.label(s, &back);
         self.sides[s].insert(at, back);
-        say!(self.log, "    Momification : {cn} ramène {n} avec 1❤{fortune}");
+        say!(self.log, "    [b]Momification[/b] : {cn} ramène {n} avec 1❤{fortune}");
     }
 
     /// Résurrection: the unit at `i` comes back with 1 PV, with every ally already dead in this
@@ -546,7 +546,7 @@ impl<'a> Fight<'a> {
         if self.log.is_some() {
             let n = self.label(s, self.sides[s].iter().find(|f| f.slot == slot).unwrap());
             let others = if back.is_empty() { String::new() } else { format!(" et ramène {}", back.join(", ")) };
-            say!(self.log, "    Résurrection : {n} renaît{others} avec 1❤");
+            say!(self.log, "    [b]Résurrection[/b] : {n} renaît{others} avec 1❤");
         }
     }
 
@@ -562,7 +562,7 @@ impl<'a> Fight<'a> {
                 return;
             }
             self.sides[s][next].atk += gift;
-            say!(self.log, "    Héritage : {next_name} reçoit +{gift}⚔");
+            say!(self.log, "    [b]Héritage[/b] : {next_name} reçoit +{gift}⚔");
         }
     }
 
@@ -607,7 +607,7 @@ impl<'a> Fight<'a> {
                 f.hp = 1;
                 f.rebirths_left -= 1;
                 self.rebirths[s][dead.slot] += 1;
-                say!(self.log, "    {n} renaît");
+                say!(self.log, "    [b]Renaissance[/b] : {n} renaît");
                 i += 1;
                 continue;
             }
@@ -615,7 +615,7 @@ impl<'a> Fight<'a> {
                 self.legacy(s, &dead, i + 1);
                 self.recurred[s] += 1;
                 self.sides[s][i].hp = 1;
-                say!(self.log, "    Éternel retour : {n} revient avec 1❤");
+                say!(self.log, "    [b]Éternel retour[/b] : {n} revient avec 1❤");
                 i += 1;
                 continue;
             }
@@ -632,9 +632,9 @@ impl<'a> Fight<'a> {
                     if dead.deaths >= deaths {
                         dead.quest_done = true;
                         self.essence[s] += essence;
-                        say!(self.log, "    Offrande : {n} accomplit sa quête ({done}/{deaths} morts) et soigne {essence}✨ à {}", self.names[s]);
+                        say!(self.log, "    [b]Offrande[/b] : {n} accomplit sa quête ({done}/{deaths} morts) et soigne {essence}✨ à {}", self.names[s]);
                     } else {
-                        say!(self.log, "    Offrande : {n} : {done}/{deaths} morts");
+                        say!(self.log, "    [b]Offrande[/b] : {n} : {done}/{deaths} morts");
                     }
                 }
             }
@@ -649,12 +649,14 @@ impl<'a> Fight<'a> {
         let mut turn = if na != nb { (nb > na) as usize } else { rng.gen_bool(0.5) as usize };
         if self.log.is_some() && na > 0 && nb > 0 {
             let why = if na != nb { "plus d'unités" } else { "tirage au sort" };
-            say!(self.log, "    {} attaque en premier ({why})", self.names[turn]);
+            say!(self.log, "    [b]{}[/b] attaque en premier ({why})", self.names[turn]);
         }
         for _ in 0..self.data.rules.max_fight_steps {
             if self.sides[0].is_empty() || self.sides[1].is_empty() {
                 break;
             }
+            // An empty line opens each turn (a {hr} in the forum post, a blank line elsewhere).
+            say!(self.log, "");
             let s = turn;
             turn = 1 - s;
             // The leftmost unit that hasn't attacked yet; once all have, start again.
@@ -669,7 +671,7 @@ impl<'a> Fight<'a> {
             if self.petrified[s] > 0 {
                 self.petrified[s] -= 1;
                 let n = self.label(s, &self.sides[s][i]);
-                say!(self.log, "    {n} est pétrifié : attaque annulée");
+                say!(self.log, "    [b]Pétrification[/b] : {n} est pétrifié, attaque annulée");
                 continue;
             }
             let kws = self.kws(&self.sides[s][i]);
@@ -706,7 +708,7 @@ impl<'a> Fight<'a> {
                         (false, true) => "face, retenté (Fortune) : face",
                         (false, false) => "face",
                     };
-                    say!(self.log, "    Démesure : {an} : {what}");
+                    say!(self.log, "    [b]Démesure[/b] : {an} : {what}");
                 }
             }
             let mut dealt = self.damage(power, tgt.def);
@@ -731,7 +733,7 @@ impl<'a> Fight<'a> {
                         (false, true) => "face, retenté (Fortune) : face",
                         (false, false) => "face",
                     };
-                    say!(self.log, "    Senet : {an} : {what}");
+                    say!(self.log, "    [b]Senet[/b] : {an} : {what}");
                 }
             }
             self.sides[1 - s][t].hp -= dealt;
@@ -741,7 +743,7 @@ impl<'a> Fight<'a> {
                 let hp = self.sides[1 - s][t].hp;
                 let hit = if gain > 0 { self.senet_text(power, tgt.def, hp, gain) } else { self.hit_text(power, tgt.def, hp) };
                 let back = self.hit_text(tgt.atk, att.def, self.sides[s][i].hp);
-                say!(self.log, "    {an} attaque {tn}{taunted} : {hit}");
+                say!(self.log, "    [b]{an}[/b] attaque {tn}{taunted} : {hit}");
                 say!(self.log, "    {tn} riposte : {back}");
             }
             // Regard de pierre lands with the blow: the target's powers are gone, Représailles,
@@ -750,7 +752,7 @@ impl<'a> Fight<'a> {
                 self.sides[1 - s][t].silenced = true;
                 tgt.silenced = true;
                 let (an, tn) = (self.label(s, &att), self.label(1 - s, &tgt));
-                say!(self.log, "    Regard de pierre : {an} → {tn} perd tous ses pouvoirs");
+                say!(self.log, "    [b]Regard de pierre[/b] : {an} → {tn} perd tous ses pouvoirs");
             }
             // Units killed by the blows: Néant destroys them, Châtiment kills their killer.
             let tgt_fell = self.sides[1 - s][t].hp <= 0 && tgt.hp > 0;
@@ -763,12 +765,12 @@ impl<'a> Fight<'a> {
                 if kk.contains(&Keyword::Annihilate) && !self.sides[vs][vi].destroyed {
                     self.sides[vs][vi].destroyed = true;
                     let (kn, vn) = (self.label(ks, killer), self.label(vs, &self.sides[vs][vi]));
-                    say!(self.log, "    Néant : {kn} anéantit {vn}");
+                    say!(self.log, "    [b]Néant[/b] : {kn} anéantit {vn}");
                 }
                 if kk.contains(&Keyword::Vengeance) && self.sides[ks][ki].hp > 0 {
                     self.sides[ks][ki].hp = 0;
                     let kn = self.label(ks, killer);
-                    say!(self.log, "    Châtiment : {kn} a tué, sa vengeance est accomplie : mort");
+                    say!(self.log, "    [b]Châtiment[/b] : {kn} a tué, sa vengeance est accomplie : [b]mort[/b]");
                 }
             }
             // Thorns: the target hits back again, ignoring DEF, even if it fell.
@@ -780,7 +782,7 @@ impl<'a> Fight<'a> {
                         let (an, tn) = (self.label(s, &att), self.label(1 - s, &tgt));
                         let plural = if dmg > 1 { "s" } else { "" };
                         let left = Self::after(self.sides[s][i].hp);
-                        say!(self.log, "    Représailles : {tn} → {an} : {dmg} dégât{plural} (ignore la DÉF), {left}");
+                        say!(self.log, "    [b]Représailles[/b] : {tn} → {an} : [b]{dmg} dégât{plural}[/b] (ignore la DÉF), {left}");
                     }
                 }
                 // Effroi: the attacker loses ATK for the rest of the fight.
@@ -789,7 +791,7 @@ impl<'a> Fight<'a> {
                     if lost > 0 {
                         self.sides[s][i].atk -= lost;
                         let (an, tn) = (self.label(s, &att), self.label(1 - s, &tgt));
-                        say!(self.log, "    Effroi : {tn} → {an} perd {lost}⚔");
+                        say!(self.log, "    [b]Effroi[/b] : {tn} → {an} perd {lost}⚔");
                     }
                 }
             }
@@ -802,7 +804,7 @@ impl<'a> Fight<'a> {
                             self.sides[1 - s][t].atk -= taken;
                             self.sides[s][i].atk += taken;
                             let (an, tn) = (self.label(s, &att), self.label(1 - s, &tgt));
-                            say!(self.log, "    Fascination : {an} prend {taken}⚔ à {tn}");
+                            say!(self.log, "    [b]Fascination[/b] : {an} prend {taken}⚔ à {tn}");
                         }
                     }
                     Keyword::Chaos { dmg } => self.chaos(s, &att, dmg * att.mult, rng),

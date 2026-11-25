@@ -2,33 +2,26 @@
 Morgane : ⭐⚰️2/6 🐗1/4
 Thor : 🪓3/2 🐂1/1🛡1
 
-[b]Déroulé du combat[/b]
-[spoiler]
-Dévoration : 🐂 Minotaure (Thor) dévore 🐗 Sanglier (Morgane) : +1⚔ +4❤
-Thor attaque en premier (plus d'unités)
-🪓 Einherjar (Thor) attaque ⭐⚰️ Ankou (Morgane) : 3⚔ → 3 dégâts, reste 3❤
-⭐⚰️ Ankou (Morgane) riposte : 2⚔ → 2 dégâts, mort
-🪓 Einherjar (Thor) renaît
-⭐⚰️ Ankou (Morgane) attaque 🪓 Einherjar (Thor) : 2⚔ → 2 dégâts, mort
-🪓 Einherjar (Thor) riposte : 3⚔ → 3 dégâts, mort
-Offrande : ⭐⚰️ Ankou (Morgane) accomplit sa quête (5/5 morts) et soigne 8✨ à Morgane
-[/spoiler]
+[collapse=Déroulé du combat][b]Dévoration[/b] : 🐂 Minotaure (Thor) dévore 🐗 Sanglier (Morgane) : +1⚔ +4❤
+[b]Thor[/b] attaque en premier (plus d'unités)
+{hr}
+[b]🪓 Einherjar (Thor)[/b] attaque ⭐⚰️ Ankou (Morgane) : 3⚔ → [b]3 dégâts[/b], reste 3❤
+⭐⚰️ Ankou (Morgane) riposte : 2⚔ → [b]2 dégâts[/b], [b]mort[/b]
+[b]Renaissance[/b] : 🪓 Einherjar (Thor) renaît
+{hr}
+[b]⭐⚰️ Ankou (Morgane)[/b] attaque 🪓 Einherjar (Thor) : 2⚔ → [b]2 dégâts[/b], [b]mort[/b]
+🪓 Einherjar (Thor) riposte : 3⚔ → [b]3 dégâts[/b], [b]mort[/b]
+[b]Offrande[/b] : ⭐⚰️ Ankou (Morgane) accomplit sa quête (5/5 morts) et soigne 8✨ à Morgane[/collapse]
 
-[b]Résultat[/b]
-[spoiler]
-Victoire de Thor
+[collapse=Résultat]Victoire de Thor
 Morgane : —
-Thor : 🐂2/5🛡1
-[/spoiler]
+Thor : 🐂2/5🛡1[/collapse]
 
-[b]Bilan[/b]
-[spoiler]
-Offrande : ⭐⚰️ Ankou (Morgane) en est à 5/5 morts : quête accomplie
+[collapse=Bilan]Offrande : ⭐⚰️ Ankou (Morgane) en est à 5/5 morts : quête accomplie
 Morgane récupère 8✨ grâce à l'Offrande, plafonné à 25✨ : 25✨
 Thor : +1🏆 (2 → 3🏆) · +1🙏 · 🔥 1 victoire d'affilée
 Survivants de Thor : 🐂 3 = 3✨
 Morgane perd 3✨ · reste 22✨ · 💔 3 défaites d'affilée
-Prime de retour : 3 défaites d'affilée pour Morgane : +3🙏
-[/spoiler]
+Prime de retour : 3 défaites d'affilée pour Morgane : +3🙏[/collapse]
 {hr}
-[i]Seed 464611028769 · dés 47 47 12 / 3 88 70 · moteur 0.1.0[/i]
+[i]Seed 464611028769 · dés 47 47 12 / 3 88 70 · moteur 0.1.1[/i]

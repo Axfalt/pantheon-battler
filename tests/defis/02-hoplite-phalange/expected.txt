@@ -2,46 +2,45 @@
 Léonidas : ⭐🪖2/4🛡4 ⭐🙌2/4 🗿2/2🛡1
 Gorgô : 🐍2/4 ❄️2/3 🐗1/5
 
-[b]Déroulé du combat[/b]
-[spoiler]
-Phalange : ⭐🪖 Hoplite (Léonidas) gagne +6⚔ (2× même ⚔, 1× même ❤)
-Pétrification : 🐍 Méduse (Gorgô) → Léonidas : sa prochaine attaque annulée
-Gorgô attaque en premier (tirage au sort)
-🐍 Méduse (Gorgô) attaque 🗿 Ouchebti (Léonidas) : 2⚔ − 1🛡 → 1 dégât, reste 1❤
-🗿 Ouchebti (Léonidas) riposte : 2⚔ → 2 dégâts, reste 2❤
-Regard de pierre : 🐍 Méduse (Gorgô) → 🗿 Ouchebti (Léonidas) perd tous ses pouvoirs
-⭐🪖 Hoplite (Léonidas) est pétrifié : attaque annulée
-Gel : ❄️ Géant du givre (Gorgô) → ⭐🙌 Ka (Léonidas) perd 1⚔
-Phalange : le bonus de ⭐🪖 Hoplite (Léonidas) passe à +4⚔ (1× même ⚔, 1× même ❤)
-❄️ Géant du givre (Gorgô) attaque 🗿 Ouchebti (Léonidas) : 2⚔ − 1🛡 → 1 dégât, mort
-🗿 Ouchebti (Léonidas) riposte : 2⚔ → 2 dégâts, reste 1❤
-Phalange : le bonus de ⭐🪖 Hoplite (Léonidas) passe à +2⚔ (1× même ❤)
-⭐🙌 Ka (Léonidas) attaque 🐗 Sanglier (Gorgô) (provocation) : 1⚔ → 1 dégât, reste 4❤
-🐗 Sanglier (Gorgô) riposte : 1⚔ → 1 dégât, reste 3❤
-🐗 Sanglier (Gorgô) attaque ⭐🪖 Hoplite (Léonidas) : 1⚔ − 4🛡 → 1 dégât (minimum), reste 3❤
-⭐🪖 Hoplite (Léonidas) riposte : 4⚔ → 4 dégâts, mort
-⭐🪖 Hoplite (Léonidas) attaque ❄️ Géant du givre (Gorgô) : 4⚔ → 4 dégâts, mort
-❄️ Géant du givre (Gorgô) riposte : 2⚔ − 4🛡 → 1 dégât (minimum), reste 2❤
-🐍 Méduse (Gorgô) attaque ⭐🙌 Ka (Léonidas) : 2⚔ → 2 dégâts, reste 1❤
-⭐🙌 Ka (Léonidas) riposte : 1⚔ → 1 dégât, reste 1❤
-Regard de pierre : 🐍 Méduse (Gorgô) → ⭐🙌 Ka (Léonidas) perd tous ses pouvoirs
-⭐🙌 Ka (Léonidas) attaque 🐍 Méduse (Gorgô) : 1⚔ → 1 dégât, mort
-🐍 Méduse (Gorgô) riposte : 2⚔ → 2 dégâts, mort
-Phalange : ⭐🪖 Hoplite (Léonidas) perd son bonus
-[/spoiler]
-
-[b]Résultat[/b]
-[spoiler]
-Victoire de Léonidas
-Léonidas : ⭐🪖2/2🛡4
-Gorgô : —
-[/spoiler]
-
-[b]Bilan[/b]
-[spoiler]
-Léonidas : +1🏆 (2 → 3🏆) · +1🙏 · 🔥 1 victoire d'affilée
-Survivants de Léonidas : ⭐🪖 2 = 2✨
-Gorgô perd 2✨ · reste 17✨ · 💔 2 défaites d'affilée
-[/spoiler]
+[collapse=Déroulé du combat][b]Phalange[/b] : ⭐🪖 Hoplite (Léonidas) gagne +6⚔ (2× même ⚔, 1× même ❤)
+[b]Pétrification[/b] : 🐍 Méduse (Gorgô) → Léonidas : sa prochaine attaque annulée
+[b]Gorgô[/b] attaque en premier (tirage au sort)
 {hr}
-[i]Seed 631789063250 · dés 64 18 90 / 7 33 51 · moteur 0.1.0[/i]
+[b]🐍 Méduse (Gorgô)[/b] attaque 🗿 Ouchebti (Léonidas) : 2⚔ − 1🛡 → [b]1 dégât[/b], reste 1❤
+🗿 Ouchebti (Léonidas) riposte : 2⚔ → [b]2 dégâts[/b], reste 2❤
+[b]Regard de pierre[/b] : 🐍 Méduse (Gorgô) → 🗿 Ouchebti (Léonidas) perd tous ses pouvoirs
+{hr}
+[b]Pétrification[/b] : ⭐🪖 Hoplite (Léonidas) est pétrifié, attaque annulée
+{hr}
+[b]Gel[/b] : ❄️ Géant du givre (Gorgô) → ⭐🙌 Ka (Léonidas) perd 1⚔
+[b]Phalange[/b] : le bonus de ⭐🪖 Hoplite (Léonidas) passe à +4⚔ (1× même ⚔, 1× même ❤)
+[b]❄️ Géant du givre (Gorgô)[/b] attaque 🗿 Ouchebti (Léonidas) : 2⚔ − 1🛡 → [b]1 dégât[/b], [b]mort[/b]
+🗿 Ouchebti (Léonidas) riposte : 2⚔ → [b]2 dégâts[/b], reste 1❤
+[b]Phalange[/b] : le bonus de ⭐🪖 Hoplite (Léonidas) passe à +2⚔ (1× même ❤)
+{hr}
+[b]⭐🙌 Ka (Léonidas)[/b] attaque 🐗 Sanglier (Gorgô) (provocation) : 1⚔ → [b]1 dégât[/b], reste 4❤
+🐗 Sanglier (Gorgô) riposte : 1⚔ → [b]1 dégât[/b], reste 3❤
+{hr}
+[b]🐗 Sanglier (Gorgô)[/b] attaque ⭐🪖 Hoplite (Léonidas) : 1⚔ − 4🛡 → [b]1 dégât[/b] (minimum), reste 3❤
+⭐🪖 Hoplite (Léonidas) riposte : 4⚔ → [b]4 dégâts[/b], [b]mort[/b]
+{hr}
+[b]⭐🪖 Hoplite (Léonidas)[/b] attaque ❄️ Géant du givre (Gorgô) : 4⚔ → [b]4 dégâts[/b], [b]mort[/b]
+❄️ Géant du givre (Gorgô) riposte : 2⚔ − 4🛡 → [b]1 dégât[/b] (minimum), reste 2❤
+{hr}
+[b]🐍 Méduse (Gorgô)[/b] attaque ⭐🙌 Ka (Léonidas) : 2⚔ → [b]2 dégâts[/b], reste 1❤
+⭐🙌 Ka (Léonidas) riposte : 1⚔ → [b]1 dégât[/b], reste 1❤
+[b]Regard de pierre[/b] : 🐍 Méduse (Gorgô) → ⭐🙌 Ka (Léonidas) perd tous ses pouvoirs
+{hr}
+[b]⭐🙌 Ka (Léonidas)[/b] attaque 🐍 Méduse (Gorgô) : 1⚔ → [b]1 dégât[/b], [b]mort[/b]
+🐍 Méduse (Gorgô) riposte : 2⚔ → [b]2 dégâts[/b], [b]mort[/b]
+[b]Phalange[/b] : ⭐🪖 Hoplite (Léonidas) perd son bonus[/collapse]
+
+[collapse=Résultat]Victoire de Léonidas
+Léonidas : ⭐🪖2/2🛡4
+Gorgô : —[/collapse]
+
+[collapse=Bilan]Léonidas : +1🏆 (2 → 3🏆) · +1🙏 · 🔥 1 victoire d'affilée
+Survivants de Léonidas : ⭐🪖 2 = 2✨
+Gorgô perd 2✨ · reste 17✨ · 💔 2 défaites d'affilée[/collapse]
+{hr}
+[i]Seed 631789063250 · dés 64 18 90 / 7 33 51 · moteur 0.1.1[/i]
