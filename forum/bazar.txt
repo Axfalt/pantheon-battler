@@ -1,98 +1,40 @@
 [big][b]🏪 Le Bazar : mode d'emploi[/b][/big]
-[i]Bienvenue au marché des dieux. Ici, on recrute ses créatures… et chaque message compte.[/i]
+[i]La boutique commune à tous les dieux. Chaque page de 10 messages est une nouvelle boutique.[/i]
 
 {hr}
-[big][b]📜 Le principe[/b][/big]
-
+[big][b]📜 Les règles[/b][/big]
 [ul]
-[li]Ce sujet est [b]la boutique commune[/b] à tous les dieux. Le forum affiche [b]10 messages par page[/b] : [b]chaque page est une nouvelle boutique[/b].[/li]
-[li]En tête de chaque page, le MJ poste [b]une boutique par niveau[/b] (du niveau 1 au niveau 4), de [b]7 unités[/b] chacune.[/li]
-[li]Vous n'achetez que dans la boutique de [b]votre niveau[/b], jamais dans celle d'un autre niveau.[/li]
-[li]Quand la page est pleine, la boutique change : la page suivante en propose une nouvelle.[/li]
+[li]En tête de chaque page, le MJ poste [b]une boutique de 7 unités par niveau[/b]. Vous achetez dans celle de [b]votre niveau[/b].[/li]
+[li][b]Un message coûte 1🙏[/b], plus le prix de l'unité : [b]2🙏[/b] (rang 1), [b]3🙏[/b] (rang 2), [b]5🙏[/b] (rang 3) au total.[/li]
+[li][b]Un achat par message[/b], et [b]pas deux messages d'affilée[/b].[/li]
+[li][b]Premier arrivé, premier servi[/b] : une unité achetée disparaît de la boutique.[/li]
 [/ul]
 
-{hr}
-[big][b]💰 Ce que ça coûte[/b][/big]
-
-[b]Chaque message coûte 1🙏[/b], qu'on achète ou non. Le prix de l'unité s'y ajoute :
-:middot: message sans achat : [b]1🙏[/b]
-:middot: unité de rang 1 : [b]2🙏[/b] au total
-:middot: unité de rang 2 : [b]3🙏[/b] au total
-:middot: unité de rang 3 : [b]5🙏[/b] au total
+[b]Les ordres :[/b] [b]acheter X[/b] :middot: [b]acheter X, sinon Y[/b] :middot: [b]passer[/b] (n'achète rien, fait avancer la page) :middot: [b]vendre X[/b] (+1🙏) :middot: [b]investir N[/b] :middot: [b]aligner[/b] / [b]réserver[/b]
+[i]Un seul achat par message, mais autant d'ordres gratuits que vous voulez.[/i]
 
 {hr}
-[big][b]✍️ Les règles d'un message[/b][/big]
-
+[big][b]🔎 Exemple[/b][/big]
+[quote=Page 3 · boutique de niveau 1]
+🐗 Sanglier · ❄️ Géant du givre · 🍄 Korrigan · 🐍 Méduse · …
+[/quote]
 [ol]
-[li][b]Un seul achat par message.[/b][/li]
-[li][b]Pas deux messages d'affilée[/b] : un autre dieu doit poster entre deux de vos messages.[/li]
-[li][b]Premier arrivé, premier servi[/b] : les achats sont traités dans l'ordre des messages, et une unité achetée disparaît de la boutique.[/li]
-[li]Une unité recrutée va [b]sur votre terrain[/b] s'il reste de la place, sinon [b]dans votre réserve[/b]. Un achat qui complète une fusion ⭐ ne demande pas de place libre.[/li]
+[li][b]Alice[/b] : « acheter Méduse, sinon Sanglier » :arrowright: elle obtient la 🐍 Méduse pour [b]3🙏[/b].[/li]
+[li][b]Bob[/b] : « acheter Méduse, sinon Sanglier » :arrowright: la Méduse est partie, il obtient le 🐗 Sanglier pour [b]2🙏[/b].[/li]
+[li][b]Alice[/b] : « acheter Korrigan · vendre Sanglier · investir 2 » :arrowright: Bob a posté entre ses deux messages, c'est permis. Elle paie 2🙏, récupère 1🙏 et verse 2🙏 vers le niveau 2.[/li]
+[li][b]Bob[/b] : « passer » :arrowright: 1🙏, la page se rapproche de la prochaine boutique.[/li]
 [/ol]
 
 {hr}
-[big][b]📋 Les ordres[/b][/big]
-
-[ul]
-[li][b]acheter X[/b] : recrute l'unité X dans la boutique de votre niveau.[/li]
-[li][b]acheter X, sinon Y[/b] : si X est déjà partie, achète Y. Si plus rien n'est disponible, le message compte comme [b]passer[/b].[/li]
-[li][b]passer[/b] : n'achète rien (1🙏) et fait avancer la page vers la prochaine boutique.[/li]
-[li][b]vendre X[/b] : vend l'unité X, du terrain ou de la réserve : [b]+1🙏[/b]. Elle retourne à la réserve commune.[/li]
-[li][b]investir N[/b] : verse N🙏 pour monter de niveau (voir plus bas).[/li]
-[li][b]aligner[/b] / [b]réserver[/b] : réorganise votre terrain et votre réserve.[/li]
-[/ul]
-Un message contient [b]un seul achat[/b], mais autant d'ordres gratuits que vous voulez. Vendre, investir et réorganiser peuvent aussi se faire hors du Bazar, gratuitement.
-
-[quote=Exemple de message]
-acheter Sanglier, sinon Hoplite
-vendre Korrigan
-investir 2
-[/quote]
-
-{hr}
-[big][b]📈 Les niveaux de boutique[/b][/big]
-
-Plus votre niveau est haut, plus votre boutique propose d'unités de haut rang :
+[big][b]📈 Les niveaux[/b][/big]
 [ul]
 [li][b]Niveau 1[/b] : 80 % rang 1 :middot: 20 % rang 2[/li]
 [li][b]Niveau 2[/b] : 55 % rang 1 :middot: 45 % rang 2[/li]
 [li][b]Niveau 3[/b] : 30 % rang 1 :middot: 65 % rang 2 :middot: 5 % rang 3[/li]
 [li][b]Niveau 4[/b] : 15 % rang 1 :middot: 75 % rang 2 :middot: 10 % rang 3[/li]
 [/ul]
-Tout le monde commence au [b]niveau 1[/b]. Pour monter, investissez : [b]5🙏[/b] (1 → 2), [b]7🙏[/b] (2 → 3), [b]10🙏[/b] (3 → 4). L'excédent est reporté sur le niveau suivant. Dès qu'un seuil est atteint, vous achetez aussitôt dans la boutique de votre nouveau niveau.
+Pour monter : [b]5🙏[/b] (1 → 2), [b]7🙏[/b] (2 → 3), [b]10🙏[/b] (3 → 4), l'excédent est reporté. :warning: [b]C'est définitif[/b] : plus d'accès aux boutiques des niveaux inférieurs.
 
-[aparte]:warning: [b]Monter de niveau est définitif[/b] : vous n'avez plus accès aux boutiques des niveaux inférieurs.[/aparte]
+[aparte]Les unités sont tirées dans une [b]réserve commune[/b] tenue par le MJ : plus il reste d'exemplaires d'une unité, plus elle sort souvent ; une unité épuisée ne sort plus. Une unité vendue ou perdue y retourne.[/aparte]
 
-{hr}
-[big][b]🎲 Le tirage des boutiques[/b][/big]
-
-[ul]
-[li]Le [b]rang[/b] de chaque emplacement est tiré selon les chances du niveau (ci-dessus).[/li]
-[li]L'[b]unité[/b] est tirée dans la [b]réserve commune[/b], en proportion des exemplaires qui restent : une unité dont il reste 9 exemplaires sort trois fois plus souvent qu'une unité dont il en reste 3, et une unité épuisée ne sort plus.[/li]
-[li]Une boutique ne montre jamais plus d'exemplaires d'une unité qu'il n'en reste. Si un rang est épuisé, l'emplacement est pris dans le rang le plus proche.[/li]
-[li]Chaque niveau a sa propre boutique : la même unité peut apparaître dans plusieurs. Si son dernier exemplaire est acheté dans l'une, il n'est plus disponible dans les autres.[/li]
-[li]Chaque tirage indique sa [b]seed[/b] : le MJ peut le refaire à l'identique en cas de doute.[/li]
-[/ul]
-
-{hr}
-[big][b]🏛️ La réserve commune[/b][/big]
-
-Tous les dieux piochent dans [b]la même réserve d'exemplaires[/b], tenue par le MJ.
-[ul]
-[li]Une unité recrutée [b]quitte[/b] la réserve ; une unité vendue, transformée ou perdue y [b]revient[/b].[/li]
-[li]Une unité affichée dans une boutique mais pas achetée reste dans la réserve.[/li]
-[li]Par joueur inscrit : 1,5 exemplaire de chaque unité de rang 1, 1 de rang 2 et 0,75 de rang 3 (arrondi, jamais moins de 3). Pour 6 joueurs : 9, 6 et 5 exemplaires.[/li]
-[li]La réserve [b]grandit[/b] quand de nouveaux dieux s'inscrivent en cours de saison.[/li]
-[/ul]
-
-{hr}
-[big][b]💡 Quelques conseils[/b][/big]
-
-[ul]
-[li]Une unité vous tient à cœur ? [b]acheter X, sinon Y[/b] évite de payer un message pour rien.[/li]
-[li]Le troisième exemplaire d'une unité fusionne aussitôt en ⭐, même si votre terrain et votre réserve sont pleins.[/li]
-[li]Poster [b]passer[/b] rapproche la prochaine boutique… pour tout le monde.[/li]
-[li]Gardez quelques 🙏 pour investir : une boutique de niveau plus haut propose des unités plus fortes.[/li]
-[/ul]
-
-Bonnes emplettes, et que les meilleures créatures rejoignent votre panthéon ! :smile:
+Bonnes emplettes ! :smile:
