@@ -11,7 +11,7 @@
 [li][b]Chaque message affiche votre état après l'achat[/b] : votre [b]terrain[/b] et votre [b]réserve[/b], nouvelle unité comprise, et vos [b]faveurs restantes[/b].[/li]
 [/ul]
 
-[b]Les ordres :[/b] [b]acheter X[/b] :middot: [b]acheter X, sinon Y[/b] :middot: [b]passer[/b] (n'achète rien, fait avancer la page) :middot: [b]vendre X[/b] (+1🙏) :middot: [b]investir N[/b] :middot: [b]aligner[/b] / [b]réserver[/b]
+[b]Les ordres :[/b] [b]acheter X[/b] :middot: [b]passer[/b] (n'achète rien, fait avancer la page) :middot: [b]vendre X[/b] (+1🙏) :middot: [b]investir N[/b] :middot: [b]aligner[/b] / [b]réserver[/b]
 [i]Un seul achat par message, mais autant d'ordres gratuits que vous voulez.[/i]
 
 {hr}
@@ -19,7 +19,7 @@
 [i]Page 3, boutique de niveau 1 : 🐗 Sanglier · ❄️ Géant du givre · 🍄 Korrigan · 🐍 Méduse · … Alice a 10🙏 et un ❄️ Géant du givre ; Bob a 5🙏 et rien d'autre.[/i]
 
 [quote=Alice]
-acheter Méduse, sinon Sanglier
+acheter Méduse
 Terrain : ❄️ Géant du givre 2/3/0 · 🐍 Méduse 2/4/0
 Réserve : —
 Faveurs : 7🙏
@@ -27,12 +27,12 @@ Faveurs : 7🙏
 :arrowright: Elle obtient la Méduse pour [b]3🙏[/b].
 
 [quote=Bob]
-acheter Méduse, sinon Sanglier
+acheter Sanglier
 Terrain : 🐗 Sanglier 1/4/0
 Réserve : —
 Faveurs : 3🙏
 [/quote]
-:arrowright: La Méduse est partie : il obtient le Sanglier pour [b]2🙏[/b].
+:arrowright: Il obtient le Sanglier pour [b]2🙏[/b].
 
 [quote=Alice]
 acheter Korrigan · vendre Géant du givre · investir 2
