@@ -26,12 +26,12 @@
     </div>
     <h1>Pantheon Battler</h1>
     <p class="sub">Outils du MJ · <a href="../">page des joueurs</a></p>
-    <p id="sync-badge" class="sync-badge" data-state="local" role="status">Ce navigateur seulement</p>
+    <p id="sync-badge" class="sync-badge" data-state="local" role="status">Bazar en ligne non connecté</p>
     <nav class="tabs" role="tablist">
       <button type="button" role="tab" id="tabbtn-bazar" data-tab="bazar" aria-selected="true">Bazar</button>
       <button type="button" role="tab" id="tabbtn-reserve" data-tab="reserve" aria-selected="false">Réserve</button>
       <button type="button" role="tab" id="tabbtn-journal" data-tab="journal" aria-selected="false">Journal</button>
-      <button type="button" role="tab" id="tabbtn-partage" data-tab="partage" aria-selected="false">Partage</button>
+      <button type="button" role="tab" id="tabbtn-partage" data-tab="partage" aria-selected="false">Réglages</button>
     </nav>
    </div>
   </div>
@@ -87,7 +87,7 @@
             <button type="button" class="primary" id="bz-copy">Copier et enregistrer</button>
           </div>
         </div>
-        <p class="hint">« Copier et enregistrer » copie le message et en fait la boutique en cours pour tous les MJ ; la page
+        <p class="hint">« Copier et enregistrer » copie le message et en fait la boutique en cours, publiée sur le Bazar en ligne ; la page
           suivante est proposée au prochain tirage.</p>
         <textarea id="bz-forum" class="mono" rows="12" readonly spellcheck="false"></textarea>
       </div>
@@ -128,14 +128,14 @@
   <section id="tab-journal" class="tab" role="tabpanel" aria-labelledby="tabbtn-journal" hidden>
     <div class="card">
       <h2>Journal</h2>
-      <p class="hint">Toutes les actions des MJ, de la plus récente à la plus ancienne. « Annuler » retire une action de la
+      <p class="hint">Toutes les actions (les vôtres et les messages confirmés par les joueurs), de la plus récente à la plus ancienne. « Annuler » retire une action de la
         réserve sans l'effacer du journal ; une annulation peut elle-même être annulée.</p>
       <ol id="journal" class="journal"></ol>
       <div class="actions left"><button type="button" id="journal-more" hidden>Voir plus</button></div>
     </div>
   </section>
 
-  <!-- ===== Partage ===== -->
+  <!-- ===== Réglages ===== -->
   <section id="tab-partage" class="tab prose" role="tabpanel" aria-labelledby="tabbtn-partage" hidden>
     <div class="card">
       <h2>Votre nom de MJ</h2>
@@ -159,61 +159,20 @@
       <div id="sh-srv-messages" class="messages" aria-live="polite"></div>
     </div>
 
-    <div class="card" id="sh-connected" hidden>
-      <h2>Réserve partagée</h2>
-      <p>Connecté au Gist <a id="sh-gist-link" target="_blank" rel="noopener noreferrer"></a>. <span id="sh-sync"></span></p>
-      <p id="sh-gms"></p>
-      <h3>Inviter un MJ</h3>
-      <p>Envoyez ce lien <strong>en message privé</strong> : il contient le jeton qui permet de modifier la réserve.
-        Ne le postez jamais sur le forum.</p>
-      <div class="invite">
-        <input type="text" id="sh-invite" readonly spellcheck="false">
-        <button type="button" id="sh-invite-copy">Copier le lien</button>
-      </div>
+    <div class="card" id="sh-backup">
+      <h2>Sauvegarde du journal</h2>
+      <p>Le journal (la réserve, les boutiques, vos corrections, les messages des joueurs) est gardé <strong>dans ce
+        navigateur seulement</strong>. Enregistrez-le de temps en temps : effacer les données du navigateur le perd. Le
+        fichier sert aussi à reprendre la réserve sur un autre ordinateur.</p>
       <div class="actions left">
-        <button type="button" id="sh-sync-now">Synchroniser maintenant</button>
-        <button type="button" class="danger" id="sh-logout">Déconnecter ce navigateur</button>
+        <button type="button" id="sh-export">Enregistrer le journal</button>
+        <button type="button" id="sh-import-btn">Importer un journal…</button>
+        <input type="file" id="sh-import" accept=".json,application/json" multiple hidden>
       </div>
-      <div id="sh-messages" class="messages" aria-live="polite"></div>
-    </div>
-
-    <div id="sh-setup">
-      <div class="card" id="sh-join-card">
-        <h2>Rejoindre la réserve partagée</h2>
-        <p>Ouvrez le lien d'invitation reçu d'un autre MJ, ou collez-le ici.</p>
-        <label class="field">Lien d'invitation <input type="text" id="sh-join-link" spellcheck="false" autocomplete="off"></label>
-        <div class="actions left"><button type="button" class="primary" id="sh-join">Rejoindre</button></div>
-        <div id="sh-join-messages" class="messages" aria-live="polite"></div>
-      </div>
-
-      <div class="card">
-        <h2>Créer la réserve partagée</h2>
-        <p>Une seule fois, par un seul MJ. La réserve est un <strong>Gist secret</strong> sur GitHub : chaque MJ y écrit son
-          propre journal, rien ne s'écrase.</p>
-        <ol>
-          <li>Connectez-vous au compte GitHub qui gardera la réserve. Un compte réservé aux MJ est plus sûr : le jeton peut
-            modifier <em>tous</em> les Gists de ce compte.</li>
-          <li><a href="https://github.com/settings/tokens/new?scopes=gist&amp;description=Pantheon%20Battler%20MJ" target="_blank"
-              rel="noopener noreferrer">Créez un jeton</a> (« classic ») avec <strong>seulement</strong> la case
-            <code>gist</code> cochée, et une expiration après la fin de l'événement.</li>
-          <li>Collez-le ci-dessous. La réserve déjà tenue dans ce navigateur devient la réserve partagée.</li>
-        </ol>
-        <label class="field">Jeton GitHub <input type="password" id="sh-token" spellcheck="false" autocomplete="off"></label>
-        <div class="actions left"><button type="button" class="primary" id="sh-create">Créer la réserve partagée</button></div>
-        <div id="sh-create-messages" class="messages" aria-live="polite"></div>
-      </div>
-    </div>
-
-    <div class="card">
-      <h2>Comment ça marche</h2>
-      <ul>
-        <li>Chaque navigateur écrit ses actions dans son propre fichier du Gist ; la réserve est recalculée à partir des
-          journaux de tous les MJ. Deux MJ peuvent travailler en même temps.</li>
-        <li>La page se synchronise toutes les 20 secondes et à chaque action. Hors ligne, les actions attendent et partent
-          dès que la connexion revient.</li>
-        <li>Le jeton reste dans ce navigateur et n'est envoyé qu'à GitHub. L'historique complet reste visible dans les
-          révisions du Gist.</li>
-      </ul>
+      <p class="hint">Importer ajoute les actions du fichier à celles de ce navigateur (une action déjà présente n'est pas
+        reprise) ; la réserve est recalculée et publiée. Un seul navigateur doit tenir la réserve : deux journaux
+        publieraient deux réserves différentes sur le Bazar en ligne.</p>
+      <div id="sh-backup-messages" class="messages" aria-live="polite"></div>
     </div>
   </section>
   <div id="tip" class="tip" role="tooltip" hidden></div>
