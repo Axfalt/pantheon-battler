@@ -19,8 +19,15 @@
     exports: null,
     panic: null,
     info: null,
+    loading: null,
 
-    async load() {
+    // Several scripts of a page may wait for the engine: it starts once.
+    load() {
+      if (!this.loading) this.loading = this.start();
+      return this.loading;
+    },
+
+    async start() {
       if (!window.PANTHEON_WASM) throw new Error("engine-wasm.js est absent ou vide.");
       const bin = Uint8Array.from(atob(window.PANTHEON_WASM), (c) => c.charCodeAt(0));
       this.module = await WebAssembly.compile(bin);
