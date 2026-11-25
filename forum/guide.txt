@@ -65,7 +65,7 @@
 [li][b]acheter X, sinon Y[/b] : si X est déjà partie, achète Y.[/li]
 [li][b]passer[/b] : n'achète rien, fait seulement avancer la page.[/li]
 [li][b]vendre X[/b] : vend l'unité X, [b]+1🙏[/b] . Elle retourne à la réserve commune.[/li]
-[li][b]investir N[/b] : verse N🙏 pour monter de niveau.[/li]
+[li][b]investir N[/b] : verse N🙏 pour monter de niveau. Améliorer sa boutique se fait uniquement en postant au Bazar.[/li]
 [li][b]aligner[/b] / [b]réserver[/b] : réorganise le terrain et la réserve.[/li]
 [/ul][/collapse]
 

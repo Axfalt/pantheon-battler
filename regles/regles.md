@@ -134,7 +134,8 @@ Un message du Bazar contient **un seul achat**, et autant d'ordres gratuits qu'o
 | `investir N` | Verse N🙏 dans la boutique. À chaque seuil atteint, le joueur monte d'un niveau et achète aussitôt dans la boutique de son nouveau niveau. |
 | `aligner` / `réserver` | Réorganise le terrain et la réserve. |
 
-Vendre, investir et réorganiser peuvent aussi se faire hors du Bazar, gratuitement.
+**Investir se fait uniquement dans un message du Bazar** (seul ou avec un achat). Vendre et réorganiser
+peuvent aussi se faire hors du Bazar, gratuitement.
 
 ### Les niveaux
 

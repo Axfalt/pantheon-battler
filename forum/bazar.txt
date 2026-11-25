@@ -9,6 +9,7 @@
 [li][b]Un achat par message[/b], et [b]pas deux messages d'affilée[/b].[/li]
 [li][b]Premier arrivé, premier servi[/b] : une unité achetée disparaît de la boutique.[/li]
 [li][b]Chaque message affiche votre état après l'achat[/b] : votre [b]terrain[/b] et votre [b]réserve[/b], nouvelle unité comprise, et vos [b]faveurs restantes[/b].[/li]
+[li][b]Améliorer sa boutique se fait aussi au Bazar[/b] : postez [b]investir N[/b], seul ou avec un achat.[/li]
 [/ul]
 
 [b]Les ordres :[/b] [b]acheter X[/b] :middot: [b]passer[/b] (n'achète rien, fait avancer la page) :middot: [b]vendre X[/b] (+1🙏) :middot: [b]investir N[/b] :middot: [b]aligner[/b] / [b]réserver[/b]
@@ -58,7 +59,7 @@ Faveurs : 2🙏
 [li][b]Niveau 3[/b] : 30 % rang 1 :middot: 65 % rang 2 :middot: 5 % rang 3[/li]
 [li][b]Niveau 4[/b] : 15 % rang 1 :middot: 75 % rang 2 :middot: 10 % rang 3[/li]
 [/ul]
-Pour monter : [b]5🙏[/b] (1 → 2), [b]7🙏[/b] (2 → 3), [b]10🙏[/b] (3 → 4), l'excédent est reporté. :warning: [b]C'est définitif[/b] : plus d'accès aux boutiques des niveaux inférieurs.
+Pour monter, postez [b]investir N[/b] au Bazar : [b]5🙏[/b] (1 → 2), [b]7🙏[/b] (2 → 3), [b]10🙏[/b] (3 → 4), l'excédent est reporté. :warning: [b]C'est définitif[/b] : plus d'accès aux boutiques des niveaux inférieurs.
 
 [aparte]Les unités sont tirées dans une [b]réserve commune[/b] tenue par le MJ : plus il reste d'exemplaires d'une unité, plus elle sort souvent ; une unité épuisée ne sort plus. Une unité vendue ou perdue y retourne.[/aparte]
 
