@@ -1,0 +1,226 @@
+[big][b]⚡ Pantheon Battler : le guide du joueur[/b][/big]
+[i]4 factions assoiffées de pouvoir, 38 dieux haineux, 1 seul vainqueur. Serez-vous le dieu pour les gouverner tous ?[/i]
+
+Vous incarnez un dieu. Vous recrutez des [b]créatures mythologiques[/b], vous les alignez sur votre terrain et vous défiez les autres dieux. Les combats se jouent [b]tout seuls[/b] : tout se décide dans le recrutement, les fusions et l'ordre de vos unités.
+
+Les créatures viennent de cinq horizons : [b]Gaulois[/b], [b]Gréco-Romain[/b], [b]Égyptien[/b], [b]Scandinave[/b] et [b]Grands Anciens[/b]. Ce ne sont jamais des dieux, mais les créatures de leurs légendes.
+
+:arrowright: La page de combat, pour préparer vos défis et rejouer les combats : [link=https://pantheon-battler.chaton.ninja/]pantheon-battler.chaton.ninja[/link]
+
+{hr}
+[big][b]🏆 Le but du jeu[/b][/big]
+
+Avoir le plus de [b]points de victoire 🏆[/b] à la fin de la période de jeu (une semaine par exemple). On en gagne en remportant des combats.
+
+[aparte]:warning: Un dieu qui tombe à [b]0✨[/b] perd [b]tout[/b], y compris ses 🏆, et repart de zéro.[/aparte]
+
+[collapse=Le vocabulaire]
+[*] 🙏 [b]Faveurs[/b] : la monnaie. Elle sert à poster dans le Bazar, à recruter et à investir.
+[*] ✨ [b]Essence divine[/b] : vos « vies ». 25 au départ, 25 au maximum, [b]jamais régénérées[/b].
+[*] 🏆 [b]Points de victoire[/b] : le score.
+[*] ⚔ [b]ATQ[/b] : les dégâts qu'une unité inflige.
+[*] ❤ [b]PV[/b] : les points de vie d'une unité. À 0, elle meurt.
+[*] 🛡 [b]DÉF[/b] : chaque coup reçu est diminué d'autant (minimum 1 dégât).
+[*] [b]Rang[/b] : 1, 2 ou 3, la puissance et le prix d'une unité.
+[*] ⭐ [b]Unité fusionnée[/b] : trois exemplaires identiques réunis en une unité plus forte.
+[*] [b]Terrain[/b] : les 4 emplacements des unités qui combattent.
+[*] [b]Réserve[/b] : 4 emplacements pour garder des unités qui ne combattent pas.
+[/collapse]
+
+{hr}
+[big][b]📅 Le rythme du jeu[/b][/big]
+
+Pas de manches : le jeu tourne [b]en continu[/b]. Vous recrutez et combattez quand vous voulez.
+
+[b]Chaque jour, à heure fixe :[/b]
+[0] [b]Revenu[/b] : +5🙏 pour chacun. Au-delà de [b]10🙏[/b], le surplus est perdu (sauf avec le ⚱️ Magot).
+[0] Les pouvoirs « chaque jour » agissent : Pillage, Magot, Pot d'or, Changelin, Vigueur, Bénédiction, Forge…
+[0] Les compteurs du jour sont remis à zéro.
+
+[b]Limites de combat :[/b]
+[*] [b]6 combats par jour[/b] au maximum.
+[*] [b]Jamais deux combats d'affilée contre le même adversaire[/b].
+[*] [b]Une journée sans combat coûte 1🏆[/b] (jamais en dessous de 0).
+
+{hr}
+[big][b]🏪 Le Bazar : la boutique[/b][/big]
+
+La boutique est un [b]sujet du forum partagé par tous[/b]. Le forum affiche 10 messages par page : [b]chaque page est une nouvelle boutique[/b], postée par le MJ en tête de page.
+
+[*] Chaque page propose [b]une boutique de 7 unités par niveau[/b]. Vous n'achetez que dans la boutique de [b]votre niveau[/b].
+[*] [b]Chaque message coûte 1🙏[/b], qu'on achète ou non.
+[*] [b]Un achat par message[/b], et [b]pas deux messages d'affilée[/b] : un autre joueur doit poster entre deux de vos messages.
+[*] Premier message, premier servi : une unité achetée disparaît de la boutique.
+[*] Quand la page est pleine, la boutique change. Poster [b]passer[/b] fait avancer la page sans rien acheter.
+
+[b]Prix (message compris) :[/b] rang 1 = [b]2🙏[/b] :middot: rang 2 = [b]3🙏[/b] :middot: rang 3 = [b]5🙏[/b]
+
+[collapse=Les ordres du Bazar]
+[*] [b]acheter X[/b] : recrute l'unité X. Elle va sur le terrain s'il reste de la place, sinon en réserve.
+[*] [b]acheter X, sinon Y[/b] : si X est déjà partie, achète Y.
+[*] [b]passer[/b] : n'achète rien, fait seulement avancer la page.
+[*] [b]vendre X[/b] : vend l'unité X, [b]+1🙏[/b]. Elle retourne à la réserve commune.
+[*] [b]investir N[/b] : verse N🙏 pour monter de niveau.
+[*] [b]aligner[/b] / [b]réserver[/b] : réorganise le terrain et la réserve.
+
+Vendre, investir et réorganiser peuvent aussi se faire hors du Bazar, gratuitement.
+[/collapse]
+
+[collapse=Les niveaux de boutique]
+Plus votre niveau est haut, plus votre boutique propose d'unités de haut rang :
+[*] [b]Niveau 1[/b] : 80 % rang 1 :middot: 20 % rang 2
+[*] [b]Niveau 2[/b] : 55 % rang 1 :middot: 45 % rang 2
+[*] [b]Niveau 3[/b] : 30 % rang 1 :middot: 65 % rang 2 :middot: 5 % rang 3
+[*] [b]Niveau 4[/b] : 15 % rang 1 :middot: 75 % rang 2 :middot: 10 % rang 3
+
+Pour monter : [b]4🙏[/b] (1 → 2), [b]8🙏[/b] (2 → 3), [b]8🙏[/b] (3 → 4). L'excédent est reporté.
+:warning: [b]Monter de niveau est définitif[/b] : vous n'avez plus accès aux boutiques des niveaux inférieurs.
+[/collapse]
+
+[collapse=La réserve commune]
+Tous les joueurs piochent dans [b]la même réserve d'exemplaires[/b], tenue par le MJ. Une unité recrutée la quitte ; une unité vendue, transformée ou perdue y revient. Plus il reste d'exemplaires d'une unité, plus elle sort souvent dans les boutiques ; une unité épuisée ne sort plus.
+
+Par joueur inscrit : 1,5 exemplaire de chaque unité de rang 1, 1 de rang 2, 0,75 de rang 3 (arrondi, jamais moins de 3). Pour 6 joueurs : 9, 6 et 5 exemplaires.
+[/collapse]
+
+{hr}
+[big][b]⭐ Les fusions[/b][/big]
+
+Réunissez [b]3 exemplaires identiques[/b] (terrain et réserve confondus) : ils fusionnent aussitôt en [b]une unité ⭐[/b].
+[*] Ses [b]stats de base sont doublées[/b], et elle garde le meilleur bonus permanent de ses trois exemplaires.
+[*] [b]Tous les nombres de ses pouvoirs sont doublés[/b] (Vigueur +1 devient +2…).
+[*] Vous recevez en prime [b]une unité au hasard du rang supérieur[/b].
+
+[b]L'Ascension :[/b] fusionner trois unités de [b]rang 3[/b] fait rejoindre les dieux à la créature : [b]+5🏆[/b], et ses exemplaires retournent à la réserve commune.
+
+{hr}
+[big][b]🤝 Les synergies[/b][/big]
+
+[b]3 unités d'un même archétype sur le terrain[/b] donnent un pouvoir à toute l'armée. Une unité à double archétype compte pour les deux.
+
+[*] 🌱 [b]Croissance → Sève[/b] : chaque Vigueur, Bénédiction et Forge donne +1 de plus.
+[*] ♻️ [b]Cycle → Éternel retour[/b] : une fois par combat, le premier allié qui meurt définitivement revient avec 1❤.
+[*] 🎲 [b]Chance → Fortune[/b] : chaque pile ou face raté est retenté une fois.
+[*] 🔒 [b]Contrôle → Emprise[/b] : au début du combat, chaque ennemi perd 1⚔.
+[*] 🐺 [b]Revanche → Endurance[/b] : une défaite coûte 2✨ de moins (minimum 1✨).
+
+{hr}
+[big][b]⚔ Les défis[/b][/big]
+
+[0] [b]Le défi[/b] : l'attaquant poste sa [b]composition[/b] (ses unités, de gauche à droite) et [b]trois dés[/b] : [c]{[/c]d100} [c]{[/c]d100} [c]{[/c]d100}
+[0] [b]La réponse[/b] : le défenseur accepte en postant [b]sa propre composition[/b], choisie après avoir vu celle de l'attaquant, et trois dés à son tour. Personne n'est obligé d'accepter.
+[0] [b]Le combat[/b] : les six dés forment la [b]seed[/b] du combat. La page de combat le rejoue et donne le texte à poster. Chacun peut le vérifier.
+
+[aparte]Un message qui contient des dés ne peut être [b]ni modifié ni supprimé[/b] : une acceptation postée est définitive. Un arbitre surveille les combats arrangés.[/aparte]
+
+[quote=Exemple de composition]
+[b]⚔ Composition de Bob[/b] · 🏆 3 · ✨ 18 · 💔 2 défaites d'affilée · 🔥 0 victoire d'affilée
+1. 🐗 Sanglier · 1/5/0
+2. ⭐🪖 Hoplite · 2/4/4
+3. ⚰️ Ankou · 1/3/0 · Offrande 3/5
+[c]{[/c]d100} [c]{[/c]d100} [c]{[/c]d100}
+[/quote]
+[i]Une ligne par unité avec ses stats actuelles ATQ/PV/DÉF. Le bouton « Copier pour le forum » de la page prépare ce message pour vous.[/i]
+
+[b]Le résultat :[/b]
+[*] [b]Victoire[/b] : +1🏆 et +1🙏. Le perdant perd [b]1✨ par rang de chaque unité adverse encore debout[/b] (une unité ⭐ compte double).
+[*] [b]Exploit[/b] (le joueur qui a le moins de 🏆 gagne) : +2🏆 et +1🙏, et le perdant perd [b]le double[/b].
+[*] [b]Match nul[/b] : chacun perd 1✨.
+
+[b]Les séries :[/b]
+[*] 💔 [b]Défaites d'affilée[/b] : toutes les 3 défaites d'affilée, [b]prime de retour +5🙏[/b]. Elles nourrissent aussi le Déchaînement de 🦑 Cthulhu.
+[*] 🔥 [b]Victoires d'affilée[/b] : dès la 3e victoire d'affilée, [b]+1🙏[/b] de plus par victoire.
+
+:death: [b]À 0✨[/b], vous perdez tout : terrain, réserve, faveurs, niveau, quêtes [b]et vos 🏆[/b]. Vous repartez avec 25✨. Seul ⚰️ l'Ankou peut rendre de l'essence.
+
+{hr}
+[big][b]🗡️ Le déroulé d'un combat[/b][/big]
+
+[*] Les unités sont alignées [b]de gauche à droite[/b] : la position compte.
+[*] Le camp qui a [b]le plus d'unités attaque en premier[/b] (à égalité, tirage au sort), puis les camps alternent.
+[*] À son tour, un camp attaque avec son unité [b]la plus à gauche qui n'a pas encore attaqué[/b] ; quand toutes l'ont fait, on recommence par la gauche.
+[*] L'attaquant frappe [b]un ennemi au hasard[/b] (une unité avec [b]Provocation[/b] doit être choisie en priorité), et [b]la cible riposte en même temps[/b].
+[*] [b]Dégâts = ATQ − DÉF[/b], minimum 1.
+[*] Le combat s'arrête quand un camp n'a plus d'unités. Les deux à la fois, ou plus de 100 échanges : [b]match nul[/b].
+
+[collapse=L'ordre exact des pouvoirs]
+[b]Avant le premier coup :[/b] Déchaînement, Dévoration, Bonne étoile, Phalange, Pétrification, puis Emprise.
+
+[b]À chaque attaque :[/b]
+[0] Gel de l'attaquant.
+[0] Choix de la cible (Provocation).
+[0] Pile ou face de Démesure et de Senet.
+[0] Coups simultanés ; le Regard de pierre de la Méduse frappe avec le coup.
+[0] Une unité tuée par ces coups : Néant l'anéantit, Châtiment fait mourir son tueur.
+[0] Représailles et Effroi de la cible.
+[0] Fascination, Chaos, Hydromel, puis Momification.
+[0] Les morts : Résurrection, Renaissance ou Éternel retour, et Héritage à chaque mort.
+
+Une unité tuée par 🎭 Nyarlathotep est [b]anéantie[/b] : elle quitte pour de bon la composition de son joueur et retourne à la réserve commune.
+[/collapse]
+
+[aparte]Seules les unités [b]sur le terrain[/b] activent leurs pouvoirs : celles en réserve dorment, sauf pour les effets « à la vente ». Les bonus [b]permanents[/b] restent sur l'unité ; les bonus [b]pour ce combat[/b] disparaissent à la fin du combat.[/aparte]
+
+{hr}
+[big][b]🐉 Les 31 créatures[/b][/big]
+
+[i]Stats notées ATQ/PV/DÉF. Survolez une créature sur la page de combat pour lire le détail de ses pouvoirs.[/i]
+
+[collapse=Rang 1 · 2🙏]
+[*] 🐗 [b]Sanglier[/b] · Gaulois · 🌱 · 1/4/0 · Vigueur +1❤, Provocation
+[*] 🍄 [b]Korrigan[/b] · Gaulois · 🎲 · 2/3/0 · Chaos 1, Changelin
+[*] ❄️ [b]Géant du givre[/b] · Scandinave · 🔒 · 2/3/0 · Gel 1
+[*] 🗿 [b]Ouchebti[/b] · Égyptien · ♻️ · 2/2/1 · Héritage
+[*] 🪖 [b]Hoplite[/b] · Gréco-Romain · 🔒 · 1/2/2 · Phalange +1⚔
+[*] 🪨 [b]Sisyphe[/b] · Gréco-Romain · 🐺 · 0/3/0 · Provocation, Rancune +1⚔ +1❤
+[*] 🙌 [b]Ka[/b] · Égyptien · 🌱 · 1/2/0 · Bénédiction +1❤
+[*] 👁️ [b]Cyclope[/b] · Gréco-Romain · 🎲 · 3/2/0 · Démesure
+[*] 🧟 [b]Draugr[/b] · Scandinave · ♻️ · 0/3/0 · Provocation, Représailles 1, Renaissance
+[*] ⚰️ [b]Ankou[/b] · Gaulois · ♻️🐺 · 1/3/0 · Offrande (5 morts → +8✨)
+[*] 🐖 [b]Sæhrímnir[/b] · Scandinave · ♻️ · 2/1/0 · Renaissance, Héritage
+[*] 🌲 [b]Bugul-noz[/b] · Gaulois · 🔒 · 1/4/0 · Provocation, Effroi −1⚔
+[*] 🍀 [b]Leprechaun[/b] · Gaulois · 🎲 · 2/2/0 · Pot d'or +1🙏 par unité ⭐
+[*] 🦇 [b]Érinye[/b] · Gréco-Romain · 🐺 · 3/3/1 · Châtiment
+[*] 🔨 [b]Cabire[/b] · Gréco-Romain · 🌱 · 1/3/0 · Forge +1⚔
+[/collapse]
+
+[collapse=Rang 2 · 3🙏]
+[*] 🌿 [b]Druide[/b] · Gaulois · 🌱 · 2/4/0 · Bénédiction +1⚔ +1❤
+[*] 🪽 [b]Valkyrie[/b] · Scandinave · ♻️ · 3/3/1 · Escorte +2⚔ +2❤
+[*] 📜 [b]Setné[/b] · Égyptien · 🎲 · 2/3/1 · Senet
+[*] 🐍 [b]Méduse[/b] · Gréco-Romain · 🔒 · 2/4/0 · Pétrification, Regard de pierre
+[*] ⚱️ [b]Pilleur de tombes[/b] · Égyptien · 🐺 · 3/3/0 · Pillage, Magot
+[*] 🧿 [b]Oudjat[/b] · Égyptien · 🎲 · 2/3/0 · Bonne étoile +2⚔ +2❤ par unité ⭐
+[*] 🪓 [b]Einherjar[/b] · Scandinave · 🌱♻️ · 2/2/0 · Vigueur +1⚔, Renaissance
+[*] 🏺 [b]Embaumeur[/b] · Égyptien · ♻️🎲 · 2/4/1 · Momification
+[*] 🐢 [b]Tarasque[/b] · Gaulois · 🎲🔒 · 2/3/1 · Chaos 1, Gel 1
+[*] 🐐 [b]Heiðrún[/b] · Scandinave · 🔒🐺 · 3/4/1 · Hydromel
+[*] 🐲 [b]Hydre de Lerne[/b] · Gréco-Romain · 🐺🌱 · 2/3/0 · Rancune +1⚔ +1❤, Vigueur +1❤
+[/collapse]
+
+[collapse=Rang 3 · 5🙏]
+[*] 🏔️ [b]Ymir[/b] · Scandinave · 🌱 · 7/11/1 · Vigueur collective +1❤
+[*] 🔥 [b]Bénou[/b] · Égyptien · ♻️ · 6/6/0 · Résurrection, Récupération
+[*] 🐂 [b]Minotaure[/b] · Gréco-Romain · 🎲 · 1/1/1 · Dévoration
+[*] 🦑 [b]Cthulhu[/b] · Grands Anciens · 🐺 · 4/6/1 · Déchaînement +1⚔ +1❤
+[*] 🎭 [b]Nyarlathotep[/b] · Grands Anciens · 🔒 · 5/7/1 · Néant
+[/collapse]
+
+[collapse=Les archétypes]
+[*] 🌱 [b]Croissance[/b] : des unités qui grandissent chaque jour.
+[*] ♻️ [b]Cycle[/b] : la mort n'est qu'un passage (retours, héritages, quêtes).
+[*] 🎲 [b]Chance[/b] : pile ou face, coups au hasard, gros paris.
+[*] 🔒 [b]Contrôle[/b] : affaiblir, bloquer et user l'adversaire.
+[*] 🐺 [b]Revanche[/b] : chaque défaite rend plus fort.
+[/collapse]
+
+{hr}
+[big][b]:chat: Premiers pas[/b][/big]
+
+[0] Achetez vos premières unités au Bazar : un message, un achat, puis laissez poster les autres.
+[0] Visez [b]3 unités d'un même archétype[/b] pour sa synergie, et [b]3 exemplaires d'une même unité[/b] pour une fusion ⭐.
+[0] Soignez [b]l'ordre de votre terrain[/b] : les unités avec Provocation protègent les plus fragiles, et certains pouvoirs visent l'allié de gauche ou de droite.
+[0] Préparez votre défi sur la [link=https://pantheon-battler.chaton.ninja/]page de combat[/link], copiez-le, ajoutez vos trois dés et postez-le.
+[0] Combattez au moins une fois par jour pour ne pas perdre de 🏆, et surveillez votre ✨ : à 0, tout est perdu.
+
+Bonne chance, et que le meilleur dieu gagne ! :mh:
