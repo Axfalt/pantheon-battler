@@ -88,13 +88,19 @@ affiche 10 messages par page : **chaque page est une nouvelle boutique**.
 - **Un message achète au plus une unité.** Une unité achetée disparaît de la boutique de la
   page.
 - **Chaque message affiche l'état du joueur après ses ordres** : son terrain et sa réserve
-  (nouvelle unité comprise, avec leurs stats) et ses faveurs restantes.
+  (nouvelle unité comprise, avec leurs stats), ses faveurs restantes et son niveau de
+  boutique. L'onglet **Bazar** du site écrit ce message à partir des ordres choisis.
+- **Un achat se confirme sur le site avant d'être posté** : l'onglet Bazar montre la boutique
+  en cours ; « Confirmer » réserve l'unité (elle n'est plus à vendre pour les autres) et copie
+  le message à coller dans le sujet. Un message confirmé par erreur, ou refusé par le MJ,
+  s'annule dans l'onglet Bazar : l'unité retourne en boutique, et le joueur supprime son
+  message du forum.
 - **Quand la page est pleine (10 messages), la boutique change** : le MJ poste les boutiques
   de la page suivante.
 - On peut poster **sans rien acheter** (`passer`) pour rapprocher le renouvellement de la
   boutique. C'est la façon de « relancer », et elle profite à tout le monde.
-- Les achats sont servis **dans l'ordre des messages** : si deux joueurs veulent la même unité,
-  le premier message l'obtient.
+- Les achats sont servis **dans l'ordre des confirmations** : si deux joueurs veulent la même unité,
+  le premier à confirmer l'obtient.
 - Il n'y a **qu'un seul sujet** de Bazar : les boutiques des quatre niveaux changent ensemble.
 
 ### Prix

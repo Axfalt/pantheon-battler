@@ -5,3 +5,8 @@ deploy.env
 
 # Claude Code local project notes
 CLAUDE.local.md
+bazar-dev*.json
+server/terraform/.terraform/
+server/terraform/*.tfstate*
+server/terraform/terraform.tfvars
+server/terraform/build/

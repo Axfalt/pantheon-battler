@@ -7,8 +7,10 @@
 [li]En tête de chaque page, le MJ poste [b]une boutique de 7 unités par niveau[/b]. Vous achetez dans celle de [b]votre niveau[/b].[/li]
 [li][b]Un message coûte 1🙏[/b], plus le prix de l'unité : [b]2🙏[/b] (rang 1), [b]3🙏[/b] (rang 2), [b]5🙏[/b] (rang 3) au total.[/li]
 [li][b]Un achat par message[/b], et [b]pas deux messages d'affilée[/b].[/li]
-[li][b]Premier arrivé, premier servi[/b] : une unité achetée disparaît de la boutique.[/li]
-[li][b]Chaque message affiche votre état après l'achat[/b] : votre [b]terrain[/b] et votre [b]réserve[/b], nouvelle unité comprise, et vos [b]faveurs restantes[/b].[/li]
+[li][b]Premier arrivé, premier servi[/b] : une unité achetée disparaît de la boutique. [b]Confirmez votre achat dans l'onglet Bazar du site[/b] avant de poster : une unité déjà confirmée par un autre joueur n'est plus à vendre.[/li]
+[li][b]Chaque message affiche votre état après l'achat[/b] : votre [b]terrain[/b] et votre [b]réserve[/b], nouvelle unité comprise, vos [b]faveurs restantes[/b] et votre [b]niveau[/b]. L'onglet [b]Bazar[/b] du site écrit ce message pour vous : choisissez, confirmez, collez.[/li]
+[li][b]Votre dieu est gardé sur le site[/b] dès votre premier message confirmé, et votre nom est à vous. Avec votre [b]clé MyHordes[/b] (facultative), votre nom est vérifié et vous retrouvez votre dieu partout ; sans clé, un [b]code[/b] l'ouvre sur un autre appareil.[/li]
+[li]Une erreur, un message refusé ? [b]Annulez-le dans l'onglet Bazar[/b] (« Mes messages ») puis supprimez-le du forum : l'unité retourne en boutique.[/li]
 [li][b]Améliorer sa boutique se fait aussi au Bazar[/b] : postez [b]investir N[/b], seul ou avec un achat.[/li]
 [/ul]
 
@@ -20,34 +22,34 @@
 [i]Page 3, boutique de niveau 1 : 🐗 Sanglier · ❄️ Géant du givre · 🍄 Korrigan · 🐍 Méduse · … Alice a 10🙏 et un ❄️ Géant du givre ; Bob a 5🙏 et rien d'autre.[/i]
 
 [quote=Alice]
-acheter Méduse
+[b]acheter Méduse[/b]
 Terrain : ❄️ Géant du givre 2/3/0 · 🐍 Méduse 2/4/0
 Réserve : —
-Faveurs : 7🙏
+Faveurs : 7🙏 · niveau 1
 [/quote]
 :arrowright: Elle obtient la Méduse pour [b]3🙏[/b].
 
 [quote=Bob]
-acheter Sanglier
+[b]acheter Sanglier[/b]
 Terrain : 🐗 Sanglier 1/4/0
 Réserve : —
-Faveurs : 3🙏
+Faveurs : 3🙏 · niveau 1
 [/quote]
 :arrowright: Il obtient le Sanglier pour [b]2🙏[/b].
 
 [quote=Alice]
-acheter Korrigan · vendre Géant du givre · investir 2
+[b]acheter Korrigan · vendre Géant du givre · investir 2[/b]
 Terrain : 🐍 Méduse 2/4/0 · 🍄 Korrigan 2/3/0
 Réserve : —
-Faveurs : 4🙏 (2/5🙏 investis vers le niveau 2)
+Faveurs : 4🙏 · niveau 1 (2/5🙏 investis vers le niveau 2)
 [/quote]
 :arrowright: Bob a posté entre ses deux messages, c'est permis. Elle paie 2🙏, récupère 1🙏 et en investit 2.
 
 [quote=Bob]
-passer
+[b]passer[/b]
 Terrain : 🐗 Sanglier 1/4/0
 Réserve : —
-Faveurs : 2🙏
+Faveurs : 2🙏 · niveau 1
 [/quote]
 :arrowright: 1🙏, la page se rapproche de la prochaine boutique.
 

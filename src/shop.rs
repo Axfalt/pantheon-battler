@@ -160,21 +160,7 @@ pub fn merge(data: &Data, p: &mut Player, pool: &mut Pool, rng: &mut GameRng, mu
             }
         }
         let d = &data.units[id];
-        // Base stats times the tier's power, plus the best permanent bonus among the copies.
-        let best = copies.iter().max_by_key(|u| u.atk + u.hp + u.def).unwrap();
-        let power = r.merge_power[d.tier as usize - 1];
-        let merged = Unit {
-            id,
-            atk: d.atk * power + best.atk - d.atk,
-            hp: d.hp * power + best.hp - d.hp,
-            def: d.def * power + best.def - d.def,
-            rebirths: copies.iter().map(|u| u.rebirths).sum(),
-            deaths: copies.iter().map(|u| u.deaths).sum(),
-            quest_done: copies.iter().any(|u| u.quest_done),
-            merged: true,
-            power,
-        };
-        p.place(data, merged);
+        p.place(data, combine(data, &copies));
         p.merges += 1;
         say!(log, "  {} fusionne {} {} en ⭐{} {}", p.name, r.merge_copies, d.name, d.emoji, d.name);
         let next_tier = d.tier as usize; // index of the next tier in by_tier
@@ -189,6 +175,26 @@ pub fn merge(data: &Data, p: &mut Player, pool: &mut Pool, rng: &mut GameRng, mu
             let ru = &data.units[reward];
             say!(log, "  {} reçoit {} {} pour la fusion", p.name, ru.emoji, ru.name);
         }
+    }
+}
+
+/// The ⭐ unit made from identical copies: base stats times the tier's power, plus the best
+/// permanent bonus among the copies; rebirths and Offering deaths add up.
+pub fn combine(data: &Data, copies: &[Unit]) -> Unit {
+    let id = copies[0].id;
+    let d = &data.units[id];
+    let best = copies.iter().max_by_key(|u| u.atk + u.hp + u.def).unwrap();
+    let power = data.rules.merge_power[d.tier as usize - 1];
+    Unit {
+        id,
+        atk: d.atk * power + best.atk - d.atk,
+        hp: d.hp * power + best.hp - d.hp,
+        def: d.def * power + best.def - d.def,
+        rebirths: copies.iter().map(|u| u.rebirths).sum(),
+        deaths: copies.iter().map(|u| u.deaths).sum(),
+        quest_done: copies.iter().any(|u| u.quest_done),
+        merged: true,
+        power,
     }
 }
 

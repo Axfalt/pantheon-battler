@@ -194,7 +194,7 @@ pub fn fold(s: &str) -> String {
 }
 
 /// Removes BBCode tags ([b], [/i], [quote=…]…), carriage returns and emoji variation selectors.
-fn normalize(text: &str) -> String {
+pub(crate) fn normalize(text: &str) -> String {
     let text = text.replace(['\r', '\u{fe0f}'], "");
     let mut out = String::with_capacity(text.len());
     let mut rest = text.as_str();
@@ -219,7 +219,7 @@ fn normalize(text: &str) -> String {
 }
 
 /// Runs of ASCII digits in `s`, as (start byte, end byte, value capped at 1,000,000).
-fn numbers(s: &str) -> Vec<(usize, usize, u64)> {
+pub(crate) fn numbers(s: &str) -> Vec<(usize, usize, u64)> {
     let mut out = Vec::new();
     let b = s.as_bytes();
     let mut i = 0;
@@ -293,14 +293,14 @@ fn strip_enumerator(line: &str) -> (&str, bool) {
 }
 
 /// How a unit is recognised in a line.
-struct Matcher {
+pub(crate) struct Matcher {
     idx: usize,
     emoji: String,
     names: Vec<String>,
     id: String,
 }
 
-fn matchers(data: &Data) -> Vec<Matcher> {
+pub(crate) fn matchers(data: &Data) -> Vec<Matcher> {
     let firsts: Vec<String> = data.units.iter().map(|u| fold(u.name.split(' ').next().unwrap_or(""))).collect();
     data.units
         .iter()
@@ -334,7 +334,7 @@ fn has_word(text: &str, word: &str) -> bool {
     false
 }
 
-enum LineKind {
+pub(crate) enum LineKind {
     /// Not a unit line.
     Other,
     Unit(Entry, Option<u64>),
@@ -344,7 +344,7 @@ enum LineKind {
 }
 
 /// Reads one unit line: "2. ⭐🪖 Hoplite · 2/4/4", "Hoplite 2/4/4 fusionné", "boar 1/4/0"…
-fn unit_line(data: &Data, ms: &[Matcher], line: &str, rank: usize) -> LineKind {
+pub(crate) fn unit_line(data: &Data, ms: &[Matcher], line: &str, rank: usize) -> LineKind {
     let (body, enumerated) = strip_enumerator(line);
     let folded = fold(body);
     let star = body.contains('⭐') || body.contains('★') || folded.contains("fusionn");

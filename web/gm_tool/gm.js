@@ -4,6 +4,10 @@
 // Everything a GM does is an event appended to the journal of this browser. Each browser writes
 // only its own file of the Gist (journal-<device>.json), so GMs never overwrite each other; the
 // reserve is recomputed by replaying the events of every journal in time order.
+//
+// With the Bazar server (Partage tab), the current shop and the reserve are published there for
+// the players' Bazar tab, and the posts players confirm come back as journal events whose id is
+// "srv.<server number>", the same in every GM's journal.
 "use strict";
 
 (function () {
@@ -13,6 +17,7 @@
   const MARKER = "pantheon-mj.json"; // the file that marks a Gist as a Pantheon Battler reserve
   const JOURNAL_RE = /^journal-[\w-]{1,40}\.json$/;
   const POLL_MS = 20000;
+  const SERVER_POLL_MS = 10000; // the Bazar server: players' posts
   const MAX_COPIES = 999;
 
   // ---------------------------------------------------------------- Settings and journals
@@ -59,9 +64,9 @@
   const needPush = () => synced < mine.length || nameDirty;
 
   // Records an action: replayed at once, sent to GitHub soon after.
-  function record(type, fields) {
+  function record(type, fields, fixed = null) {
     reloadMine();
-    const e = { id: `${device}.${(mine.length + 1).toString(36)}`, at: Date.now(), by: gmName(), type, ...fields };
+    const e = { id: `${device}.${(mine.length + 1).toString(36)}`, at: Date.now(), by: gmName(), type, ...fields, ...(fixed || {}) };
     mine.push(e);
     saveJournal();
     refresh();
@@ -92,6 +97,14 @@
         return Number.isInteger(e.page) && Array.isArray(e.shops) && typeof e.forum === "string";
       case "undo":
         return typeof e.target === "string";
+      case "player":
+        return (
+          Number.isInteger(e.srv) &&
+          typeof e.player === "string" &&
+          (e.taken == null || !!unitById(e.taken)) &&
+          Array.isArray(e.returned) &&
+          e.returned.every((id) => !!unitById(id))
+        );
       default:
         return false;
     }
@@ -139,13 +152,19 @@
       } else if (e.type === "set" && stock) {
         stock[e.unit] = e.count;
         after.set(e.id, e.count);
+      } else if (e.type === "player" && stock) {
+        // A post confirmed by a player on the Bazar server.
+        if (e.taken) stock[e.taken] = clampCopies(stock[e.taken] - 1);
+        for (const id of e.returned) stock[id] = clampCopies(stock[id] + 1);
       } else if (e.type === "shop") {
         shop = e;
         maxPage = Math.max(maxPage, e.page);
         pages.set(e.page, [...(pages.get(e.page) || []), e]);
       }
     }
-    view = { all, counts, stock, players, shop, nextPage: maxPage + 1, after, pages };
+    // The last server event this journal includes (posts and their cancellations).
+    const srvSeen = all.reduce((m, e) => (Number.isInteger(e.srv) ? Math.max(m, e.srv) : m), 0);
+    view = { all, counts, stock, players, shop, nextPage: maxPage + 1, after, pages, srvSeen };
     return view;
   }
 
@@ -249,6 +268,197 @@
   function syncSoon() {
     clearTimeout(soon);
     soon = setTimeout(sync, 400);
+  }
+
+  // ---------------------------------------------------------------- Bazar server
+  // server: { url, key } — the GM key stays in this browser, like the GitHub token.
+  const local = /^(localhost|127\.0\.0\.1|\[::1\])$/.test(location.hostname);
+  let server = store.get("pantheon.gm.server", null) || (local ? { url: `${location.origin}/api`, key: "dev" } : {});
+  const serverOn = () => !!(server.url && server.key);
+  const pushedKey = () => `pantheon.gm.pushed.${server.url}`;
+  let pushed = {}; // what this browser last sent: { shop: id, stock: json }
+  let srvError = null;
+  let srvLast = null;
+
+  class ServerError extends Error {}
+
+  async function api(method, path, body) {
+    let r;
+    try {
+      r = await fetch(server.url.replace(/\/+$/, "") + path, {
+        method,
+        cache: "no-store",
+        headers: { Authorization: `Bearer ${server.key}`, ...(body ? { "Content-Type": "application/json" } : {}) },
+        body: body ? JSON.stringify(body) : undefined,
+      });
+    } catch (e) {
+      throw new ServerError("Le serveur du Bazar ne répond pas.");
+    }
+    let j = null;
+    try {
+      j = await r.json();
+    } catch (e) {
+      /* not JSON */
+    }
+    if (!r.ok) throw new ServerError((j && j.error) || `Le serveur du Bazar a répondu ${r.status}.`);
+    return j;
+  }
+
+  const unitList = (ids) =>
+    ids
+      .map((id) => unitById(id))
+      .filter(Boolean)
+      .map((u) => `${u.emoji} ${u.name}`)
+      .join(", ");
+
+  // The posts and cancellations confirmed since the last one this journal has.
+  async function importEvents() {
+    let after = view.srvSeen;
+    for (;;) {
+      const r = await api("GET", `/events?after=${after}`);
+      for (const e of r.events) {
+        after = e.seq;
+        if (view.all.some((x) => x.id === `srv.${e.seq}`)) continue;
+        const fixed = { id: `srv.${e.seq}`, at: e.at };
+        if (e.type === "post") {
+          record(
+            "player",
+            { srv: e.seq, player: e.player, verified: !!e.verified, page: e.page, taken: e.buy ? e.buy.unit : null, returned: e.returned || [], forum: e.forum },
+            { ...fixed, by: e.player },
+          );
+        } else if (e.type === "cancel") {
+          record("undo", { target: `srv.${e.target}`, srv: e.seq, player: e.player }, { ...fixed, by: e.gm ? `${e.by} (MJ)` : e.player });
+        }
+      }
+      if (!r.more) break;
+    }
+  }
+
+  async function pushShop() {
+    const s = view.shop;
+    const id = s ? s.id : null;
+    if (pushed.shop === id) return;
+    await api(
+      "PUT",
+      "/shop",
+      s
+        ? { id: s.id, page: s.page, at: s.at, by: s.by, shops: s.shops.map((x) => ({ level: x.level, units: x.units.map((u) => (typeof u === "string" ? u : u.id)) })) }
+        : { id: null },
+    );
+    pushed.shop = id;
+    store.set(pushedKey(), pushed);
+  }
+
+  async function pushStock() {
+    if (!view.stock) return;
+    const body = { counts: view.stock, through: view.srvSeen };
+    const json = JSON.stringify(body);
+    if (pushed.stock === json) return;
+    await api("PUT", "/stock", body);
+    pushed.stock = json;
+    store.set(pushedKey(), pushed);
+  }
+
+  let srvBusy = false;
+  let srvAgain = false;
+  async function serverSync() {
+    if (!serverOn() || !Engine.info || !view) return;
+    if (srvBusy) {
+      srvAgain = true;
+      return;
+    }
+    srvBusy = true;
+    try {
+      // A new or emptied server (the local test server forgets everything when restarted): send
+      // the shop and the reserve again even if this browser already sent them.
+      const held = await api("GET", "/gm");
+      if ((held.shop ?? null) !== (pushed.shop ?? null)) delete pushed.shop;
+      if (!held.stocked) delete pushed.stock;
+      // Its numbers start again: importing would mix its new posts with the journal's old ones.
+      const reset = held.seq < view.srvSeen;
+      if (!reset) await importEvents();
+      await pushShop();
+      await pushStock();
+      srvError = reset
+        ? `Ce serveur du Bazar a été remis à zéro (n° ${held.seq}, le journal en est au n° ${view.srvSeen}) : la boutique et la réserve y sont publiées, mais ses messages ne sont plus importés. Repartez d'un journal vide pour tester.`
+        : null;
+      srvLast = new Date();
+    } catch (e) {
+      srvError = e instanceof ServerError ? e.message : `Serveur du Bazar : ${e.message}`;
+    } finally {
+      srvBusy = false;
+      renderServer();
+    }
+    if (srvAgain) {
+      srvAgain = false;
+      setTimeout(serverSync, 300);
+    }
+  }
+  let srvSoon = null;
+  const serverSoon = () => {
+    clearTimeout(srvSoon);
+    srvSoon = setTimeout(serverSync, 500);
+  };
+
+  // A player's post cancelled by a GM: on the server, which sends the cancellation back.
+  async function cancelOnServer(e, button) {
+    if (!serverOn()) return window.alert("Connectez d'abord le serveur du Bazar (onglet Partage).");
+    if (!window.confirm(`Annuler le message n°${e.srv} de ${e.player} sur le Bazar ?\nL'unité achetée revient en boutique ; le joueur le voit dans son onglet Bazar.`)) return;
+    button.disabled = true;
+    try {
+      await api("POST", `/posts/${e.srv}/cancel`, { by: gmName() });
+      await serverSync();
+    } catch (err) {
+      window.alert(err.message);
+      button.disabled = false;
+    }
+  }
+
+  function renderServer() {
+    const box = $("#sh-srv-state");
+    if (!box) return;
+    const url = $("#sh-srv-url");
+    if (document.activeElement !== url) url.value = server.url || "";
+    $("#sh-srv-forget").hidden = !serverOn();
+    if (!serverOn()) box.textContent = "Pas de serveur : les joueurs ne voient pas la boutique dans leur onglet Bazar.";
+    else if (srvError) box.textContent = `⚠ ${srvError}`;
+    else if (!srvLast) box.textContent = "Connexion…";
+    else
+      box.textContent =
+        `Connecté · boutique ${view && view.shop ? `de la page ${view.shop.page}` : "non publiée"} · ` +
+        `dernier message reçu n°${view ? view.srvSeen : 0} · à jour ` +
+        srvLast.toLocaleTimeString("fr-FR", { hour: "2-digit", minute: "2-digit", second: "2-digit" });
+    box.dataset.state = !serverOn() ? "local" : srvError ? "error" : "ok";
+  }
+
+  async function saveServer() {
+    const url = $("#sh-srv-url").value.trim().replace(/\/+$/, "");
+    const key = $("#sh-srv-key").value.trim() || (url === server.url ? server.key : "") || "";
+    if (!/^https?:\/\/\S+$/.test(url)) return messages($("#sh-srv-messages"), ["Adresse du serveur invalide (https://…)."]);
+    if (!key) return messages($("#sh-srv-messages"), ["Entrez la clé MJ."]);
+    const before = server;
+    server = { url, key };
+    try {
+      await api("GET", "/gm");
+    } catch (e) {
+      server = before;
+      return messages($("#sh-srv-messages"), [e.message]);
+    }
+    store.set("pantheon.gm.server", server);
+    pushed = store.get(pushedKey(), {}) || {};
+    $("#sh-srv-key").value = "";
+    messages($("#sh-srv-messages"), [], [], ["Serveur du Bazar connecté : la boutique et la réserve y sont publiées."]);
+    serverSync();
+  }
+
+  function forgetServer() {
+    if (!window.confirm("Déconnecter ce navigateur du serveur du Bazar ? La clé MJ y sera effacée.")) return;
+    server = {};
+    store.set("pantheon.gm.server", null);
+    srvError = null;
+    srvLast = null;
+    messages($("#sh-srv-messages"));
+    renderServer();
   }
 
   // ---------------------------------------------------------------- Header badge
@@ -547,6 +757,12 @@
         const t = view.all.find((x) => x.id === e.target);
         return `↶ Annule : ${t ? describe(t) : "une action inconnue"}`;
       }
+      case "player": {
+        const what = [];
+        if (e.taken) what.push(`achète ${unitList([e.taken])}`);
+        if (e.returned.length) what.push(`rend ${unitList(e.returned)}`);
+        return `🏪 Bazar n°${e.srv}, ${e.player}${e.verified ? " ✔" : ""} : ${what.length ? what.join(" · ") : "passe"}` + (e.page ? ` (page ${e.page})` : "");
+      }
       default:
         return e.type;
     }
@@ -567,7 +783,16 @@
             );
             const b = el("button", { type: "button", className: "ghost j-undo", textContent: on ? (e.type === "undo" ? "Rétablir" : "Annuler") : "Annulé" });
             b.disabled = !on;
-            b.addEventListener("click", () => record("undo", { target: e.id }));
+            if (Number.isInteger(e.srv) && e.type === "undo") {
+              // A cancellation made on the Bazar server stays there.
+              b.textContent = "via le Bazar";
+              b.disabled = true;
+            } else if (Number.isInteger(e.srv)) {
+              b.title = "Annule ce message sur le serveur du Bazar, pour le joueur aussi";
+              b.addEventListener("click", () => cancelOnServer(e, b));
+            } else {
+              b.addEventListener("click", () => record("undo", { target: e.id }));
+            }
             li.append(b);
             return li;
           })
@@ -718,6 +943,8 @@
     renderJournal();
     renderShare();
     renderBadge();
+    renderServer();
+    serverSoon();
   }
 
   // The reserve typed in the old Bazar tab of the public page becomes the first local events.
@@ -802,8 +1029,12 @@
     $("#sh-logout").addEventListener("click", logout);
     $("#sh-sync-now").addEventListener("click", sync);
     $("#sh-invite-copy").addEventListener("click", (ev) => copyText($("#sh-invite").value, ev.currentTarget));
+    $("#sh-srv-save").addEventListener("click", saveServer);
+    $("#sh-srv-forget").addEventListener("click", forgetServer);
+    pushed = store.get(pushedKey(), {}) || {};
 
     setInterval(() => document.visibilityState === "visible" && sync(), POLL_MS);
+    setInterval(() => document.visibilityState === "visible" && serverSync(), SERVER_POLL_MS);
     // Another tab of this browser changed the journal or the settings.
     window.addEventListener("storage", (ev) => {
       if (!ev.key || !ev.key.startsWith("pantheon.gm.")) return;

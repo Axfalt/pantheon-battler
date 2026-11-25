@@ -31,6 +31,8 @@
     <p class="sub">4 factions assoiffées de pouvoir, 38 dieux haineux, 1 seul vainqueur.<br>Serez-vous le dieu pour les gouverner tous&nbsp;?</p>
     <nav class="tabs" role="tablist">
       <button type="button" role="tab" id="tabbtn-combat" data-tab="combat" aria-selected="true">Combat</button>
+      <button type="button" role="tab" id="tabbtn-bazar" data-tab="bazar" aria-selected="false">Bazar</button>
+      <button type="button" role="tab" id="tabbtn-compte" data-tab="compte" aria-selected="false" hidden>Compte</button>
       <button type="button" role="tab" id="tabbtn-aide" data-tab="aide" aria-selected="false">Aide</button>
     </nav>
    </div>
@@ -191,6 +193,134 @@
     </div>
   </section>
 
+  <!-- ===== Bazar ===== -->
+  <section id="tab-bazar" class="tab" role="tabpanel" aria-labelledby="tabbtn-bazar" hidden>
+    <div id="bzp-offline" class="notice" hidden></div>
+
+    <div class="card">
+      <div class="card-head">
+        <h2>La boutique <span id="bzp-page"></span></h2>
+        <div class="buttons"><button type="button" id="bzp-reload">Actualiser</button></div>
+      </div>
+      <p id="bzp-shop-meta" class="hint" role="status"></p>
+      <div id="bzp-levels" class="bzp-levels" role="group" aria-label="Boutique affichée"></div>
+      <div id="bzp-shop" class="bzp-shop"></div>
+      <p id="bzp-shop-hint" class="hint"></p>
+    </div>
+
+    <div class="card">
+      <h2>Mon dieu</h2>
+      <p id="bzp-account-mini" class="bzp-account-mini" hidden></p>
+      <!-- The god's editor: shown here, or in the Compte tab while that tab is open (bazar.js placeGod). -->
+      <div id="bzp-god-home"><div id="bzp-god">
+      <div class="bzp-who">
+        <label class="field">Nom sur le forum <input type="text" id="bzp-name" maxlength="40" autocomplete="nickname" spellcheck="false"></label>
+        <label class="field">Faveurs 🙏 <input type="number" id="bzp-favors" min="0" max="99999" value="0"></label>
+        <label class="field">Niveau de boutique <input type="number" id="bzp-level" min="1" max="4" value="1"></label>
+        <label class="field">Investi <span class="bzp-inline"><input type="number" id="bzp-invested" min="0" value="0"> <span id="bzp-invested-hint" class="hint"></span></span></label>
+      </div>
+      <p id="bzp-name-hint" class="hint">Votre nom sur le forum : il identifie vos messages au Bazar, et il est à vous dès votre
+        premier message confirmé.</p>
+      <h3>Terrain</h3>
+      <div id="bzp-board" class="slots bzp-slots" role="list"></div>
+      <h3>Réserve</h3>
+      <div id="bzp-reserve" class="slots bzp-slots" role="list"></div>
+      <p class="hint">Glissez une unité pour la déplacer (sur le terrain ou entre terrain et réserve). Touchez-la pour corriger ses
+        stats, ou la vendre dans l'onglet Bazar.</p>
+      <div id="bzp-editor" class="bzp-editor" hidden></div>
+      <div id="bzp-state-messages" class="messages" aria-live="polite"></div>
+      <details class="bzp-more">
+        <summary>Ajouter une unité · importer un état</summary>
+        <p class="hint">Ajoutez votre unité de départ, ou celle que le MJ vous donne après une fusion.</p>
+        <div class="bz-fill">
+          <label class="field">Unité <select id="bzp-add-unit"></select></label>
+          <label class="bzp-check"><input type="checkbox" id="bzp-add-star"> ⭐ fusionnée</label>
+          <button type="button" id="bzp-add">Ajouter</button>
+        </div>
+        <label class="field bzp-paste-field">Votre dernier message du Bazar (écrit à la main, avant le Bazar en ligne)
+          <textarea id="bzp-paste" rows="4" spellcheck="false" placeholder="Terrain : 🐗 Sanglier 1/4/0&#10;Réserve : —&#10;Faveurs : 3🙏 · niveau 1"></textarea>
+        </label>
+        <button type="button" id="bzp-read">Importer cet état</button>
+      </details>
+      </div></div>
+    </div>
+
+    <div class="card">
+      <h2>Mon message</h2>
+      <p class="bzp-orders-line"><strong>Ordres :</strong> <span id="bzp-orders"></span></p>
+      <div class="bz-fill">
+        <label class="field">Investir 🙏 <input type="number" id="bzp-invest" min="0" max="999" value="0"></label>
+        <button type="button" class="ghost" id="bzp-clear">Tout effacer</button>
+      </div>
+      <div id="bzp-post-messages" class="messages" aria-live="polite"></div>
+      <p id="bzp-cost" class="bzp-cost"></p>
+      <textarea id="bzp-text" class="mono" rows="6" readonly spellcheck="false" aria-label="Texte du message"></textarea>
+      <div class="actions left">
+        <button type="button" class="primary" id="bzp-confirm" disabled>✅ Confirmer et copier</button>
+        <button type="button" class="ghost" id="bzp-copy">Copier sans confirmer</button>
+      </div>
+      <p class="hint">« Confirmer » réserve votre achat sur le Bazar en ligne (premier arrivé, premier servi) et copie le message :
+        collez-le aussitôt dans le sujet du Bazar. En cas d'erreur, annulez-le dans « Mes messages ».</p>
+      <div id="bzp-messages" class="messages" aria-live="polite"></div>
+      <details class="bzp-more">
+        <summary>Aperçu du message</summary>
+        <div id="bzp-preview" class="preview"></div>
+      </details>
+    </div>
+
+    <div class="card">
+      <h2>Mes messages</h2>
+      <p class="hint">Annuler un message rend l'unité achetée à la boutique, vous rend vos unités vendues, et remet votre dieu
+        comme avant ce message (s'il n'a pas changé depuis). Annulez du plus récent au plus ancien.</p>
+      <ol id="bzp-mine" class="journal"></ol>
+    </div>
+
+    <div class="card">
+      <h2>Derniers messages du Bazar</h2>
+      <ol id="bzp-feed" class="journal"></ol>
+    </div>
+  </section>
+  <div id="bzp-tip" class="tip" role="tooltip" hidden></div>
+
+  <!-- ===== Compte (players' account on the Bazar server) ===== -->
+  <section id="tab-compte" class="tab" role="tabpanel" aria-labelledby="tabbtn-compte" hidden>
+    <div class="card">
+      <h2>Mon compte</h2>
+      <div id="bzp-account" class="bzp-account"></div>
+      <div id="bzp-account-messages" class="messages" aria-live="polite"></div>
+    </div>
+
+    <div class="card">
+      <div class="card-head">
+        <h2>Ma composition</h2>
+        <div class="buttons"><button type="button" class="primary" id="acc-copy">Copier pour le forum</button></div>
+      </div>
+      <p id="acc-god-meta" class="hint"></p>
+      <div id="acc-god-home"></div>
+      <h3>Pour un défi</h3>
+      <p class="hint">« Copier pour le forum » écrit votre terrain comme composition de défi (la même que dans l'onglet
+        Combat), avec les trois dés : collez-la sur le forum pour lancer ou accepter un défi. La réserve ne combat pas.</p>
+      <div class="bzp-who">
+        <label class="field">Points de victoire 🏆 <input type="number" id="acc-vp" min="0" max="9999"></label>
+        <label class="field">Essence ✨ <input type="number" id="acc-essence" min="1" max="9999"></label>
+        <label class="field">Défaites d'affilée 💔 <input type="number" id="acc-streak" min="0" max="9999"></label>
+        <label class="field">Victoires d'affilée 🔥 <input type="number" id="acc-wins" min="0" max="9999"></label>
+      </div>
+      <div id="acc-compo-messages" class="messages" aria-live="polite"></div>
+      <details class="bzp-more">
+        <summary>Aperçu de la composition</summary>
+        <div id="acc-compo-preview" class="preview"></div>
+      </details>
+    </div>
+
+    <div class="card">
+      <h2>Historique</h2>
+      <p class="hint">Vos derniers messages confirmés au Bazar (les 30 plus récents), chacun avec l'état de votre dieu juste
+        après. Touchez un message pour le relire.</p>
+      <ol id="acc-history" class="journal acc-history"></ol>
+    </div>
+  </section>
+
   <!-- ===== Aide ===== -->
   <section id="tab-aide" class="tab prose" role="tabpanel" aria-labelledby="tabbtn-aide" hidden>
     <nav class="card toc" aria-label="Sommaire de l'aide">
@@ -278,9 +408,17 @@
         <li><strong>Un message coûte 1🙏</strong>, plus le prix de l'unité : <strong>2🙏</strong> (rang 1),
           <strong>3🙏</strong> (rang 2), <strong>5🙏</strong> (rang 3) au total.</li>
         <li><strong>Un achat par message</strong>, et <strong>pas deux messages d'affilée</strong>.</li>
-        <li><strong>Premier arrivé, premier servi</strong> : une unité achetée disparaît de la boutique.</li>
+        <li><strong>Premier arrivé, premier servi</strong> : une unité achetée disparaît de la boutique.
+          <strong>Confirmez votre achat dans l'onglet <em>Bazar</em></strong> avant de poster : une unité confirmée par un
+          autre joueur n'est plus à vendre.</li>
         <li><strong>Chaque message affiche votre état après l'achat</strong> : terrain et réserve, nouvelle unité comprise,
-          et faveurs restantes.</li>
+          faveurs restantes et niveau. L'onglet <em>Bazar</em> écrit ce message pour vous ; une erreur s'y annule.</li>
+        <li><strong>Votre dieu est gardé en ligne</strong> dès votre premier message confirmé : votre nom est alors à vous, et
+          ce navigateur retrouve votre dieu. Avec votre <strong>clé MyHordes</strong> (facultative), votre nom est vérifié et
+          vous retrouvez votre dieu sur n'importe quel appareil ; sans clé, un <strong>code</strong> l'ouvre sur un autre
+          appareil. L'onglet <em>Compte</em> permet de modifier votre dieu, de copier votre terrain comme composition de
+          défi pour le forum, et montre l'historique de vos messages. Tout est effacé
+          60 jours après la dernière modification.</li>
         <li><strong>Améliorer sa boutique se fait aussi au Bazar</strong> : postez <code>investir N</code>, seul ou avec un
           achat.</li>
       </ul>
@@ -296,25 +434,25 @@
           <pre class="mono">acheter Méduse
 Terrain : ❄️ Géant du givre 2/3/0 · 🐍 Méduse 2/4/0
 Réserve : —
-Faveurs : 7🙏</pre>
+Faveurs : 7🙏 · niveau 1</pre>
           <p>Elle obtient la Méduse pour <strong>3🙏</strong>.</p></li>
         <li><span class="who">Bob</span>
           <pre class="mono">acheter Sanglier
 Terrain : 🐗 Sanglier 1/4/0
 Réserve : —
-Faveurs : 3🙏</pre>
+Faveurs : 3🙏 · niveau 1</pre>
           <p>Il obtient le Sanglier pour <strong>2🙏</strong>.</p></li>
         <li><span class="who">Alice</span>
           <pre class="mono">acheter Korrigan · vendre Géant du givre · investir 2
 Terrain : 🐍 Méduse 2/4/0 · 🍄 Korrigan 2/3/0
 Réserve : —
-Faveurs : 4🙏 (2/5🙏 investis vers le niveau 2)</pre>
+Faveurs : 4🙏 · niveau 1 (2/5🙏 investis vers le niveau 2)</pre>
           <p>Bob a posté entre ses deux messages, c'est permis. Elle paie 2🙏, récupère 1🙏 et en investit 2.</p></li>
         <li><span class="who">Bob</span>
           <pre class="mono">passer
 Terrain : 🐗 Sanglier 1/4/0
 Réserve : —
-Faveurs : 2🙏</pre>
+Faveurs : 2🙏 · niveau 1</pre>
           <p>1🙏, la page se rapproche de la prochaine boutique.</p></li>
       </ol>
 
@@ -452,8 +590,10 @@ Faveurs : 2🙏</pre>
 </footer>
 
 <script src="engine-wasm.js"></script>
+<script src="config.js"></script>
 <script src="core.js"></script>
 <script src="app.js"></script>
+<script src="bazar.js"></script>
 <script src="theme.js"></script>
 </body>
 </html>

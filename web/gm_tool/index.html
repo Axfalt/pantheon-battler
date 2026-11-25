@@ -142,6 +142,23 @@
       <label class="field">Nom affiché dans le journal <input type="text" id="sh-name" maxlength="40" autocomplete="nickname"></label>
     </div>
 
+    <div class="card" id="sh-server">
+      <h2>Serveur du Bazar</h2>
+      <p>Le serveur montre la boutique en cours aux joueurs, dans l'onglet <em>Bazar</em> du site : ils y confirment leurs
+        achats, et une unité achetée disparaît pour les autres. Les messages confirmés arrivent ici, dans le journal, et
+        mettent la réserve commune à jour ; « Annuler » sur l'un d'eux l'annule aussi pour le joueur.</p>
+      <p id="sh-srv-state" class="sync-badge" data-state="local" role="status"></p>
+      <div class="bz-fill">
+        <label class="field">Adresse du serveur <input type="url" id="sh-srv-url" spellcheck="false" autocomplete="off" placeholder="https://…"></label>
+        <label class="field">Clé MJ <input type="password" id="sh-srv-key" spellcheck="false" autocomplete="off" placeholder="inchangée si vide"></label>
+      </div>
+      <div class="actions left">
+        <button type="button" class="primary" id="sh-srv-save">Connecter</button>
+        <button type="button" class="danger" id="sh-srv-forget" hidden>Déconnecter</button>
+      </div>
+      <div id="sh-srv-messages" class="messages" aria-live="polite"></div>
+    </div>
+
     <div class="card" id="sh-connected" hidden>
       <h2>Réserve partagée</h2>
       <p>Connecté au Gist <a id="sh-gist-link" target="_blank" rel="noopener noreferrer"></a>. <span id="sh-sync"></span></p>

@@ -8,8 +8,11 @@
 //! | `format` | `compo` | text, warnings |
 //! | `fight` | `a`/`b` (`text`, `name`), `dice` | seed, outcome, forum and plain text, updated compositions |
 //! | `shop` | `levels`, `seed`, `page`?, `players`?, `stock`? | the Bazar shops, forum text, warnings |
+//! | `bazar_apply` | `state`, `orders`, `shops`? | a player's Bazar post: new state, text, notes |
+//! | `bazar_parse` | `text` | the state written in a Bazar post |
 
 use crate::bazar;
+use crate::bazar_post::{self, LevelShop, Orders, PlayerState};
 use crate::challenge;
 use crate::compo::{self, Composition};
 use crate::data::{Data, Keyword};
@@ -30,6 +33,8 @@ pub fn handle(data: &Data, request: &str) -> String {
         Some("format") => format(data, &v),
         Some("fight") => fight(data, &v),
         Some("shop") => shop(data, &v),
+        Some("bazar_apply") => bazar_apply(data, &v),
+        Some("bazar_parse") => bazar_parse(data, &v),
         Some(op) => fail(vec![format!("Opération inconnue : {op}")]),
         None => fail(vec!["Opération manquante (op)".to_string()]),
     };
@@ -98,6 +103,9 @@ fn info(data: &Data) -> Value {
             "pool_per_player": r.pool_per_player,
             "merge_copies": r.merge_copies,
             "players": r.players,
+            "reserve_size": r.reserve_size,
+            "sell_value": r.sell_value,
+            "upgrade_threshold": r.upgrade_threshold,
         },
         "roster": roster,
         "synergies": synergies,
@@ -304,4 +312,45 @@ fn fight(data: &Data, v: &Value) -> Value {
         "data_hash": c.data_hash,
         "version": crate::ENGINE_VERSION,
     })
+}
+
+/// A player's Bazar post: the orders applied to the state, and the text to paste.
+fn bazar_apply(data: &Data, v: &Value) -> Value {
+    let state: PlayerState = match serde_json::from_value(v["state"].clone()) {
+        Ok(s) => s,
+        Err(e) => return fail(vec![format!("État du joueur illisible : {e}")]),
+    };
+    let orders: Orders = match serde_json::from_value(v["orders"].clone()) {
+        Ok(o) => o,
+        Err(e) => return fail(vec![format!("Ordres illisibles : {e}")]),
+    };
+    let shops: Option<Vec<LevelShop>> = match &v["shops"] {
+        Value::Null => None,
+        s => match serde_json::from_value(s.clone()) {
+            Ok(s) => Some(s),
+            Err(e) => return fail(vec![format!("Boutiques illisibles : {e}")]),
+        },
+    };
+    let o = bazar_post::apply(data, &state, &orders, shops.as_deref());
+    json!({
+        "ok": o.ok(),
+        "errors": o.errors,
+        "notes": o.notes,
+        "state": o.state,
+        "text": o.text,
+        "fee": o.fee,
+        "price": o.price,
+        "sales": o.sales,
+        "invested": o.invested,
+        "taken": o.taken,
+        "returned": o.returned,
+        "merged": o.merged,
+        "ascension": o.ascension,
+    })
+}
+
+fn bazar_parse(data: &Data, v: &Value) -> Value {
+    let Some(text) = v["text"].as_str() else { return fail(vec!["Texte manquant (text)".to_string()]) };
+    let p = bazar_post::parse_post(data, text);
+    json!({ "ok": p.errors.is_empty(), "errors": p.errors, "warnings": p.warnings, "state": p.state })
 }
