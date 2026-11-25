@@ -1,0 +1,67 @@
+[big][b]🗡️ Comment se déroule un combat[/b][/big]
+[i]Les combats se jouent tout seuls. Connaître l'ordre des choses, c'est savoir bien aligner son terrain.[/i]
+
+{hr}
+[big][b]📜 Les règles en bref[/b][/big]
+[ol]
+[li][b]Avant le premier coup[/b], les pouvoirs de début de combat agissent : Dévoration, Bonne étoile, Phalange, Pétrification, Emprise…[/li]
+[li][b]Le camp qui a le plus d'unités attaque en premier[/b] (à égalité, tirage au sort). Ensuite, les camps [b]alternent[/b].[/li]
+[li]À son tour, un camp attaque avec son unité [b]la plus à gauche qui n'a pas encore attaqué[/b]. Quand toutes l'ont fait, on recommence par la gauche.[/li]
+[li]L'attaquant frappe [b]un ennemi au hasard[/b]. S'il y a des ennemis avec [b]Provocation[/b], il doit en choisir un.[/li]
+[li][b]La cible riposte en même temps[/b] : les deux coups partent ensemble, les deux unités peuvent mourir.[/li]
+[li][b]Dégâts = ATQ − DÉF[/b], avec un [b]minimum de 1[/b].[/li]
+[li]Le combat s'arrête quand [b]un camp n'a plus d'unités[/b]. Si les deux tombent en même temps, ou après 100 échanges : [b]match nul[/b].[/li]
+[/ol]
+
+{hr}
+[big][b]🔎 Exemple : Alice contre Bob[/b][/big]
+[ul]
+[li][b]Alice[/b] : 🐗 Sanglier 1/4/0 [i](Provocation)[/i] · 🍀 Leprechaun 2/2/0 · 🔨 Cabire 1/3/0[/li]
+[li][b]Bob[/b] : ⚱️ Pilleur de tombes 3/3/0 · 🪖 Hoplite 1/2/2[/li]
+[/ul]
+[i]Stats notées ATQ/PV/DÉF.[/i]
+
+[b]1.[/b] Alice a 3 unités, Bob 2 : [b]Alice attaque en premier[/b].
+
+[b]2.[/b] 🐗 Sanglier, le plus à gauche, frappe un ennemi au hasard : le 🪖 Hoplite.
+[ul]
+[li]Sanglier → Hoplite : 1⚔ − 2🛡 = [b]1 dégât (minimum)[/b]. Hoplite : 2 → 1❤.[/li]
+[li]Riposte de l'Hoplite : 1 dégât. Sanglier : 4 → 3❤.[/li]
+[/ul]
+
+[b]3.[/b] Au tour de Bob : ⚱️ Pilleur de tombes. Le Sanglier a [b]Provocation[/b] : il est obligé de le viser.
+[ul]
+[li]Pilleur → Sanglier : 3 dégâts. Sanglier : 3 → 0❤, [b]mort[/b].[/li]
+[li]Riposte du Sanglier : 1 dégât. Pilleur : 3 → 2❤.[/li]
+[/ul]
+
+[b]4.[/b] Au tour d'Alice : 🍀 Leprechaun, son unité suivante. Il frappe le Pilleur.
+[ul]
+[li]Leprechaun → Pilleur : 2 dégâts. Pilleur : 2 → 0❤, [b]mort[/b].[/li]
+[li]Riposte du Pilleur : 3 dégâts. Leprechaun : 2 → 0❤, [b]mort[/b] aussi. Les coups sont simultanés.[/li]
+[/ul]
+
+[b]5.[/b] Au tour de Bob : 🪖 Hoplite, sa dernière unité. Il frappe le 🔨 Cabire.
+[ul]
+[li]Hoplite → Cabire : 1 dégât. Cabire : 3 → 2❤.[/li]
+[li]Riposte du Cabire : 1⚔ − 2🛡 = 1 dégât (minimum). Hoplite : 1 → 0❤, [b]mort[/b].[/li]
+[/ul]
+
+[b]6.[/b] Bob n'a plus d'unités : [b]victoire d'Alice[/b], avec son 🔨 Cabire encore debout (1/2).
+[ul]
+[li]Alice : [b]+1🏆 et +1🙏[/b].[/li]
+[li]Bob perd [b]1✨ par rang de chaque unité adverse encore debout[/b] : le Cabire est de rang 1, Bob perd [b]1✨[/b].[/li]
+[/ul]
+
+[aparte]:arrowright: Ce qu'on retient : le [b]Sanglier[/b] a encaissé le gros coup du Pilleur grâce à sa Provocation, et c'est une [b]riposte[/b] du Cabire qui a gagné le combat, sans même qu'il attaque.[/aparte]
+
+{hr}
+[big][b]💡 Conseils de placement[/b][/big]
+[ul]
+[li]Mettez vos unités [b]résistantes ou avec Provocation[/b] à gauche : elles prennent les premiers coups.[/li]
+[li]La [b]DÉF[/b] est précieuse contre les petites attaques : un coup ne fait jamais moins de 1, mais 1 dégât au lieu de 2 ou 3 change tout.[/li]
+[li]Une unité qui riposte fort est dangereuse [b]même quand on l'attaque[/b].[/li]
+[li]Avoir [b]plus d'unités[/b] que l'adversaire donne l'initiative.[/li]
+[/ul]
+
+[i]La page de combat rejoue chaque combat coup par coup : [link=https://pantheon-battler.chaton.ninja/]pantheon-battler.chaton.ninja[/link][/i]
