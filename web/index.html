@@ -193,7 +193,150 @@
 
   <!-- ===== Aide ===== -->
   <section id="tab-aide" class="tab prose" role="tabpanel" aria-labelledby="tabbtn-aide" hidden>
-    <div class="card">
+    <nav class="card toc" aria-label="Sommaire de l'aide">
+      <h2>Sommaire</h2>
+      <ul>
+        <li><a href="#aide-jeu">Le jeu en bref</a></li>
+        <li><a href="#aide-premiers-pas">Premiers pas</a></li>
+        <li><a href="#aide-bazar">Le Bazar</a></li>
+        <li><a href="#aide-fusions">Fusions et synergies</a></li>
+        <li><a href="#aide-defi">Lancer un défi</a></li>
+        <li><a href="#aide-resultat">Le résultat</a></li>
+        <li><a href="#aide-combat">Le déroulé d'un combat</a></li>
+        <li><a href="#aide-composition">Écrire une composition</a></li>
+        <li><a href="#aide-seed">La seed</a></li>
+      </ul>
+    </nav>
+
+    <div class="card" id="aide-jeu">
+      <h2>Le jeu en bref</h2>
+      <p>Vous incarnez un dieu. Vous recrutez des <strong>créatures mythologiques</strong>, vous les alignez sur votre
+        terrain et vous défiez les autres dieux. Les combats se jouent <strong>tout seuls</strong> : tout se décide dans le
+        recrutement, les fusions et l'ordre de vos unités.</p>
+      <p><strong>Le but</strong> : avoir le plus de <strong>points de victoire 🏆</strong> à la fin de la saison. On en gagne
+        en remportant des combats. Un dieu qui tombe à <strong>0✨</strong> perd tout, y compris ses 🏆, et repart de zéro.</p>
+      <div class="table-scroll">
+        <table>
+          <tbody>
+            <tr><td>🙏 <strong>Faveurs</strong></td><td>La monnaie : poster au Bazar, recruter, investir.</td></tr>
+            <tr><td>✨ <strong>Essence divine</strong></td><td>Vos « vies » : 25 au départ, 25 au maximum, jamais régénérées.</td></tr>
+            <tr><td>🏆 <strong>Points de victoire</strong></td><td>Le score.</td></tr>
+            <tr><td>⚔ ❤ 🛡</td><td>ATQ, PV et DÉF d'une unité. Chaque coup reçu est diminué de la DÉF (minimum 1 dégât).</td></tr>
+            <tr><td><strong>Rang</strong></td><td>1, 2 ou 3 : la puissance et le prix d'une unité.</td></tr>
+            <tr><td><strong>Terrain</strong> / <strong>Réserve</strong></td><td>4 emplacements pour les unités qui combattent, 4 pour celles qu'on garde de côté.</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p><strong>Chaque jour, à 00h20</strong> : +5🙏 de revenu (au-delà de 10🙏, le surplus est perdu, sauf avec le Magot),
+        puis les pouvoirs « chaque jour » agissent (Vigueur, Bénédiction, Forge, Pillage, Pot d'or…).</p>
+      <ul>
+        <li><strong>6 combats par jour</strong> au maximum, jamais deux d'affilée contre le même adversaire.</li>
+        <li><strong>Une journée sans combattre coûte 1🏆</strong> (jamais en dessous de 0).</li>
+      </ul>
+    </div>
+
+    <div class="card" id="aide-premiers-pas">
+      <h2>Premiers pas</h2>
+      <ol>
+        <li>Achetez vos premières unités au <strong>Bazar</strong> : un message, un achat, puis laissez poster les autres.</li>
+        <li>Visez <strong>3 unités d'un même archétype</strong> pour sa synergie, et <strong>3 exemplaires d'une même
+          unité</strong> pour une fusion ⭐.</li>
+        <li>Soignez <strong>l'ordre de votre terrain</strong> : les unités avec Provocation protègent les plus fragiles, et
+          certains pouvoirs visent l'allié de gauche ou de droite.</li>
+        <li>Préparez votre défi dans l'onglet <em>Combat</em>, copiez-le, ajoutez vos trois dés et postez-le.</li>
+        <li>Combattez au moins une fois par jour, et surveillez votre ✨ : à 0, tout est perdu.</li>
+      </ol>
+    </div>
+
+    <div class="card" id="aide-bazar">
+      <h2>Le Bazar</h2>
+      <p>La boutique est un <strong>sujet du forum commun à tous les dieux</strong>. Chaque page de 10 messages est une
+        nouvelle boutique : en tête de page, le MJ poste <strong>une boutique de 7 unités par niveau</strong>.</p>
+      <ul>
+        <li>Vous achetez dans la boutique de <strong>votre niveau</strong>.</li>
+        <li><strong>Un message coûte 1🙏</strong>, plus le prix de l'unité : <strong>2🙏</strong> (rang 1),
+          <strong>3🙏</strong> (rang 2), <strong>5🙏</strong> (rang 3) au total.</li>
+        <li><strong>Un achat par message</strong>, et <strong>pas deux messages d'affilée</strong>.</li>
+        <li><strong>Premier arrivé, premier servi</strong> : une unité achetée disparaît de la boutique.</li>
+        <li><strong>Chaque message affiche votre état après l'achat</strong> : terrain et réserve, nouvelle unité comprise,
+          et faveurs restantes.</li>
+        <li><strong>Améliorer sa boutique se fait aussi au Bazar</strong> : postez <code>investir N</code>, seul ou avec un
+          achat.</li>
+      </ul>
+      <p><strong>Les ordres</strong> : <code>acheter X</code> · <code>passer</code> (n'achète rien, fait avancer la page) ·
+        <code>vendre X</code> (+1🙏) · <code>investir N</code> · <code>aligner</code> / <code>réserver</code>. Un seul achat
+        par message, mais autant d'ordres gratuits que vous voulez.</p>
+
+      <h3>Exemple</h3>
+      <p class="hint">Page 3, boutique de niveau 1 : 🐗 Sanglier · ❄️ Géant du givre · 🍄 Korrigan · 🐍 Méduse · … Alice a
+        10🙏 et un ❄️ Géant du givre ; Bob a 5🙏 et rien d'autre.</p>
+      <ol class="example">
+        <li><span class="who">Alice</span>
+          <pre class="mono">acheter Méduse
+Terrain : ❄️ Géant du givre 2/3/0 · 🐍 Méduse 2/4/0
+Réserve : —
+Faveurs : 7🙏</pre>
+          <p>Elle obtient la Méduse pour <strong>3🙏</strong>.</p></li>
+        <li><span class="who">Bob</span>
+          <pre class="mono">acheter Sanglier
+Terrain : 🐗 Sanglier 1/4/0
+Réserve : —
+Faveurs : 3🙏</pre>
+          <p>Il obtient le Sanglier pour <strong>2🙏</strong>.</p></li>
+        <li><span class="who">Alice</span>
+          <pre class="mono">acheter Korrigan · vendre Géant du givre · investir 2
+Terrain : 🐍 Méduse 2/4/0 · 🍄 Korrigan 2/3/0
+Réserve : —
+Faveurs : 4🙏 (2/5🙏 investis vers le niveau 2)</pre>
+          <p>Bob a posté entre ses deux messages, c'est permis. Elle paie 2🙏, récupère 1🙏 et en investit 2.</p></li>
+        <li><span class="who">Bob</span>
+          <pre class="mono">passer
+Terrain : 🐗 Sanglier 1/4/0
+Réserve : —
+Faveurs : 2🙏</pre>
+          <p>1🙏, la page se rapproche de la prochaine boutique.</p></li>
+      </ol>
+
+      <h3>Les niveaux</h3>
+      <div class="table-scroll">
+        <table>
+          <thead><tr><th>Niveau</th><th>Rang 1</th><th>Rang 2</th><th>Rang 3</th><th>Pour l'atteindre</th></tr></thead>
+          <tbody>
+            <tr><td>1</td><td>80 %</td><td>20 %</td><td>—</td><td>au départ</td></tr>
+            <tr><td>2</td><td>55 %</td><td>45 %</td><td>—</td><td>5🙏 investies</td></tr>
+            <tr><td>3</td><td>30 %</td><td>65 %</td><td>5 %</td><td>7🙏 de plus</td></tr>
+            <tr><td>4</td><td>15 %</td><td>75 %</td><td>10 %</td><td>10🙏 de plus</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p>L'excédent investi est reporté. <strong>Monter de niveau est définitif</strong> : plus d'accès aux boutiques des
+        niveaux inférieurs.</p>
+      <p>Les unités sont tirées dans une <strong>réserve commune</strong> tenue par le MJ : plus il reste d'exemplaires
+        d'une unité, plus elle sort souvent ; une unité épuisée ne sort plus. Une unité vendue ou perdue y retourne.</p>
+    </div>
+
+    <div class="card" id="aide-fusions">
+      <h2>Fusions et synergies</h2>
+      <p><strong>3 exemplaires identiques</strong> (terrain et réserve confondus) fusionnent aussitôt en <strong>une unité
+        ⭐</strong> : stats de base doublées, nombres de ses pouvoirs doublés, et une unité au hasard du rang supérieur en
+        prime. Fusionner trois unités de <strong>rang 3</strong> est une <strong>Ascension</strong> : +5🏆, et ses exemplaires
+        retournent à la réserve commune. Le levier <em>⭐ Fusionnées</em> de l'onglet Combat montre la version ⭐ de chaque
+        créature.</p>
+      <p><strong>3 unités d'un même archétype sur le terrain</strong> donnent une synergie à toute l'armée (une unité à
+        double archétype compte pour les deux) :</p>
+      <ul>
+        <li>🌱 <strong>Croissance → Sève</strong> : chaque Vigueur, Bénédiction et Forge donne +1 de plus.</li>
+        <li>♻️ <strong>Cycle → Éternel retour</strong> : une fois par combat, le premier allié qui meurt définitivement revient
+          avec 1❤.</li>
+        <li>🎲 <strong>Chance → Fortune</strong> : chaque pile ou face raté est retenté une fois.</li>
+        <li>🔒 <strong>Contrôle → Emprise</strong> : au début du combat, chaque ennemi perd 1⚔.</li>
+        <li>🐺 <strong>Revanche → Endurance</strong> : une défaite coûte 2✨ de moins (minimum 1✨).</li>
+      </ul>
+      <p>Seules les unités <strong>sur le terrain</strong> activent leurs pouvoirs ; celles en réserve dorment, sauf pour
+        les effets « à la vente ».</p>
+    </div>
+
+    <div class="card" id="aide-defi">
       <h2>Lancer un défi</h2>
       <ol>
         <li><strong>Le défi</strong> : l'attaquant poste sur le forum sa composition (ses unités, de gauche à droite) et
@@ -210,18 +353,7 @@
         une acceptation postée ne peut pas être retirée.</p>
     </div>
 
-    <div class="card">
-      <h2>La seed</h2>
-      <p>Chaque dé, moins 1, donne deux chiffres (de 00 à 99) ; on les met bout à bout, les trois dés de l'attaquant d'abord,
-        puis les trois du défenseur :</p>
-      <p class="formula">seed = Σ (dé<sub>i</sub> − 1) × 100<sup>5 − i</sup></p>
-      <p>Exemple : 12 · 3 · 77 puis 45 · 9 · 100 → 11 02 76 44 08 99 → seed <strong>110276440899</strong>.</p>
-      <p>La même seed, les mêmes compositions et les mêmes données donnent toujours le même combat, sur cette page comme dans
-        le simulateur (<code>pantheon-battler fight</code>). Le pied de page indique la version du moteur et l'empreinte des
-        données : elles figurent aussi à la fin de chaque résultat.</p>
-    </div>
-
-    <div class="card">
+    <div class="card" id="aide-resultat">
       <h2>Le résultat</h2>
       <div class="table-scroll">
         <table>
@@ -247,7 +379,22 @@
       </ul>
     </div>
 
-    <div class="card">
+    <div class="card" id="aide-combat">
+      <h2>Le déroulé d'un combat</h2>
+      <ul>
+        <li>Les unités sont alignées <strong>de gauche à droite</strong> : la position compte.</li>
+        <li>Le camp qui a <strong>le plus d'unités attaque en premier</strong> (à égalité, tirage au sort), puis les camps
+          alternent.</li>
+        <li>À son tour, un camp attaque avec son unité <strong>la plus à gauche qui n'a pas encore attaqué</strong> ; quand
+          toutes l'ont fait, on recommence par la gauche.</li>
+        <li>L'attaquant frappe <strong>un ennemi au hasard</strong> (une unité avec Provocation doit être choisie en
+          priorité), et <strong>la cible riposte en même temps</strong>. Dégâts = ATQ − DÉF, minimum 1.</li>
+        <li>Le combat s'arrête quand un camp n'a plus d'unités ; au-delà de 100 échanges, c'est un match nul.</li>
+      </ul>
+      <p>Survolez une créature dans l'onglet <em>Combat</em> pour lire ses pouvoirs et le moment où ils agissent.</p>
+    </div>
+
+    <div class="card" id="aide-composition">
       <h2>Écrire une composition à la main</h2>
       <pre class="mono">[b]⚔ Composition de Bob[/b] · 🏆 3 · ✨ 18 · 💔 2 défaites d'affilée · 🔥 0 victoire d'affilée
 1. 🐗 Sanglier · 1/5/0
@@ -257,6 +404,16 @@
       <p>Une ligne par unité, de gauche à droite, avec ses stats <strong>ATQ/PV/DÉF</strong> actuelles. Le nom suffit (sans
         accents ni emoji si besoin) ; ⭐ ou « fusionné » marque une unité fusionnée ; l'Ankou indique où en est sa quête.
         <em>Coller depuis le forum</em> lit ce format et remplit les emplacements.</p>
+    </div>
+    <div class="card" id="aide-seed">
+      <h2>La seed</h2>
+      <p>Chaque dé, moins 1, donne deux chiffres (de 00 à 99) ; on les met bout à bout, les trois dés de l'attaquant d'abord,
+        puis les trois du défenseur :</p>
+      <p class="formula">seed = Σ (dé<sub>i</sub> − 1) × 100<sup>5 − i</sup></p>
+      <p>Exemple : 12 · 3 · 77 puis 45 · 9 · 100 → 11 02 76 44 08 99 → seed <strong>110276440899</strong>.</p>
+      <p>La même seed, les mêmes compositions et les mêmes données donnent toujours le même combat, sur cette page comme dans
+        le simulateur (<code>pantheon-battler fight</code>). Le pied de page indique la version du moteur et l'empreinte des
+        données : elles figurent aussi à la fin de chaque résultat.</p>
     </div>
   </section>
   <div id="tip" class="tip" role="tooltip" hidden></div>
