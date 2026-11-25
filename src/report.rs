@@ -320,7 +320,7 @@ pub fn arena(data: &Data, strats: &[Strategy], results: &[crate::arena::ArenaRes
     let days = a.days as f64;
     let table = |title: &str, rows: Vec<(String, Vec<&ArenaPlayer>)>| -> String {
         let mut s = format!(
-            "| {title} | Top 1 | Place moy. | 🏆 moy. | Combats / jour | Victoires | Exploits | Jours sans combat | Remises à zéro | 🏆 perdus | Messages au Bazar / jour |\n|---|---|---|---|---|---|---|---|---|---|---|\n"
+            "| {title} | Top 1 | Place moy. | 🏆 moy. | Combats / jour | Victoires | Comebacks | Jours sans combat | Remises à zéro | 🏆 perdus | Messages au Bazar / jour |\n|---|---|---|---|---|---|---|---|---|---|---|\n"
         );
         for (name, v) in rows {
             let top1 = 100.0 * v.iter().filter(|p| p.place == 1).count() as f64 / v.len().max(1) as f64;

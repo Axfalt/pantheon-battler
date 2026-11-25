@@ -28,7 +28,7 @@ Néant : 🎭 Nyarlathotep (Héra) anéantit 🐲 Hydre de Lerne (Freyja)
 
 [b]Résultat[/b]
 [spoiler]
-Victoire de Freyja (exploit)
+Victoire de Freyja (comeback)
 Héra : —
 Freyja : 🏔️7/4🛡1
 [/spoiler]
@@ -38,10 +38,10 @@ Freyja : 🏔️7/4🛡1
 Néant : 🍄 Korrigan (Freyja) est anéanti : il quitte sa composition et retourne dans la réserve commune
 Néant : 🪽 Valkyrie (Freyja) est anéanti : il quitte sa composition et retourne dans la réserve commune
 Néant : 🐲 Hydre de Lerne (Freyja) est anéanti : il quitte sa composition et retourne dans la réserve commune
-Exploit : Freyja avait moins de 🏆 que Héra (3 contre 4) : +2🏆, et la perte de Héra est doublée
+Comeback : Freyja avait moins de 🏆 que Héra (3 contre 4) : +2🏆, et la perte de Héra est doublée
 Freyja : +2🏆 (3 → 5🏆) · +1🙏 · 🔥 1 victoire d'affilée · défaites d'affilée remises à 0
 Survivants de Freyja : 🏔️ 3 = 3✨
-Héra perd 6✨ (3 ×2 exploit) · reste 13✨ · 💔 1 défaite d'affilée
+Héra perd 6✨ (3 ×2 comeback) · reste 13✨ · 💔 1 défaite d'affilée
 [/spoiler]
 {hr}
-[i]Seed 670826835441 · dés 68 9 27 / 84 55 42 · données bbe3da02 · moteur 0.1.0[/i]
+[i]Seed 670826835441 · dés 68 9 27 / 84 55 42 · données e384e85b · moteur 0.1.0[/i]

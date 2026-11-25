@@ -232,7 +232,7 @@ pub fn settle(data: &Data, names: &[String; 2], compos: &[Composition; 2], board
             let gain = 1 + upset as i32;
             if upset {
                 lines.push(format!(
-                    "Exploit : {} avait moins de 🏆 que {} ({} contre {}) : +2🏆, et la perte {} est doublée",
+                    "Comeback : {} avait moins de 🏆 que {} ({} contre {}) : +2🏆, et la perte {} est doublée",
                     names[w], names[l], vp[w], vp[l], forum::de(&names[l])
                 ));
             }
@@ -269,7 +269,7 @@ pub fn settle(data: &Data, names: &[String; 2], compos: &[Composition; 2], board
             let lost = state::endured(endure, raw);
             let mut how = String::new();
             if upset {
-                how += " ×2 exploit";
+                how += " ×2 comeback";
             }
             if lost != raw {
                 how += &format!(" − {} Endurance", raw - lost);
@@ -372,10 +372,10 @@ pub fn settle(data: &Data, names: &[String; 2], compos: &[Composition; 2], board
 }
 
 impl Challenge {
-    /// "Victoire de Alice (exploit)", "Match nul".
+    /// "Victoire de Alice (comeback)", "Match nul".
     pub fn verdict(&self) -> String {
         match self.settlement.winner {
-            Some(w) => format!("Victoire {}{}", forum::de(&self.names[w]), if self.settlement.upset { " (exploit)" } else { "" }),
+            Some(w) => format!("Victoire {}{}", forum::de(&self.names[w]), if self.settlement.upset { " (comeback)" } else { "" }),
             None => "Match nul".to_string(),
         }
     }
@@ -510,7 +510,7 @@ mod tests {
         assert_eq!((s.after[0].wins, s.after[0].streak), (Some(3), Some(0)));
         assert_eq!((s.after[1].wins, s.after[1].streak), (Some(0), Some(3)));
         assert!(s.lines.iter().any(|l| l.contains("+2🙏 (dont +1🙏 de bonus de série)")), "{:#?}", s.lines);
-        assert!(s.lines.iter().any(|l| l.starts_with("Prime de retour : 3 défaites d'affilée pour Bob : +5🙏")), "{:#?}", s.lines);
+        assert!(s.lines.iter().any(|l| l.starts_with("Prime de retour : 3 défaites d'affilée pour Bob : +3🙏")), "{:#?}", s.lines);
         assert!(s.lines.iter().any(|l| l.contains("fin de sa série de 1 victoire d'affilée")), "{:#?}", s.lines);
     }
 

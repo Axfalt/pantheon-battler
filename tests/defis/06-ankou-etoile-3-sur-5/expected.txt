@@ -28,7 +28,7 @@ Morgane récupère 8✨ grâce à l'Offrande, plafonné à 25✨ : 25✨
 Thor : +1🏆 (2 → 3🏆) · +1🙏 · 🔥 1 victoire d'affilée
 Survivants de Thor : 🐂 3 = 3✨
 Morgane perd 3✨ · reste 22✨ · 💔 3 défaites d'affilée
-Prime de retour : 3 défaites d'affilée pour Morgane : +5🙏
+Prime de retour : 3 défaites d'affilée pour Morgane : +3🙏
 [/spoiler]
 {hr}
-[i]Seed 464611028769 · dés 47 47 12 / 3 88 70 · données bbe3da02 · moteur 0.1.0[/i]
+[i]Seed 464611028769 · dés 47 47 12 / 3 88 70 · données e384e85b · moteur 0.1.0[/i]

@@ -10,7 +10,7 @@ Les 31 créatures du jeu, rang par rang. Les règles générales sont dans [regl
   doublés**.
 - « **Permanent** » : le bonus reste sur l'unité. « **Pour ce combat** » : il disparaît à la
   fin du combat.
-- Les pouvoirs « **chaque jour** » agissent une fois par jour, à heure fixe.
+- Les pouvoirs « **chaque jour** » agissent une fois par jour, à 00h20.
 
 ---
 

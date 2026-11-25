@@ -31,7 +31,7 @@ top_merge_wins = true
 # investies atteignent upgrade_threshold[N-1], la boutique passe du niveau N à N+1 (nouvelles
 # offres dès la manche suivante) et l'excédent est reporté sur le niveau suivant.
 shop_levels = [[1, 1, 1], [1, 2, 2], [2, 2, 3], [3, 3, 3]]
-upgrade_threshold = [4, 8, 8]
+upgrade_threshold = [5, 7, 10]
 
 # Essence divine (les vies des joueurs)
 starting_essence = 25
@@ -85,7 +85,7 @@ max_fights_per_day = 6
 win_favors = 1
 draw_loss = 1
 comeback_losses = 3     # prime de retour : toutes les 3 défaites d'affilée…
-comeback_favors = 5     # …+5🙏
+comeback_favors = 3     # …+3🙏
 win_streak_from = 3     # bonus de série : à partir de la 3e victoire d'affilée…
 win_streak_favors = 1   # …+1🙏 par victoire
 ascension_vp = 5

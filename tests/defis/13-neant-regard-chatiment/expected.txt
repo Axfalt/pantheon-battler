@@ -31,7 +31,7 @@ Néant : 🎭 Nyarlathotep (Lovecraft) anéantit ⭐🐖 Sæhrímnir (Némésis)
 
 [b]Résultat[/b]
 [spoiler]
-Victoire de Lovecraft (exploit)
+Victoire de Lovecraft (comeback)
 Lovecraft : 🎭4/2🛡1 🐍2/3
 Némésis : —
 [/spoiler]
@@ -41,10 +41,10 @@ Némésis : —
 Néant : 🧟 Draugr (Némésis) est anéanti : il quitte sa composition et retourne dans la réserve commune
 Néant : ⭐🐖 Sæhrímnir (Némésis) est anéanti : il quitte sa composition et ses 3 exemplaires retournent dans la réserve commune
 Néant : 🌲 Bugul-noz (Némésis) est anéanti : il quitte sa composition et retourne dans la réserve commune
-Exploit : Lovecraft avait moins de 🏆 que Némésis (2 contre 3) : +2🏆, et la perte de Némésis est doublée
+Comeback : Lovecraft avait moins de 🏆 que Némésis (2 contre 3) : +2🏆, et la perte de Némésis est doublée
 Lovecraft : +2🏆 (2 → 4🏆) · +1🙏 · 🔥 2 victoires d'affilée
 Survivants de Lovecraft : 🎭 3 + 🐍 2 = 5✨
-Némésis perd 10✨ (5 ×2 exploit) · reste 8✨ · 💔 1 défaite d'affilée
+Némésis perd 10✨ (5 ×2 comeback) · reste 8✨ · 💔 1 défaite d'affilée
 [/spoiler]
 {hr}
-[i]Seed 36800891683 · dés 4 69 1 / 90 17 84 · données bbe3da02 · moteur 0.1.0[/i]
+[i]Seed 36800891683 · dés 4 69 1 / 90 17 84 · données e384e85b · moteur 0.1.0[/i]

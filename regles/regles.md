@@ -11,8 +11,7 @@ Grands Anciens. Ce ne sont jamais des dieux, mais les créatures de leurs légen
 
 ## 1. But du jeu
 
-Avoir le plus de **points de victoire** (notés 🏆) à la fin de la période de jeu (par
-exemple une semaine).
+Avoir le plus de **points de victoire** (notés 🏆) à la fin de la saison (durée à définir).
 
 On gagne des 🏆 en remportant des combats. Mais attention : un joueur qui tombe à 0✨ perd
 **tout**, y compris ses 🏆, et repart de zéro.
@@ -44,7 +43,7 @@ recruter et combattre quand on veut, dans les limites suivantes.
 
 ### Chaque jour
 
-Une fois par jour, à heure fixe, dans cet ordre :
+Une fois par jour, **à 00h20**, dans cet ordre :
 
 1. **Revenu** : chaque joueur reçoit **+5🙏**. Au-delà de **10🙏**, le surplus est perdu
    (sauf avec ⚱️ Magot).
@@ -142,9 +141,9 @@ niveau est définitif** : le joueur n'a plus accès aux boutiques des niveaux in
 
 | Passage | Faveurs à investir |
 |---|---|
-| Niveau 1 → 2 | 4🙏 |
-| Niveau 2 → 3 | 8🙏 |
-| Niveau 3 → 4 | 8🙏 |
+| Niveau 1 → 2 | 5🙏 |
+| Niveau 2 → 3 | 7🙏 |
+| Niveau 3 → 4 | 10🙏 |
 
 L'excédent est reporté sur le niveau suivant.
 
@@ -226,14 +225,14 @@ pour offrir des 🏆…).
 | Résultat | Vainqueur | Perdant |
 |---|---|---|
 | **Victoire** | **+1🏆 et +1🙏** | Perd 1✨ par rang de chaque unité adverse encore debout (une unité ⭐ compte double) |
-| **Exploit** : le joueur qui a le moins de 🏆 gagne | **+2🏆 et +1🙏** | Perd **le double** |
+| **Comeback** : le joueur qui a le moins de 🏆 gagne | **+2🏆 et +1🙏** | Perd **le double** |
 | **Match nul** | — | Chaque joueur perd **1✨** |
 
 *Exemple : le vainqueur finit le combat avec un rang 2 ⭐ et un rang 1 encore debout. Le
-perdant perd 4 + 1 = 5✨. Si c'était un exploit, il en perd 10.*
+perdant perd 4 + 1 = 5✨. Si c'était un comeback, il en perd 10.*
 
 Si les deux joueurs ont autant de 🏆, c'est une victoire normale. Avec la synergie
-Endurance, la perte est d'abord doublée (exploit), puis diminuée de 2✨.
+Endurance, la perte est d'abord doublée (comeback), puis diminuée de 2✨.
 
 ### Les séries
 
@@ -241,7 +240,7 @@ Chaque composition indique deux compteurs, mis à jour par le bilan de chaque co
 
 | Compteur | Avance quand… | Retombe à 0 quand… | Effet |
 |---|---|---|---|
-| 💔 **Défaites d'affilée** | le joueur perd | le joueur gagne | **Prime de retour** : toutes les **3 défaites d'affilée** (3, 6, 9…), **+5🙏**. Compte aussi pour le Déchaînement de 🦑 Cthulhu. |
+| 💔 **Défaites d'affilée** | le joueur perd | le joueur gagne | **Prime de retour** : toutes les **3 défaites d'affilée** (3, 6, 9…), **+3🙏**. Compte aussi pour le Déchaînement de 🦑 Cthulhu. |
 | 🔥 **Victoires d'affilée** | le joueur gagne | le joueur perd | **Bonus de série** : à partir de la **3e victoire d'affilée**, chaque victoire rapporte **+1🙏** de plus. |
 
 Un match nul ne change aucun des deux compteurs. Les séries continuent d'un jour à l'autre.
