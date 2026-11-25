@@ -6,7 +6,7 @@
 //! 1. 🐗 Sanglier · 1/5/0
 //! 2. ⭐🪖 Hoplite · 2/4/4
 //! 3. ⚰️ Ankou · 1/3/0 · Offrande 3/5
-//! [i]Stats : ⚔/❤/🛡 · données a1b2c3d4[/i]
+//! [i]Stats : ⚔/❤/🛡[/i]
 //! {d100} {d100} {d100}
 //! ```
 
@@ -162,7 +162,7 @@ pub fn format(data: &Data, c: &Composition) -> String {
         }
         lines.push(line);
     }
-    lines.push(format!("[i]Stats : ⚔/❤/🛡 · données {}[/i]", data.hash_label()));
+    lines.push("[i]Stats : ⚔/❤/🛡[/i]".to_string());
     lines.push("{d100} {d100} {d100}".to_string());
     lines.join("\n")
 }
@@ -596,7 +596,7 @@ mod tests {
                     let p = parse(&data, &text);
                     assert!(p.errors.is_empty(), "{text}\n{:?}", p.errors);
                     assert_eq!(p.compo, c, "{text}");
-                    assert_eq!(p.data_hash.as_deref(), Some(data.hash_label().as_str()));
+                    assert_eq!(p.data_hash, None);
                 }
             }
         }

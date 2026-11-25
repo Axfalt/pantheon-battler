@@ -380,15 +380,14 @@ impl Challenge {
         }
     }
 
-    /// "Seed 110276440899 · dés 12 3 77 / 45 9 100 · données a1b2c3d4 · moteur 0.1.0"
+    /// "Seed 110276440899 · dés 12 3 77 / 45 9 100 · moteur 0.1.0"
     pub fn footer(&self) -> String {
         let dice = |r: &[u32]| r.iter().map(u32::to_string).collect::<Vec<_>>().join(" ");
         format!(
-            "Seed {} · dés {} / {} · données {} · moteur {}",
+            "Seed {} · dés {} / {} · moteur {}",
             self.seed,
             dice(&self.dice[..3]),
             dice(&self.dice[3..]),
-            self.data_hash,
             crate::ENGINE_VERSION
         )
     }
