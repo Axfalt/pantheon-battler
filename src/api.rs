@@ -208,7 +208,7 @@ fn shop(data: &Data, v: &Value) -> Value {
         "seed": seed,
         "players": players,
         "shops": out,
-        "forum": bazar::forum_post(data, page, &shops, seed),
+        "forum": bazar::forum_post(data, page, &shops),
     })
 }
 

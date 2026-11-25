@@ -85,8 +85,8 @@ pub fn prices(data: &Data, idx: usize) -> (i32, i32) {
     (total - post, total)
 }
 
-/// The forum post (Twino) of a Bazar page: one list per level, then the seed.
-pub fn forum_post(data: &Data, page: Option<u32>, shops: &[Shop], seed: u64) -> String {
+/// The forum post (Twino) of a Bazar page: one list per level, then the upgrade costs.
+pub fn forum_post(data: &Data, page: Option<u32>, shops: &[Shop]) -> String {
     let a = &data.rules.arena;
     let mut out = vec![match page {
         Some(p) => format!("[big][b]🏪 Bazar · page {p}[/b][/big]"),
@@ -111,12 +111,16 @@ pub fn forum_post(data: &Data, page: Option<u32>, shops: &[Shop], seed: u64) -> 
             ));
         }
     }
+    // Reminder of the upgrade costs: "5🙏 (niveau 2) · 7🙏 (niveau 3) · 10🙏 (niveau 4)".
+    let costs: Vec<String> = data
+        .rules
+        .upgrade_threshold
+        .iter()
+        .enumerate()
+        .map(|(k, c)| format!("{c}🙏 (niveau {})", k + 2))
+        .collect();
     out.push("{hr}".to_string());
-    out.push(format!(
-        "[i]Seed {seed} · données {} · moteur {}[/i]",
-        data.hash_label(),
-        crate::ENGINE_VERSION
-    ));
+    out.push(format!("[i]⬆️ Améliorer sa boutique, en postant investir N au Bazar : {}.[/i]", costs.join(" · ")));
     out.join("\n")
 }
 

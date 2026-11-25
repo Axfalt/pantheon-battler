@@ -166,6 +166,8 @@ fn main() {
             for w in answer["warnings"].as_array().into_iter().flatten() {
                 eprintln!("attention : {}", w.as_str().unwrap_or_default());
             }
+            // The seed stays out of the post: the GM keeps it to redo a draw.
+            eprintln!("seed {seed} (--seed {seed} refait ce tirage)");
             println!("{}", answer["forum"].as_str().unwrap_or_default());
         }
         Cmd::Api => {
