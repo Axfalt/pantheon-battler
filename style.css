@@ -826,3 +826,13 @@ body.dragging, body.dragging * { cursor: grabbing !important; }
 .gm .stock-row .stock-name { min-width: 0; overflow-wrap: break-word; }
 .gm .stock-row input { width: 3.4em; flex: none; padding: 3px 2px; }
 .gm .stock-row .step { flex: none; min-width: 1.9em; }
+
+/* ---------------------------------------------------------------- Aide: contents and Bazar example */
+.toc ul { list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: 6px 18px; }
+.toc a { color: var(--brown); font-weight: 600; }
+.prose [id^="aide-"] { scroll-margin-top: 12px; }
+.example { list-style: none; padding: 0; display: grid; gap: 10px; }
+.example li { margin: 0; max-width: none; }
+.example .who { font-weight: 700; color: var(--wine); }
+.example pre { margin: 4px 0; white-space: pre-wrap; overflow-wrap: anywhere; }
+.example p { margin: 0; color: var(--muted); }
