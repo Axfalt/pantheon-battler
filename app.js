@@ -332,6 +332,26 @@
     refreshSide(s);
   }
 
+  // The player's god, as the Bazar / Compte tabs keep it in this browser (bazar.js): its field
+  // can be loaded on either side. Null when there is none, or its field is empty.
+  function savedGod() {
+    const g = store.get("pantheon.bazar.state", null);
+    return g && Array.isArray(g.board) && g.board.some((e) => e && unitById(e.id)) ? g : null;
+  }
+  function renderLoadMine() {
+    const god = savedGod();
+    for (const s of sides) {
+      const b = $(".load-mine", s.root);
+      b.hidden = !god;
+      if (god) {
+        b.textContent = `👤 ${god.name ? `Composition de ${god.name}` : "Ma composition"}`;
+        b.title = "Votre terrain, tel qu'enregistré dans l'onglet Compte (avec 🏆, ✨ et séries)";
+      }
+    }
+  }
+  document.addEventListener("pantheon:god", renderLoadMine);
+  window.addEventListener("storage", (ev) => ev.key === "pantheon.bazar.state" && renderLoadMine());
+
   function importInto(s, text) {
     if (!text.trim()) {
       messages(s.importMessages, ["Rien à importer : collez d'abord une composition."]);
@@ -709,6 +729,14 @@
       $(".import-go", s.root).addEventListener("click", () => {
         if (importInto(s, s.importText.value)) s.importText.value = "";
       });
+      $(".load-mine", s.root).addEventListener("click", () => {
+        const god = savedGod();
+        if (!god) return;
+        loadInto(s, { name: god.name, vp: god.vp, essence: god.essence, streak: god.streak, wins: god.wins, units: god.board });
+        const n = Math.min(god.board.length, SIZE());
+        messages(s.importMessages, [], [], [`Composition de ${god.name || "votre dieu"} chargée : ${n} unité${n > 1 ? "s" : ""} du terrain.`]);
+        saveCombat();
+      });
       $(".clear-side", s.root).addEventListener("click", () => {
         loadInto(s, emptyCompo());
         saveCombat();
@@ -792,11 +820,14 @@
     });
     $("#merged-toggle").addEventListener("click", () => setMerged(!merged));
     setMerged(merged);
+    renderLoadMine();
     const rules = info.rules;
     for (const p of $$(".streak-hint")) {
-      p.textContent =
-        `💔 toutes les ${rules.comeback_losses} défaites d'affilée : prime de retour +${rules.comeback_favors}🙏 · ` +
-        `🔥 dès la ${rules.win_streak_from}e victoire d'affilée : +${rules.win_streak_favors}🙏 par victoire`;
+      p.replaceChildren(
+        `💔 toutes les ${rules.comeback_losses} défaites d'affilée : prime de retour +${rules.comeback_favors}🙏`,
+        el("br"),
+        `🔥 dès la ${rules.win_streak_from}e victoire d'affilée : +${rules.win_streak_favors}🙏 par victoire`,
+      );
     }
     // The VS is pixel art: drawn at a whole scale of its real size.
     const vs = $("#vs-img");

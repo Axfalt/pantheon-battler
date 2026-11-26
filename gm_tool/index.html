@@ -147,6 +147,9 @@
       <p>Le serveur montre la boutique en cours aux joueurs, dans l'onglet <em>Bazar</em> du site : ils y confirment leurs
         achats, et une unité achetée disparaît pour les autres. Les messages confirmés arrivent ici, dans le journal, et
         mettent la réserve commune à jour ; « Annuler » sur l'un d'eux l'annule aussi pour le joueur.</p>
+      <p>Le <strong>journal</strong> est gardé sur le serveur, commun à tous les MJ : chacun entre ici l'adresse du serveur
+        et la clé MJ, et retrouve la même réserve. Une action faite hors ligne attend dans ce navigateur et part dès que
+        le serveur répond. Comme tout le Bazar, une action est effacée 60 jours après avoir été écrite.</p>
       <p id="sh-srv-state" class="sync-badge" data-state="local" role="status"></p>
       <div class="bz-fill">
         <label class="field">Adresse du serveur <input type="url" id="sh-srv-url" spellcheck="false" autocomplete="off" placeholder="https://…"></label>
@@ -161,17 +164,16 @@
 
     <div class="card" id="sh-backup">
       <h2>Sauvegarde du journal</h2>
-      <p>Le journal (la réserve, les boutiques, vos corrections, les messages des joueurs) est gardé <strong>dans ce
-        navigateur seulement</strong>. Enregistrez-le de temps en temps : effacer les données du navigateur le perd. Le
-        fichier sert aussi à reprendre la réserve sur un autre ordinateur.</p>
+      <p>Le journal (la réserve, les boutiques, les corrections, les messages des joueurs) peut être enregistré dans un
+        fichier : une copie de secours, ou pour le reprendre ailleurs. Sans serveur du Bazar, il n'est gardé que dans ce
+        navigateur : effacer les données du navigateur le perd.</p>
       <div class="actions left">
         <button type="button" id="sh-export">Enregistrer le journal</button>
         <button type="button" id="sh-import-btn">Importer un journal…</button>
         <input type="file" id="sh-import" accept=".json,application/json" multiple hidden>
       </div>
-      <p class="hint">Importer ajoute les actions du fichier à celles de ce navigateur (une action déjà présente n'est pas
-        reprise) ; la réserve est recalculée et publiée. Un seul navigateur doit tenir la réserve : deux journaux
-        publieraient deux réserves différentes sur le Bazar en ligne.</p>
+      <p class="hint">Importer ajoute les actions du fichier au journal (une action déjà présente n'est pas reprise) ; avec
+        le serveur, elles y partent pour tous les MJ. La réserve est recalculée et publiée.</p>
       <div id="sh-backup-messages" class="messages" aria-live="polite"></div>
     </div>
   </section>

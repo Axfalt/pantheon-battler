@@ -50,10 +50,16 @@
     JSON.stringify([s.favors, s.level, s.invested, ...ARENA.map((k) => s[k] ?? null), ...[s.board, s.reserve].map((l) => l.map((e) => [e.id, !!e.star, e.atk, e.hp, e.def, e.deaths || 0]))]);
   const firstLine = (text) => String(text || "").split("\n")[0].replace(/\[\/?b\]/g, "");
 
+  // The god as kept in this browser; the Combat tab offers it as "Ma composition".
+  function keep() {
+    store.set(KEY, me);
+    document.dispatchEvent(new CustomEvent("pantheon:god"));
+  }
+
   // The god is kept in this browser, and in the account when logged in (saved shortly after
   // each change).
   function save() {
-    store.set(KEY, me);
+    keep();
     if (account) schedulePush();
   }
 
@@ -100,7 +106,7 @@
     version = v.version;
     if (v.posts) myPosts = v.posts; // a plain save doesn't send them back
     me = { ...emptyState(), ...v.state, name: v.account.name };
-    store.set(KEY, me);
+    keep();
     selling = new Set();
     selected = null;
     renderAccount();
@@ -231,7 +237,7 @@
     }
     forget();
     me = emptyState();
-    store.set(KEY, me);
+    keep();
     accountMessages([], [], ["Déconnecté."]);
     update();
   }
