@@ -10,6 +10,9 @@
 //   sess#<sha-256 of a token>  { account, epoch }: a device logged in to an account
 //   name#<folded name>         { account, verified }: the account a name belongs to
 //   mh#<MyHordes user id>      { account }: the account of a MyHordes player
+//   gmseq                      { n }: the last number of the GMs' journal
+//   gm#<n, 12 digits>          { n, e }: an event of the GMs' journal
+//   gmid#<event id>            { n }: that event id is in the journal (a resend is skipped)
 // Every write is a transaction that checks what it was computed from (the event number, the
 // account's version), so two players can't buy the same slot, nor the last copy of a unit, and
 // two devices can't overwrite a god.
@@ -149,10 +152,10 @@ export function dynamoStore({ table, client = null, ttlDays = 60, clock = () => 
   return {
     async snapshot() {
       const r = await db.send(
-        new BatchGetCommand({ RequestItems: { [table]: { Keys: ["seq", "shop", "avail"].map(key), ConsistentRead: true } } }),
+        new BatchGetCommand({ RequestItems: { [table]: { Keys: ["seq", "shop", "avail", "gmseq"].map(key), ConsistentRead: true } } }),
       );
       const by = Object.fromEntries((r.Responses[table] || []).filter((i) => alive(i)).map((i) => [i.sk, i]));
-      return { seq: by.seq ? by.seq.n : 0, shop: by.shop ? by.shop.shop : null, avail: by.avail ? by.avail.counts : null };
+      return { seq: by.seq ? by.seq.n : 0, shop: by.shop ? by.shop.shop : null, avail: by.avail ? by.avail.counts : null, gm: by.gmseq ? by.gmseq.n : 0 };
     },
     async slots(shopId) {
       const items = await query({
@@ -280,6 +283,57 @@ export function dynamoStore({ table, client = null, ttlDays = 60, clock = () => 
         ],
         ["seq", "seq", "seq"],
       );
+    },
+
+    // The GMs' journal.
+    async gmJournal({ after = 0, limit = 300 } = {}) {
+      const items = await query({
+        KeyConditionExpression: "pk = :pk AND sk BETWEEN :a AND :b",
+        ExpressionAttributeValues: { ":pk": PK, ":a": `gm#${pad(after + 1)}`, ":b": `gm#${pad(999999999999)}` },
+        Limit: limit,
+        ConsistentRead: true,
+      });
+      const last = await get("gmseq");
+      return { events: items.filter((i) => alive(i)).slice(0, limit).map((i) => ({ n: i.n, e: i.e })), last: last ? last.n : 0 };
+    },
+    async gmAppend(events) {
+      // The ids already in the journal are skipped (a resend after a lost answer).
+      const r = await db.send(new BatchGetCommand({ RequestItems: { [table]: { Keys: events.map((e) => key(`gmid#${e.id}`)), ConsistentRead: true } } }));
+      const have = new Set((r.Responses[table] || []).filter((i) => alive(i)).map((i) => i.sk.slice(5)));
+      const fresh = events.filter((e) => !have.has(e.id));
+      const cur = await get("gmseq");
+      const start = cur ? cur.n : 0;
+      if (!fresh.length) return { added: 0, last: start };
+      const t = ttl();
+      const items = [
+        {
+          Put: {
+            TableName: table,
+            Item: { ...key("gmseq"), n: start + fresh.length, ttl: t },
+            // The counter is still the one read (an expired one counts as absent).
+            ConditionExpression: start ? "n = :exp AND #ttl > :now" : "attribute_not_exists(n) OR #ttl < :now",
+            ExpressionAttributeNames: TTL,
+            ExpressionAttributeValues: start ? { ":exp": start, ":now": nowS() } : { ":now": nowS() },
+          },
+        },
+      ];
+      fresh.forEach((e, k) => {
+        const n = start + k + 1;
+        items.push({ Put: { TableName: table, Item: { ...key(`gm#${pad(n)}`), n, e, ttl: t } } });
+        items.push({
+          Put: {
+            TableName: table,
+            Item: { ...key(`gmid#${e.id}`), n, ttl: t },
+            ConditionExpression: "attribute_not_exists(sk) OR #ttl < :now",
+            ExpressionAttributeNames: TTL,
+            ExpressionAttributeValues: { ":now": nowS() },
+          },
+        });
+      });
+      // A failed condition (another GM wrote meanwhile, or sent the same event): the handler
+      // tries again from the start.
+      await run(items, items.map(() => "seq"));
+      return { added: fresh.length, last: start + fresh.length };
     },
 
     // Accounts.

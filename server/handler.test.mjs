@@ -153,6 +153,35 @@ test("GM routes need the key", async () => {
   assert.equal((await call("GET", "/gm", null, GM)).status, 200);
 });
 
+test("GM journal: numbered in arrival order, each id once, GM key only, 60 days", async () => {
+  const { call, later } = setup();
+  const ev = (id, extra = {}) => ({ id, at: 1, by: "MJ", type: "reset", players: 6, ...extra });
+  assert.equal((await call("POST", "/gm/journal", { events: [ev("a.1")] })).status, 401);
+  assert.equal((await call("GET", "/gm/journal", null, {}, { after: "0" })).status, 401);
+  let r = await call("POST", "/gm/journal", { events: [ev("a.1"), ev("a.2")] }, GM);
+  assert.deepEqual([r.status, r.body.added, r.body.last], [200, 2, 2]);
+  // A resend (lost answer) and another GM's event: only the new one is added.
+  r = await call("POST", "/gm/journal", { events: [ev("a.2"), ev("b.1", { type: "move" })] }, GM);
+  assert.deepEqual([r.body.added, r.body.last], [1, 3]);
+  r = await call("GET", "/gm/journal", null, GM, { after: "1" });
+  assert.deepEqual(r.body.events.map((x) => [x.n, x.e.id]), [[2, "a.2"], [3, "b.1"]]);
+  assert.equal(r.body.last, 3);
+  assert.equal((await call("GET", "/gm", null, GM)).body.journal, 3);
+  // Bad input.
+  assert.equal((await call("POST", "/gm/journal", { events: [{ at: 1 }] }, GM)).status, 400);
+  assert.equal((await call("POST", "/gm/journal", { events: [ev("c.1"), ev("c.1")] }, GM)).status, 400);
+  assert.equal((await call("POST", "/gm/journal", { events: Array.from({ length: 26 }, (_, k) => ev(`d.${k}`)) }, GM)).status, 400);
+  assert.equal((await call("POST", "/gm/journal", { events: [ev("e.1", { forum: "x".repeat(17000) })] }, GM)).status, 413);
+  // 60 days after its last write, the journal is gone and numbering starts again.
+  later(59);
+  assert.equal((await call("GET", "/gm/journal", null, GM, { after: "0" })).body.events.length, 3);
+  later(2);
+  r = await call("GET", "/gm/journal", null, GM, { after: "0" });
+  assert.deepEqual([r.body.events.length, r.body.last], [0, 0]);
+  r = await call("POST", "/gm/journal", { events: [ev("a.1")] }, GM);
+  assert.deepEqual([r.body.added, r.body.last], [1, 1]);
+});
+
 test("polls: only the newer events after `since`", async () => {
   const { call } = setup();
   await open(call);

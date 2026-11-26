@@ -12,7 +12,7 @@ import { readFileSync, writeFileSync, existsSync } from "node:fs";
 import { Conflict } from "./handler.mjs";
 
 export function memoryStore({ file = null, ttlDays = 60, clock = () => Date.now() } = {}) {
-  const fresh = () => ({ seq: 0, shop: null, stock: null, avail: null, slots: {}, events: [], accounts: {}, posts: {}, sessions: {}, names: {}, mh: {} });
+  const fresh = () => ({ seq: 0, shop: null, stock: null, avail: null, slots: {}, events: [], accounts: {}, posts: {}, sessions: {}, names: {}, mh: {}, gm: null, gmLog: [], gmIds: {} });
   let st = fresh();
   if (file && existsSync(file)) st = { ...st, ...JSON.parse(readFileSync(file, "utf8")) };
   const save = () => file && writeFileSync(file, JSON.stringify(st, null, 1));
@@ -49,7 +49,7 @@ export function memoryStore({ file = null, ttlDays = 60, clock = () => Date.now(
 
   return {
     async snapshot() {
-      return { seq: st.seq, shop: copy(st.shop), avail: copy(st.avail) };
+      return { seq: st.seq, shop: copy(st.shop), avail: copy(st.avail), gm: alive(st.gm) ? st.gm.n : 0 };
     },
     async slots(shopId) {
       return Object.entries(st.slots)
@@ -100,6 +100,27 @@ export function memoryStore({ file = null, ttlDays = 60, clock = () => Date.now(
       st.stock = copy(stock);
       st.avail = copy(avail);
       save();
+    },
+
+    // The GMs' journal: events numbered in arrival order, each id once.
+    async gmJournal({ after = 0, limit = 300 } = {}) {
+      const events = st.gmLog.filter((x) => x.n > after && alive(x)).slice(0, limit);
+      return { events: events.map((x) => ({ n: x.n, e: copy(x.e) })), last: alive(st.gm) ? st.gm.n : 0 };
+    },
+    async gmAppend(events) {
+      const fresh = events.filter((e) => !alive(st.gmIds[e.id]));
+      let n = alive(st.gm) ? st.gm.n : 0;
+      const t = ttl();
+      for (const e of fresh) {
+        n += 1;
+        st.gmLog.push({ n, e: copy(e), ttl: t });
+        st.gmIds[e.id] = { n, ttl: t };
+      }
+      if (fresh.length) st.gm = { n, ttl: t };
+      // Expired entries leave the file.
+      st.gmLog = st.gmLog.filter((x) => alive(x));
+      save();
+      return { added: fresh.length, last: n };
     },
 
     // Accounts.

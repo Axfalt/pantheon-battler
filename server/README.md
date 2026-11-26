@@ -42,7 +42,7 @@ réserve commune, et importent les messages confirmés dans leur journal.
   dieu reste tel quel (le joueur corrige à la main). Un MJ qui annule un message remet de même le
   dieu du joueur.
 - **Tout est effacé 60 jours après sa dernière modification** (la durée maximale d'une partie) :
-  comptes, sessions, noms, messages, boutique.
+  comptes, sessions, noms, messages, boutique, et chaque action du journal des MJ.
 
 ## Essayer en local
 
@@ -82,6 +82,7 @@ ne peut pas les confirmer.
 | `POST /posts` | joueur | confirme un message (le dieu du compte est mis à jour dans la même transaction) |
 | `POST /posts/<n>/cancel` | son joueur, ou un MJ | annule un message |
 | `PUT /shop`, `PUT /stock`, `GET /gm` | MJ (`Authorization: Bearer <clé MJ>`) | boutique, réserve, test de la clé et ce que le serveur a déjà |
+| `GET /gm/journal?after=N`, `POST /gm/journal` | MJ | le journal des MJ, commun à tous : ses actions après le n° N ; en ajouter `{ events }` (une action déjà là est ignorée) |
 
 ## Déployer sur AWS (plus tard), avec Terraform
 

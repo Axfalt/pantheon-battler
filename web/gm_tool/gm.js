@@ -1,12 +1,15 @@
 // Pantheon Battler: the GM tools (/gm_tool/). The Bazar draw, the common reserve and its journal.
 //
-// Everything the GM does is an event appended to the journal kept in this browser; the reserve is
-// recomputed by replaying the events in time order. The journal can be saved to a file and
-// imported back (Réglages tab): it is the only copy.
+// Everything a GM does is an event appended to the journal; the reserve is recomputed by
+// replaying the events in time order.
 //
-// With the Bazar server (Réglages tab), the current shop and the reserve are published there for
-// the players' Bazar tab, and the posts players confirm come back as journal events whose id is
-// "srv.<server number>". One browser keeps the reserve: two journals would publish two reserves.
+// With the Bazar server (Réglages tab), the journal is kept there and shared by every GM: each
+// action waits in this browser until the server has it (`pending`), and the server's journal is
+// read back incrementally (`remote`, cached here). The current shop and the reserve are published
+// for the players' Bazar tab, and the posts players confirm come back as journal events whose id
+// is "srv.<server number>" (the server keeps each id once, so two GMs importing the same post is
+// harmless). Without a server, the journal is kept in this browser only. Either way it can be
+// saved to a file and imported back.
 "use strict";
 
 (function () {
@@ -25,7 +28,9 @@
     store.set("pantheon.gm.device", device);
   }
 
-  let mine = []; // the journal's events, append-only
+  let mine = []; // without a server: the journal, append-only
+  let remote = { last: 0, events: [] }; // with a server: its journal as last read (number, events)
+  let pending = []; // with a server: this browser's actions it doesn't have yet
 
   // Events of several journals, each id once, in time order.
   const byTime = (a, b) => a.at - b.at || (a.id < b.id ? -1 : a.id > b.id ? 1 : 0);
@@ -64,28 +69,66 @@
     saveSettings();
   }
 
+  // With a server, its journal and what waits for it are kept per server address.
+  const online = () => serverOn();
+  const remoteKey = () => `pantheon.gm.remote.${server.url}`;
+  const pendingKey = () => `pantheon.gm.pending.${server.url}`;
+  const allEvents = () => (online() ? mergeEvents(remote.events, pending) : mine);
+  const readRemote = () => {
+    const r = store.get(remoteKey(), null);
+    return r && Number.isInteger(r.last) && Array.isArray(r.events) ? r : null;
+  };
+
   function loadJournal() {
     mine = store.get(JOURNAL, []);
     if (!Array.isArray(mine)) mine = [];
+    remote = (online() && readRemote()) || { last: 0, events: [] };
+    pending = online() ? store.get(pendingKey(), []) : [];
+    if (!Array.isArray(pending)) pending = [];
   }
-  const saveJournal = () => store.set(JOURNAL, mine);
+  function saveJournal() {
+    if (!online()) return store.set(JOURNAL, mine);
+    store.set(remoteKey(), remote);
+    store.set(pendingKey(), pending);
+  }
   const saveSettings = () => store.set("pantheon.gm.settings", settings);
   const gmName = () => (settings.name || "").trim() || "MJ";
 
   // Another tab of this browser may have written to the journal meanwhile.
   function reloadMine() {
-    const stored = store.get(JOURNAL, []);
-    if (Array.isArray(stored) && stored.length > mine.length) mine = stored;
+    if (!online()) {
+      const stored = store.get(JOURNAL, []);
+      if (Array.isArray(stored) && stored.length > mine.length) mine = stored;
+      return;
+    }
+    const r = readRemote();
+    if (r && r.last > remote.last) remote = r;
+    const known = new Set(remote.events.map((e) => e.id));
+    pending = mergeEvents(pending, store.get(pendingKey(), [])).filter((e) => !known.has(e.id));
   }
 
-  // Records an action: replayed at once, published to the Bazar server soon after.
+  // Records an action: replayed at once, sent to the Bazar server soon after.
   function record(type, fields, fixed = null) {
     reloadMine();
-    const e = { id: `${device}.${Date.now().toString(36)}.${(mine.length + 1).toString(36)}`, at: Date.now(), by: gmName(), type, ...fields, ...(fixed || {}) };
-    mine.push(e);
+    const e = { id: `${device}.${Date.now().toString(36)}.${allEvents().length.toString(36)}`, at: Date.now(), by: gmName(), type, ...fields, ...(fixed || {}) };
+    if (online()) pending.push(e);
+    else mine.push(e);
     saveJournal();
     refresh();
     return e;
+  }
+
+  // Adds events (an imported file), each id once; returns how many were new.
+  function addEvents(list) {
+    reloadMine();
+    const known = new Set(allEvents().map((e) => e.id));
+    const fresh = mergeEvents(list).filter((e) => !known.has(e.id));
+    if (!fresh.length) return 0;
+    if (online()) pending = mergeEvents(pending, fresh);
+    else mine = mergeEvents(mine, fresh);
+    saveJournal();
+    refresh();
+    return fresh.length;
   }
 
   // ---------------------------------------------------------------- Replay
@@ -127,7 +170,7 @@
   let view = null; // the last replay
 
   function replay() {
-    const all = mergeEvents(mine.filter(validEvent));
+    const all = mergeEvents(allEvents().filter(validEvent));
     // An event counts unless an undo that counts targets it (an undo can be undone too).
     const undosOf = new Map();
     for (const e of all) if (e.type === "undo") undosOf.set(e.target, [...(undosOf.get(e.target) || []), e]);
@@ -173,11 +216,12 @@
   }
 
   // ---------------------------------------------------------------- Backup
-  // The journal is the only copy of the reserve: it can be saved to a file and imported back
-  // (another browser, another computer). Importing merges: an event already there is skipped.
+  // The journal can be saved to a file and imported back (another browser, another server).
+  // Importing merges: an event already there is skipped.
   function exportJournal() {
     const day = new Date().toLocaleDateString("sv-SE"); // YYYY-MM-DD, local
-    const blob = new Blob([JSON.stringify({ app: "pantheon-battler", kind: "gm-journal", name: gmName(), saved: new Date().toISOString(), events: mine }, null, 1)], {
+    const events = allEvents();
+    const blob = new Blob([JSON.stringify({ app: "pantheon-battler", kind: "gm-journal", name: gmName(), saved: new Date().toISOString(), events }, null, 1)], {
       type: "application/json",
     });
     const a = el("a", { href: URL.createObjectURL(blob), download: `pantheon-journal-${day}.json` });
@@ -185,7 +229,7 @@
     a.click();
     a.remove();
     setTimeout(() => URL.revokeObjectURL(a.href), 1000);
-    messages($("#sh-backup-messages"), [], [], [`Journal enregistré (${mine.length} action${mine.length > 1 ? "s" : ""}).`]);
+    messages($("#sh-backup-messages"), [], [], [`Journal enregistré (${events.length} action${events.length > 1 ? "s" : ""}).`]);
   }
 
   async function importJournal(input) {
@@ -203,15 +247,12 @@
     } catch (e) {
       return messages($("#sh-backup-messages"), [e instanceof SyntaxError ? "Fichier illisible (JSON attendu)." : e.message]);
     }
-    reloadMine();
-    const before = mine.length;
-    const merged = mergeEvents(mine, ...lists);
-    const added = merged.length - before;
-    if (!added) return messages($("#sh-backup-messages"), [], [], ["Rien de nouveau : ce journal contient déjà toutes ces actions."]);
-    if (!window.confirm(`Ajouter ${added} action${added > 1 ? "s" : ""} au journal de ce navigateur ? La réserve est recalculée et publiée sur le Bazar en ligne.`)) return;
-    mine = merged;
-    saveJournal();
-    refresh();
+    const known = new Set(allEvents().map((e) => e.id));
+    const count = new Set(lists.flat().map((e) => e.id).filter((id) => !known.has(id))).size;
+    if (!count) return messages($("#sh-backup-messages"), [], [], ["Rien de nouveau : le journal contient déjà toutes ces actions."]);
+    const where = online() ? "au journal (sur le serveur du Bazar, pour tous les MJ)" : "au journal de ce navigateur";
+    if (!window.confirm(`Ajouter ${count} action${count > 1 ? "s" : ""} ${where} ? La réserve est recalculée et publiée.`)) return;
+    const added = addEvents(lists.flat());
     messages($("#sh-backup-messages"), [], [], [`${added} action${added > 1 ? "s" : ""} importée${added > 1 ? "s" : ""}.`]);
   }
 
@@ -268,7 +309,7 @@
         if (e.type === "post") {
           record(
             "player",
-            { srv: e.seq, player: e.player, verified: !!e.verified, page: e.page, taken: e.buy ? e.buy.unit : null, returned: e.returned || [], forum: e.forum },
+            { srv: e.seq, player: e.player, verified: !!e.verified, page: e.page, taken: e.buy ? e.buy.unit : null, returned: e.returned || [] },
             { ...fixed, by: e.player },
           );
         } else if (e.type === "cancel") {
@@ -319,11 +360,16 @@
       const held = await api("GET", "/gm");
       if ((held.shop ?? null) !== (pushed.shop ?? null)) delete pushed.shop;
       if (!held.stocked) delete pushed.stock;
+      await syncJournal(held);
+      refresh({ sync: false });
       // Its numbers start again: importing would mix its new posts with the journal's old ones.
       const reset = held.seq < view.srvSeen;
       if (!reset) await importEvents();
-      await pushShop();
-      await pushStock();
+      // Published once the server has every action (the other GMs then publish the same).
+      if (!pending.length) {
+        await pushShop();
+        await pushStock();
+      }
       srvError = reset
         ? `Ce serveur du Bazar a été remis à zéro (n° ${held.seq}, le journal en est au n° ${view.srvSeen}) : la boutique et la réserve y sont publiées, mais ses messages ne sont plus importés. Repartez d'un journal vide pour tester.`
         : null;
@@ -339,6 +385,52 @@
       setTimeout(serverSync, 300);
     }
   }
+  // The journal on the server: what waits goes there, what is new comes back.
+  async function syncJournal(held) {
+    reloadMine();
+    const journal = Number(held.journal) || 0;
+    if (!readRemote()) {
+      // First time with this server: the journal kept in this browser goes there.
+      const local = store.get(JOURNAL, []);
+      const ask =
+        `Le serveur du Bazar a déjà un journal (${journal} action${journal > 1 ? "s" : ""}). Y ajouter les ${local.length} actions ` +
+        `gardées dans ce navigateur ?\n\nAnnuler : elles restent dans ce navigateur seulement.`;
+      if (Array.isArray(local) && local.length && (journal === 0 || window.confirm(ask))) pending = mergeEvents(pending, local);
+      saveJournal();
+    } else if (journal < remote.last) {
+      // The server's journal was emptied (a new test server, or 60 days without any action):
+      // this browser's copy goes back.
+      pending = mergeEvents(remote.events, pending);
+      remote = { last: 0, events: [] };
+      saveJournal();
+    }
+    // What waits, in pieces the server accepts.
+    for (let i = 0; i < pending.length; ) {
+      const chunk = [];
+      let size = 0;
+      while (i < pending.length && chunk.length < 25) {
+        const s = JSON.stringify(pending[i]).length;
+        if (chunk.length && size + s > 24000) break;
+        chunk.push(pending[i]);
+        size += s;
+        i++;
+      }
+      await api("POST", "/gm/journal", { events: chunk });
+    }
+    // What is new: the other GMs' actions, and ours just sent.
+    for (;;) {
+      const r = await api("GET", `/gm/journal?after=${remote.last}`);
+      const have = new Set(remote.events.map((e) => e.id));
+      for (const x of r.events) if (x && x.e && typeof x.e.id === "string" && !have.has(x.e.id)) remote.events.push(x.e);
+      const lastN = r.events.length ? r.events[r.events.length - 1].n : remote.last;
+      remote.last = r.more ? lastN : Math.max(lastN, r.last || 0);
+      if (!r.more) break;
+    }
+    const onServer = new Set(remote.events.map((e) => e.id));
+    pending = pending.filter((e) => !onServer.has(e.id));
+    saveJournal();
+  }
+
   let srvSoon = null;
   const serverSoon = () => {
     clearTimeout(srvSoon);
@@ -365,25 +457,29 @@
     const url = $("#sh-srv-url");
     if (document.activeElement !== url) url.value = server.url || "";
     $("#sh-srv-forget").hidden = !serverOn();
-    if (!serverOn()) box.textContent = "Pas de serveur : les joueurs ne voient pas la boutique dans leur onglet Bazar.";
-    else if (srvError) box.textContent = `⚠ ${srvError}`;
+    const waiting = pending.length ? ` (${pending.length} action${pending.length > 1 ? "s" : ""} en attente d'envoi)` : "";
+    if (!serverOn()) box.textContent = "Pas de serveur : le journal est gardé dans ce navigateur seulement, et les joueurs ne voient pas la boutique dans leur onglet Bazar.";
+    else if (srvError) box.textContent = `⚠ ${srvError}${waiting}`;
     else if (!srvLast) box.textContent = "Connexion…";
     else
       box.textContent =
-        `Connecté · boutique ${view && view.shop ? `de la page ${view.shop.page}` : "non publiée"} · ` +
+        `Connecté · journal partagé : ${remote.events.length} action${remote.events.length > 1 ? "s" : ""}${waiting} · ` +
+        `boutique ${view && view.shop ? `de la page ${view.shop.page}` : "non publiée"} · ` +
         `dernier message reçu n°${view ? view.srvSeen : 0} · à jour ` +
         srvLast.toLocaleTimeString("fr-FR", { hour: "2-digit", minute: "2-digit", second: "2-digit" });
     box.dataset.state = !serverOn() ? "local" : srvError ? "error" : "ok";
     // The header: where the reserve is published.
     const badge = $("#sync-badge");
-    badge.dataset.state = box.dataset.state === "ok" && !srvLast ? "busy" : box.dataset.state;
+    badge.dataset.state = box.dataset.state === "ok" && (!srvLast || pending.length) ? "busy" : box.dataset.state;
     badge.textContent = !serverOn()
-      ? "Bazar en ligne non connecté · onglet Réglages"
+      ? "Journal dans ce navigateur seulement · onglet Réglages"
       : srvError
-        ? "⚠ Bazar en ligne : voir l'onglet Réglages"
-        : srvLast
-          ? `☁ Publié sur le Bazar en ligne · à jour ${srvLast.toLocaleTimeString("fr-FR", { hour: "2-digit", minute: "2-digit" })}`
-          : "Connexion au Bazar en ligne…";
+        ? `⚠ Bazar en ligne : voir l'onglet Réglages${waiting}`
+        : pending.length
+          ? `Envoi au serveur…${waiting}`
+          : srvLast
+            ? `☁ Journal partagé sur le Bazar en ligne · à jour ${srvLast.toLocaleTimeString("fr-FR", { hour: "2-digit", minute: "2-digit" })}`
+            : "Connexion au Bazar en ligne…";
   }
 
   async function saveServer() {
@@ -401,19 +497,37 @@
     }
     store.set("pantheon.gm.server", server);
     pushed = store.get(pushedKey(), {}) || {};
+    srvError = null;
+    srvLast = null;
+    loadJournal();
+    refresh({ sync: false });
     $("#sh-srv-key").value = "";
-    messages($("#sh-srv-messages"), [], [], ["Serveur du Bazar connecté : la boutique et la réserve y sont publiées."]);
+    messages($("#sh-srv-messages"), [], [], ["Serveur du Bazar connecté : le journal y est gardé, la boutique et la réserve y sont publiées."]);
     serverSync();
   }
 
   function forgetServer() {
-    if (!window.confirm("Déconnecter ce navigateur du serveur du Bazar ? La clé MJ y sera effacée.")) return;
+    const ask =
+      "Déconnecter ce navigateur du serveur du Bazar ? La clé MJ y sera effacée. Le journal (tel qu'il est maintenant) reste dans ce navigateur ; " +
+      "les actions des autres MJ n'y arriveront plus.";
+    if (!window.confirm(ask)) return;
+    reloadMine();
+    mine = allEvents();
+    store.set(JOURNAL, mine);
+    for (const k of [remoteKey(), pendingKey()]) {
+      try {
+        localStorage.removeItem(k);
+      } catch (e) {
+        /* ignore */
+      }
+    }
     server = {};
     store.set("pantheon.gm.server", null);
     srvError = null;
     srvLast = null;
+    loadJournal();
     messages($("#sh-srv-messages"));
-    renderServer();
+    refresh({ sync: false });
   }
 
   // ---------------------------------------------------------------- Tabs
@@ -726,19 +840,20 @@
   }
 
   // ---------------------------------------------------------------- Rendering
-  function refresh() {
+  // `sync`: also send the change to the server soon (not when the change came from it).
+  function refresh({ sync = true } = {}) {
     if (!Engine.info) return;
     replay();
     renderBazar();
     renderReserve();
     renderJournal();
     renderServer();
-    serverSoon();
+    if (sync) serverSoon();
   }
 
   // The reserve typed in the old Bazar tab of the public page becomes the first local events.
   function migrateOldTab() {
-    if (mine.length) return;
+    if (allEvents().length) return;
     const old = store.get("pantheon.bazar.stock", null);
     if (!old || typeof old !== "object") return;
     const players = store.get("pantheon.bazar.players", Engine.info.rules.players);
@@ -818,8 +933,9 @@
     window.addEventListener("storage", (ev) => {
       if (!ev.key || !ev.key.startsWith("pantheon.gm.")) return;
       settings = store.get("pantheon.gm.settings", {}) || {};
+      server = store.get("pantheon.gm.server", null) || server;
       loadJournal();
-      refresh();
+      refresh({ sync: false });
     });
     document.addEventListener("visibilitychange", () => document.visibilityState === "visible" && serverSync());
     window.addEventListener("online", serverSync);

@@ -39,10 +39,10 @@ compositions mises à jour ; les créatures se glissent dans les 4 emplacements 
 et **Aide**. Le code commun (moteur, aperçu du forum, infobulles) est dans `web/core.js`.
 
 `web/gm_tool/` contient les outils des MJ, sans lien depuis la page des joueurs : tirage des
-boutiques du Bazar, réserve commune et journal des actions. Le journal est gardé dans le
-navigateur du MJ (à enregistrer de temps en temps dans un fichier, onglet Réglages) et la réserve
-est recalculée en le rejouant ; la boutique et la réserve sont publiées sur le serveur du Bazar
-(`server/`), d'où reviennent les messages confirmés par les joueurs.
+boutiques du Bazar, réserve commune et journal des actions. Le journal est gardé sur le serveur
+du Bazar (`server/`), commun à tous les MJ (sans serveur : dans le navigateur seulement), et la
+réserve est recalculée en le rejouant ; la boutique et la réserve y sont publiées pour les
+joueurs, et les messages qu'ils confirment reviennent dans le journal.
 
 La page fait tourner le vrai moteur
 Rust compilé en WebAssembly : pour les mêmes entrées, la page et `pantheon-battler fight`

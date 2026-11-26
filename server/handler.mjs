@@ -17,6 +17,10 @@
 // by a confirmation or a cancellation, so that saving the god stays a small write. Everything
 // expires `ttlDays` after its last write.
 //
+// The GMs' journal is kept here too: every GM action (a new game, a shop drawn, a correction, an
+// undo, a player's post imported) is an event the GM tools append, numbered in arrival order,
+// each event id once (a resend is skipped). The GM tools replay it to get the reserve.
+//
 // Routes (JSON, French error messages in `error`):
 //   GET    /bazar[?since=N]        public: shop, bought slots, available copies, last events
 //   GET    /events?after=N         public: events after seq N (the GM tool imports them)
@@ -31,6 +35,8 @@
 //   POST   /posts/<seq>/cancel     its player or a GM cancels it
 //   PUT    /shop, PUT /stock       GM: the current shop, the common reserve
 //   GET    /gm                     GM: key check, what the server already has
+//   GET    /gm/journal?after=N     GM: the journal's events numbered after N
+//   POST   /gm/journal             GM: { events: [...] } appended (ids already there skipped)
 
 import { createHash, randomBytes } from "node:crypto";
 
@@ -44,6 +50,8 @@ export class Conflict extends Error {
 
 const MAX_BODY = 32 * 1024;
 const MAX_TEXT = 6000;
+const GM_EVENT = 16 * 1024; // one GM journal event, as JSON
+const GM_BATCH = 25; // GM journal events per request
 const UNIT_RE = /^[a-z0-9_]{1,40}$/;
 const RETRIES = 8;
 const FEED = 20; // events a page gets when it first loads
@@ -455,6 +463,29 @@ export function createHandler(store, { gmKey, now = () => Date.now(), myHordes =
     throw new HttpError(503, "Le Bazar est très occupé : réessayez dans un instant.");
   }
 
+  // The GMs' journal: the events are the GM tool's own (the server only checks their size and id).
+  async function gmAppend(body) {
+    const events = body.events;
+    if (!Array.isArray(events) || events.length > GM_BATCH) throw new HttpError(400, `Journal illisible (au plus ${GM_BATCH} événements par envoi).`);
+    const ids = new Set();
+    for (const e of events) {
+      if (!e || typeof e !== "object" || Array.isArray(e) || typeof e.id !== "string" || !/^[\w.-]{1,80}$/.test(e.id))
+        throw new HttpError(400, "Événement du journal illisible (id).");
+      if (JSON.stringify(e).length > GM_EVENT) throw new HttpError(413, "Événement du journal trop gros.");
+      if (ids.has(e.id)) throw new HttpError(400, "Événement en double dans l'envoi.");
+      ids.add(e.id);
+    }
+    for (let attempt = 0; attempt < RETRIES; attempt++) {
+      try {
+        return { ok: true, ...(await store.gmAppend(events)) };
+      } catch (e) {
+        if (e instanceof Conflict && e.kind === "seq") continue;
+        throw e;
+      }
+    }
+    throw new HttpError(503, "Le journal est très occupé : réessayez dans un instant.");
+  }
+
   /// One request: { method, path, query, headers, body (string) } → { status, body (object) }.
   return async function handle(req) {
     const headers = req.headers || {};
@@ -513,7 +544,18 @@ export function createHandler(store, { gmKey, now = () => Date.now(), myHordes =
         needGm(headers);
         // What the server holds, so a GM tool resends what is missing (a new or emptied server).
         const snap = await store.snapshot();
-        return await ok({ ok: true, seq: snap.seq, shop: snap.shop ? snap.shop.id : null, stocked: !!snap.avail });
+        return await ok({ ok: true, seq: snap.seq, shop: snap.shop ? snap.shop.id : null, stocked: !!snap.avail, journal: snap.gm || 0 });
+      }
+      if (route === "GET /gm/journal") {
+        needGm(headers);
+        const after = Number((req.query || {}).after || 0);
+        if (!isInt(after, 0, 1e12)) throw new HttpError(400, "Paramètre after invalide.");
+        const r = await store.gmJournal({ after, limit: 300 });
+        return await ok({ ok: true, ...r, more: r.events.length === 300 });
+      }
+      if (route === "POST /gm/journal") {
+        needGm(headers);
+        return await ok(gmAppend(body));
       }
       throw new HttpError(404, "Route inconnue.");
     } catch (e) {
